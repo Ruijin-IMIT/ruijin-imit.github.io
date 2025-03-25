@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于 | 帕金森磁共振影像自动分割竞赛</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #005b96;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .member {
+            flex-basis: 30%;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+        }
+        .organizers {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>帕金森磁共振影像自动分割竞赛</h1>
+        <p>关于我们</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">主页</a></li>
+            <li><a href="dataset.html">数据集</a></li>
+            <li><a href="tasks.html">竞赛任务</a></li>
+            <li><a href="schedule.html">竞赛日程</a></li>
+            <li><a href="about.html">关于</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>关于本次竞赛</h2>
+        <p>帕金森磁共振影像自动分割竞赛是由多家医疗机构和科研单位联合举办的国际性学术竞赛，旨在促进人工智能技术在帕金森病早期诊断中的应用。</p>
+
+        <div class="organizers">
+            <h3>主办单位</h3>
+            <ul>
+                <li>国际医学影像计算与计算机辅助干预学会</li>
+                <li>中国帕金森病与运动障碍学会</li>
+                <li>清华大学医学影像计算研究中心</li>
+            </ul>
+
+            <h3>协办单位</h3>
+            <ul>
+                <li>北京协和医院神经内科</li>
+                <li>上海华山医院放射科</li>
+                <li>美国国立卫生研究院(NIH)</li>
+            </ul>
+        </div>
+
+        <h3>竞赛背景</h3>
+        <p>帕金森病是一种常见的神经退行性疾病，早期诊断对治疗和预后至关重要。磁共振影像分析可以帮助识别帕金森病的早期特征，但传统的手工分割方法耗时且依赖专家经验。本次竞赛希望通过人工智能技术实现基底节区结构的自动精准分割，为帕金森病的早期诊断提供可靠工具。</p>
+
+        <h3>组织委员会</h3>
+        <div class="team">
+            <div class="member">
+                <img src="https://via.placeholder.com/150" alt="张教授">
+                <h4>张教授</h4>
+                <p>清华大学</p>
+                <p>主席</p>
+            </div>
+            <div class="member">
+                <img src="https://via.placeholder.com/150" alt="李教授">
+                <h4>李教授</h4>
+                <p>北京协和医院</p>
+                <p>医学顾问</p>
+            </div>
+            <div class="member">
+                <img src="https://via.placeholder.com/150" alt="王博士">
+                <h4>王博士</h4>
+                <p>上海华山医院</p>
+                <p>技术指导</p>
+            </div>
+        </div>
+
+        <h3>联系我们</h3>
+        <p>如有任何问题，请通过以下方式联系组委会：</p>
+        <ul>
+            <li>邮箱：info@parkinson-mri-challenge.org</li>
+            <li>电话：+86-10-12345678</li>
+            <li>地址：北京市海淀区清华大学医学楼301室</li>
+        </ul>
+
+        <h3>常见问题</h3>
+        <div>
+            <h4>Q: 可以个人参赛还是必须组队？</h4>
+            <p>A: 可以个人参赛，也可以组队参赛，每队不超过5人。</p>
+
+            <h4>Q: 是否有参赛费用？</h4>
+            <p>A: 本次竞赛不收取任何参赛费用。</p>
+
+            <h4>Q: 可以使用外部数据吗？</h4>
+            <p>A: 可以使用外部数据，但必须在技术报告中明确说明。</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 帕金森磁共振影像自动分割竞赛组委会 | 联系方式: info@parkinson-mri-challenge.org</p>
+    </footer>
+</body>
+</html>

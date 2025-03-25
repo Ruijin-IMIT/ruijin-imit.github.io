@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>竞赛任务 | 帕金森磁共振影像自动分割竞赛</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #005b96;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .task {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .evaluation {
+            background-color: #e6f7ff;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>帕金森磁共振影像自动分割竞赛</h1>
+        <p>竞赛任务</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">主页</a></li>
+            <li><a href="dataset.html">数据集</a></li>
+            <li><a href="tasks.html">竞赛任务</a></li>
+            <li><a href="schedule.html">竞赛日程</a></li>
+            <li><a href="about.html">关于</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>竞赛任务说明</h2>
+        <p>本次竞赛包含两个主要任务，参赛者可以选择参加其中一个或同时参加两个任务。</p>
+
+        <div class="task">
+            <h3>任务一：基底节区结构分割</h3>
+            <p>开发自动分割算法，从T1加权和T2加权MRI图像中准确分割基底节区的主要结构，包括：</p>
+            <ul>
+                <li>尾状核</li>
+                <li>壳核</li>
+                <li>苍白球</li>
+                <li>丘脑底核</li>
+                <li>黑质</li>
+            </ul>
+            <p><strong>输入：</strong> T1和T2加权MRI图像（NIfTI格式）</p>
+            <p><strong>输出：</strong> 分割结果（NIfTI格式，每个体素标记为相应结构）</p>
+        </div>
+
+        <div class="task">
+            <h3>任务二：帕金森病诊断预测</h3>
+            <p>基于分割结果和多模态MRI特征，开发分类算法预测受试者是否为帕金森病患者。</p>
+            <p><strong>输入：</strong> 多模态MRI图像（T1、T2、DTI）</p>
+            <p><strong>输出：</strong> 分类结果（0=健康对照，1=帕金森病患者）</p>
+        </div>
+
+        <div class="evaluation">
+            <h3>评估指标</h3>
+            <h4>任务一评估指标：</h4>
+            <ul>
+                <li>Dice相似系数（DSC）</li>
+                <li>Hausdorff距离（HD）</li>
+                <li>平均表面距离（ASD）</li>
+            </ul>
+
+            <h4>任务二评估指标：</h4>
+            <ul>
+                <li>准确率（Accuracy）</li>
+                <li>敏感性（Sensitivity）</li>
+                <li>特异性（Specificity）</li>
+                <li>AUC值</li>
+            </ul>
+
+            <p>最终排名将综合考虑各项指标的表现。</p>
+        </div>
+
+        <h3>提交要求</h3>
+        <p>参赛者需提交：</p>
+        <ol>
+            <li>分割结果文件（NIfTI格式）</li>
+            <li>源代码（Python或MATLAB）</li>
+            <li>技术报告（PDF格式，不超过4页）</li>
+        </ol>
+        <p>提交文件将通过竞赛平台自动评估。</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 帕金森磁共振影像自动分割竞赛组委会 | 联系方式: info@parkinson-mri-challenge.org</p>
+    </footer>
+</body>
+</html>

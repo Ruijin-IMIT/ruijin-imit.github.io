@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帕金森磁共振影像自动分割竞赛</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #005b96;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .hero {
+            background-color: #e6f7ff;
+            padding: 2rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .feature {
+            flex-basis: 30%;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>帕金森磁共振影像自动分割竞赛</h1>
+        <p>推动帕金森病诊断技术的创新与发展</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">主页</a></li>
+            <li><a href="dataset.html">数据集</a></li>
+            <li><a href="tasks.html">竞赛任务</a></li>
+            <li><a href="schedule.html">竞赛日程</a></li>
+            <li><a href="about.html">关于</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section class="hero">
+            <h2>欢迎参加2023年帕金森磁共振影像自动分割竞赛</h2>
+            <p>本次竞赛旨在促进帕金森病早期诊断技术的发展，通过先进的图像分割算法提高诊断准确率。</p>
+            <button style="background-color: #005b96; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">立即报名</button>
+        </section>
+
+        <h2>竞赛亮点</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>高质量数据集</h3>
+                <p>包含1000+例帕金森患者和健康对照者的3T MRI多模态影像数据</p>
+            </div>
+            <div class="feature">
+                <h3>专业评审团队</h3>
+                <p>由神经影像学和人工智能领域的顶尖专家组成评审委员会</p>
+            </div>
+            <div class="feature">
+                <h3>丰厚奖励</h3>
+                <p>总奖金$50,000，优胜团队将有机会与顶尖医疗机构合作</p>
+            </div>
+        </div>
+
+        <section style="margin-top: 2rem;">
+            <h2>最新消息</h2>
+            <ul>
+                <li>2023.09.01: 竞赛报名通道正式开启</li>
+                <li>2023.09.15: 训练数据集发布</li>
+                <li>2023.10.01: 基线模型代码公布</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 帕金森磁共振影像自动分割竞赛组委会 | 联系方式: info@parkinson-mri-challenge.org</p>
+    </footer>
+</body>
+</html>
