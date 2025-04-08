@@ -117,7 +117,7 @@
     </header>
 
 
-    <nav class="table-container">
+    <nav>
         <ul>
 
             <li style="width: 3%;"><a href="index.html"  style="font-size: 1.5rem;">Home</a></li>
@@ -209,7 +209,21 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 <p>Parkinson’s disease (PD) is a progressive neurodegenerative disorder characterized by neuromelanin (NM) loss in the substantia nigra pars compacta (SNpc) and iron deposition increase in the substantia nigra (SN). Degeneration of the SN becomes obvious when it reaches a 50% to 70% loss of pigmented neurons in the ventral lateral tier of the SNpc. Iron deposition and volume changes of the other deep gray matter (DGM), including the red nucleus (RN), dentate nucleus (DN), and subthalamic nucleus (STN), are also associated with disease progression. Further, the STN serves as an important target for deep brain stimulation treatment in advanced PD patients. Therefore, an accurate in-vivo delineation of the SN and other DGM could be essential for a better PD study.</p>
 <h3 id="ethics-approval">Ethics approval</h3>
 <p>This study was approved by the institutional ethics committee in Ruijin Hospital, Shanghai Jiao Tong University School of Medicine (No.RJ2022-279). All participants provided written informed consent.</p>
-<h2 id="evaluation-metrics">Evaluation metrics</h2>
+
+<h2 id="data-insights">Data insights</h2>
+            <p>Here is one sample, with T1-MRI and QSM-MRI.</p>
+                        <table>
+        <tr>
+            <td  style="width: 25%;"> <img style="width:90%;"  src="images/pd-t1.gif" alt="Ruijin Hospital" /></td>
+            <td  style="width: 25%;"> <img style="width:90%;"  src="images/pd-qsm.gif"  alt="Ruijin-IMIT" /></td>
+            <td  style="width: 25%;"> <img style="width:90%;"  src="images/pd-segments.gif"  alt="Shanghai-AI-Lab" /></td>
+        </tr>
+        </table>
+
+
+
+
+            <h2 id="evaluation-metrics">Evaluation metrics</h2>
 <p>To evaluate the model performance for procedures involved in the PD diagnosis, we adopt segmentation metrics and classification metrics for corresponding models. The segmentation metrics include the Dice Coefficient and the Hausdorff Distance 95% percentile (HD95). For each segmentation region, the algorithms have separate Dice ranking and HD95 ranking. If the prediction of a region is missing, then it would rank at the bottom. The final ranking score is the average of all these rankings normalized by the number of teams. Therefore the final ranking status depends on the overall segmentation performance of all regions. It is noted that images with bad quality are excluded from the evaluation of segmentation performance. We will provide the codes and instructions for evaluation upon the data release.</p>
 <p>For the PD classification task, we adopt the accuracy (Acc) and area under the receiver operating characteristic curve (AUROC). Accuracy reflects the overall correct predictions among all the test images. The predicted label is determined with the maximum softmax outputs in the multi-class classification task. AUROC is computed for the PD class to measure the capability of distinguishing between positive and negative classes at various threshold settings. The Acc and AUROC would have separate rankings, the final PD ranking will be determined by the average ranking of Acc and AUROC.</p>
 <p>For each submission, missing results of testing cases are not allowed in general when the results for all testing cases will be automatically computed. If the submitted solution fails to generate the results for certain cases, a default output of ‘no finding’ (indicating an empty mask or non-PD) will be used to compute the evaluation metrics. For the cases without valid output, we set the ranks for the corresponding metrics to the maximum.</p>
@@ -285,7 +299,7 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 
 
 <p>Top performing methods in the DGM segmentation track as well as in the PD segmentation track will be announced publicly, both on the competition website and in the conjunct workshop. We will summarize the challenge results and submit a paper to IEEE TMI or Medical Image Analysis. All members of the participating team qualify as authors.</p>
-<h2 id="submission">submission</h2>
+<h2 id="submission">Submission</h2>
 <p>Using the dataset (200 cases in total of the training data), participants will develop model adaptation approaches using foundation models for the PD tasks. The participants should submit model predictions on the validation set several times before submitting the final results of testing predictions. At most 2 submissions of prediction results on the testing set are allowed.</p>
 <p>Participants could submit their results of the validation set (100 cases of the validation data with labels held hidden before the final evaluation phase) to the server during the validation phase (3-5 submissions are allowed). Once the validation phase ends, the organizers will release the labels for the validation set</p>
 <p>The evaluation samples and codes will be provided in PDCADxFoundation Github homepage once the validation phase starts. The submission format will be detailed as well, and it should be sent to organizers via e-mail.</p>
