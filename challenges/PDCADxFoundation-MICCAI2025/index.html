@@ -106,6 +106,69 @@
   }
 
 
+
+
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 15px;
+      cursor: pointer;
+      background-color: #f1f1f1;
+      border: 1px solid #ddd;
+      border-bottom: none;
+      margin-right: 5px;
+      border-radius: 5px 5px 0 0;
+    }
+    .tab.active {
+      background-color: #fff;
+      border-bottom: 1px solid #fff;
+      margin-bottom: -1px;
+      font-weight: bold;
+    }
+    .sheet {
+      display: none;
+    }
+    .sheet.active {
+      display: block;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    th {
+      background-color: #f2f2f2;
+      text-align: left;
+      padding: 8px;
+      border: 1px solid #ddd;
+      font-weight: bold;
+    }
+    td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      vertical-align: top;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .sheet-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    img {
+      max-width: 100%;
+    }
+
+
+
     </style>
 
 
@@ -120,14 +183,14 @@
     <nav>
         <ul>
 
-            <li style="width: 3%;"><a href="index.html"  style="font-size: 1.5rem;">Home</a></li>
-            <li style="width: 3%;"><a href="dataset.html"  style="font-size: 1.5rem;">Data</a></li>
-            <li style="width: 3%;"><a href="tasks.html" style="font-size: 1.5rem;">Tasks</a></li>
-            <li style="width: 4%;"><a href="schedule.html" style="font-size: 1.5rem;">Schedule</a></li>
-            <li style="width: 3%;"><a href="about.html" style="font-size: 1.5rem;">About</a></li>
-            <li  style="width: 7%;"><img src="images/PDCADxFoundation_logo.jpg" style="width:100%;"  alt="Analysis" /></li>
-            <li  style="width: 10%;"><a href="https://conferences.miccai.org/2025/en/default.asp"><img style="width:100%;" src="images/MICCAI2025_logo.jpg"  alt="Analysis" /> </a>  </li>
-            <li  style="width: 6.2%;"><img src="images/PDCADxFoundation-ORcode_small.jpg" style="width:100%;"   alt="Analysis" /></li>
+            <li style="width: 3%;"><a href="index.html"  style="font-size: 1.2rem;">Home</a></li>
+            <li style="width: 3%;"><a href="dataset.html"  style="font-size: 1.2rem;">Data</a></li>
+            <li style="width: 3%;"><a href="tasks.html" style="font-size: 1.2rem;">Tasks</a></li>
+            <li style="width: 6%;"><a href="schedule.html" style="font-size: 1.2rem;">Timeline</a></li>
+            <li style="width: 3%;"><a href="about.html" style="font-size: 1.2rem;">About</a></li>
+            <li  style="width: 9%;"><img src="images/PDCADxFoundation_logo.jpg" style="width:100%;"  alt="Analysis" /></li>
+            <li  style="width: 13%;"><a href="https://conferences.miccai.org/2025/en/default.asp"><img style="width:100%;" src="images/MICCAI2025_logo.jpg"  alt="Analysis" /> </a>  </li>
+            <li  style="width: 8%;"><img src="images/PDCADxFoundation-ORcode_small.jpg" style="width:100%;"   alt="Analysis" /></li>
         </ul>
     </nav>
 
@@ -211,15 +274,51 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 <p>This study was approved by the institutional ethics committee in Ruijin Hospital, Shanghai Jiao Tong University School of Medicine (No.RJ2022-279). All participants provided written informed consent.</p>
 
 <h2 id="data-insights">Data insights</h2>
-            <p>Here is one sample, with T1-MRI and QSM-MRI.</p>
-                        <table>
+            <h3 id="mask-overview">Mask Overview</h3>
+            <p>There are two masks for each case, the QSM mask and the Neuro-Melanin mask.
+                There are 16 labeled anatomical structures in the QSM mask, and the NM mask contains only the Substantia Nigra (right and left).
+                The correspondence between nucleus regions and labels are in the following tables (for QSM and NM respectively).</p>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('QSM-mask labels')">QSM-mask labels</div>
+    <div class="tab active" onclick="switchTab('NM-mask labels')">NM-mask labels</div>
+  </div>
+
+  <div id="QSM-mask labels" class="sheet active">
+    <table><tr><th>  </th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr><tr><td>QSM Labels</td><td>1,2</td><td>3,4</td><td>5,6</td><td>7,8</td><td>9,10</td><td>11,12</td><td>13,14</td><td>15,16</td></tr><tr><td>Nucleus Name</td><td>Caudate Nucleus</td><td>Putaman</td><td>Globus Pallidus</td><td>Thalamus</td><td>Subthalamic Nucleus</td><td>Substantia Nigra</td><td>Red Nucleus</td><td>Dentate Nucleus</td></tr></table>
+  </div>
+
+
+  <div id="NM-mask labels" class="sheet active">
+    <table><tr><th>  </th><th>A</th></tr><tr><td>NM Labels</td><td>1,2</td></tr><tr><td>Nucleus Name</td><td>Substantia Nigra</td></tr></table>
+  </div>
+
+      <p>Here is the QSM mask in one sample, with T1-MRI and QSM-MRI scans.</p>
+
+        <table>
         <tr>
             <td  style="width: 25%;"> <img style="width:90%;"  src="images/pd-t1.gif" alt="Ruijin Hospital" /></td>
             <td  style="width: 25%;"> <img style="width:90%;"  src="images/pd-qsm.gif"  alt="Ruijin-IMIT" /></td>
             <td  style="width: 25%;"> <img style="width:98%;"  src="images/pd-segments.gif"  alt="Shanghai-AI-Lab" /></td>
         </tr>
         </table>
+    <h3 id="nucleus-statistics">Nucleus Statistics</h3>
+     <p>We summarize the average volumes for 16 nucleus regions in QSM mask (train+val data, 300 cases).</p>
+    <div class="tabs">
+    <div class="tab active" onclick="switchTab('Nucleus Volume')">Nucleus Volume</div>
+  </div>
 
+  <div id="Nucleus Volume" class="sheet active">
+    <table><tr><th>QSM Label</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th></tr><tr><td>Volume (cm^3)</td><td>3.36</td><td>2.84</td><td>3.67</td><td>3.52</td><td>1.85</td><td>2.1</td><td>4.6</td><td>4.61</td><td>0.08</td><td>0.09</td><td>0.47</td><td>0.46</td><td>0.17</td><td>0.17</td><td>0.66</td><td>0.65</td></tr></table>
+  </div>
+
+            <p>We also calculate the average signal intensity for 16 nucleus regions in NM images and QSM images. In the Substantia Nigra of PD patients, neuromelanin content becomes less, and iron deposition is obvious. </p>
+        <table>
+        <tr>
+            <td  style="width: 48%;"> <img style="width:90%;"  src="images/NM_stats.png" alt="Ruijin Hospital" /></td>
+            <td  style="width: 48%;"> <img style="width:90%;"  src="images/QSM_stats.png"  alt="Ruijin-IMIT" /></td>
+        </tr>
+        </table>
 
 
 
@@ -305,7 +404,7 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 <p>The evaluation samples and codes will be provided in PDCADxFoundation Github homepage once the validation phase starts. The submission format will be detailed as well, and it should be sent to organizers via e-mail.</p>
 <h2 id="data-download">Data Download</h2>
 <blockquote>
-<p>The registered participant will get the data link through email. </p>
+<p>The registered participant will get the download link through email. </p>
 </blockquote>
 <h1 id="timeline">Timeline</h1>
 <blockquote>
@@ -425,6 +524,35 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
       </p>
     </div>
   </footer>
+
+
+
+  <script>
+      // do nothing 20250409
+    function switchTab(sheetName) {
+        return
+      // 隐藏所有工作表
+      const sheets = document.getElementsByClassName('sheet');
+      for (let i = 0; i < sheets.length; i++) {
+        sheets[i].classList.remove('active');
+      }
+
+      // 取消所有标签的活动状态
+      const tabs = document.getElementsByClassName('tab');
+      for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+      }
+
+      // 显示选中的工作表
+      document.getElementById(sheetName).classList.add('active');
+
+      // 设置选中标签的活动状态
+      const clickedTab = Array.from(tabs).find(tab => tab.textContent === sheetName);
+      if (clickedTab) {
+        clickedTab.classList.add('active');
+      }
+    }
+  </script>
 
 
 </body>
