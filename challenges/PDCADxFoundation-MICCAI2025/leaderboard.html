@@ -306,48 +306,40 @@
 <body>
     <header>
         <div class="container">
-            <h1>MICCAI Parkinson's Disease Automatic Diagnosis Challenge</h1>
-            <p>Leaderboard showcasing team performances in nuclei segmentation and PD classification tasks</p>
+            <h1>Foundation Model Driven Parkinson's Disease Automatic diagnosis --  MICCAI 2025 Challenge</h1>
+            <p>Leaderboard for PD-related segmentation and PD classification tasks</p>
         </div>
     </header>
 
     <div class="container">
         <div class="tabs">
-            <button class="tab active">Nuclei Segmentation Task</button>
-            <button class="tab">PD Classification Task</button>
+            <button class="tab active" id="segmentation-tab">Nuclei Segmentation Task</button>
+            <button class="tab" id="classification-tab">PD Classification Task</button>
         </div>
 
-        <div class="scoring-rules">
+        <div class="scoring-rules" id="scoring-rules">
             <h3>Evaluation Criteria</h3>
 
             <h4>Nuclei Segmentation Task</h4>
             <ul>
-                <li>Dice coefficient used to evaluate segmentation accuracy of 7 Parkinson's disease-related nuclei</li>
+                <li>Dice coefficient used to evaluate segmentation accuracy of Parkinson's disease-related nuclei</li>
                 <li>Final score is the average Dice score across all nuclei</li>
                 <li>Validation set (100 cases) for development phase feedback</li>
                 <li>Test set (200 cases) for final ranking determination</li>
                 <li>Imaging modalities: Neuromelanin-sensitive MRI (NM-MRI) and QSM</li>
             </ul>
-
-            <h4>PD Classification Task</h4>
-            <ul>
-                <li>Classification accuracy used to evaluate PD diagnosis performance</li>
-                <li>Validation set (100 cases) for development phase feedback</li>
-                <li>Test set (200 cases) for final ranking determination</li>
-                <li>Binary classification: Parkinson's disease vs. healthy controls</li>
-            </ul>
         </div>
 
         <div class="update-info">
-            Last updated: September 15, 2023 14:30 UTC | Auto-update every 60 minutes
+            Last updated: <span id="update-time">September 15, 2023 14:30 UTC</span> | Auto-update every 60 minutes
         </div>
 
         <div class="leaderboard-controls">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search team or institution...">
+                <input type="text" id="search-input" placeholder="Search team or institution...">
             </div>
-            <select class="filter-select">
+            <select class="filter-select" id="filter-select">
                 <option>All submissions</option>
                 <option>With validation scores</option>
                 <option>Test set only</option>
@@ -360,115 +352,36 @@
                     <th>Rank</th>
                     <th>Team Name</th>
                     <th>Institution</th>
-                    <th>Validation Dice</th>
-                    <th>Test Dice</th>
-                    <th>Submission Date</th>
+                    <th id="val-header">Validation Dice</th>
+                    <th id="test-header">Test Dice</th>
+<!--                    <th>Submission Date</th>-->
                 </tr>
             </thead>
-            <tbody>
-                <tr class="gold">
-                    <td class="rank">1</td>
-                    <td>NeuroSeg</td>
-                    <td>Stanford University</td>
-                    <td>88.7</td>
-                    <td>86.2</td>
-                    <td>2023-09-10</td>
-                </tr>
-                <tr class="silver">
-                    <td class="rank">2</td>
-                    <td>DeepPD</td>
-                    <td>University College London</td>
-                    <td>87.3</td>
-                    <td>85.6</td>
-                    <td>2023-09-12</td>
-                </tr>
-                <tr class="bronze">
-                    <td class="rank">3</td>
-                    <td>ParkinsonNet</td>
-                    <td>ETH Zurich</td>
-                    <td>86.9</td>
-                    <td>84.8</td>
-                    <td>2023-09-14</td>
-                </tr>
-                <tr>
-                    <td class="rank">4</td>
-                    <td>MedAI</td>
-                    <td>Harvard Medical School</td>
-                    <td>85.2</td>
-                    <td>83.7</td>
-                    <td>2023-09-11</td>
-                </tr>
-                <tr>
-                    <td class="rank">5</td>
-                    <td>NeuroVision</td>
-                    <td>University of Tokyo</td>
-                    <td>84.6</td>
-                    <td>83.1</td>
-                    <td>2023-09-09</td>
-                </tr>
-                <tr>
-                    <td class="rank">6</td>
-                    <td>PDDetect</td>
-                    <td>University of Toronto</td>
-                    <td>83.9</td>
-                    <td>82.5</td>
-                    <td>2023-09-13</td>
-                </tr>
-                <tr>
-                    <td class="rank">7</td>
-                    <td>BrainScan</td>
-                    <td>National University of Singapore</td>
-                    <td>83.5</td>
-                    <td>82.1</td>
-                    <td>2023-09-08</td>
-                </tr>
-                <tr>
-                    <td class="rank">8</td>
-                    <td>NeuroTech</td>
-                    <td>Karolinska Institute</td>
-                    <td>82.8</td>
-                    <td>81.9</td>
-                    <td>2023-09-12</td>
-                </tr>
-                <tr>
-                    <td class="rank">9</td>
-                    <td>AIforPD</td>
-                    <td>University of California, San Francisco</td>
-                    <td>82.1</td>
-                    <td>80.7</td>
-                    <td>2023-09-10</td>
-                </tr>
-                <tr>
-                    <td class="rank">10</td>
-                    <td>DeepBrain</td>
-                    <td>University of Oxford</td>
-                    <td>81.5</td>
-                    <td>80.2</td>
-                    <td>2023-09-14</td>
-                </tr>
+            <tbody id="leaderboard-body">
+                <!-- Data will be loaded here dynamically -->
             </tbody>
         </table>
 
-        <div class="pagination">
-            <button><i class="fas fa-angle-double-left"></i></button>
+        <div class="pagination" id="pagination">
+            <button id="first-page"><i class="fas fa-angle-double-left"></i></button>
             <button class="active">1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button><i class="fas fa-angle-double-right"></i></button>
+<!--            <button>2</button>-->
+<!--            <button>3</button>-->
+<!--            <button>4</button>-->
+<!--            <button>5</button>-->
+            <button id="last-page"><i class="fas fa-angle-double-right"></i></button>
         </div>
 
         <div class="visualizations">
             <div class="chart-container">
                 <h4>Test Set Score Distribution</h4>
-                <div class="chart-placeholder">
+                <div class="chart-placeholder" id="score-dist-chart">
                     [Dice score distribution chart]
                 </div>
             </div>
             <div class="chart-container">
-                <h4>Nuclei-wise Performance</h4>
-                <div class="chart-placeholder">
+                <h4 id="detail-chart-title">Nuclei-wise Performance</h4>
+                <div class="chart-placeholder" id="detail-chart">
                     [Per-nuclei Dice scores for top teams]
                 </div>
             </div>
@@ -483,21 +396,165 @@
     </footer>
 
     <script>
-        // Tab functionality
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                // Here you would load the appropriate leaderboard data
-            });
+        // Sample data - in a real app this would come from an API
+        const leaderboardData = {
+            segmentation: [
+        { rank: 1, team: "MThirtyOne AI", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 2, team: "pupilvision", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 3, team: "uBrainSeg", institution: "ShanghaiTech University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 4, team: "YRteam", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 5, team: "Wei group", institution: "Shanghai Jiao Tong Univeristy", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 6, team: "fmhook", institution: "University Erlangen Nuernberg", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 7, team: "Wei Group", institution: "Shanghai Jiao Tong University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 8, team: "groupone", institution: "Shanghaitech", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 9, team: "MMAI", institution: "Monash University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 10, team: "eBrain", institution: "ShanghaiTech University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 11, team: "GoGoGoose", institution: "United Imaging Intelligence", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 12, team: "NUO", institution: "University of Oxford", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 13, team: "NeuroVoyagers", institution: "Li Xijiao", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 14, team: "Ditto", institution: "West China Hospital of Sichuan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 15, team: "PD Gnosis", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 16, team: "Blue Devil", institution: "Duke University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 17, team: "NIMG", institution: "Nanjing University of Technology", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 18, team: "None", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 19, team: "ZONGZI", institution: "UMN", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 20, team: "groupone", institution: "Shanghaitech University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 21, team: "ZhangFan Lab", institution: "University of Electronic Science and Technology of China", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 22, team: "NeuroX", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 23, team: "sss", institution: "Subtle Medical Inc", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 24, team: "free", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 25, team: "question team", institution: "Soochow University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 26, team: "AIMed", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 27, team: "Little Star", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 28, team: "SxxX", institution: "Shanghai Jiao Tong university", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 29, team: "Cook and Code", institution: "University of Science and Technology of China", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 30, team: "CEMRG", institution: "Imperial College London", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 31, team: "xugogo", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 32, team: "NeuroIT", institution: "Harbin Institute of Technology Shenzhen", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 33, team: "Team H", institution: "Heuron", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 34, team: "NCL", institution: "Newcastle University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 35, team: "PolyUAIM", institution: "The Hong Kong Polytechnic University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 36, team: "Conda", institution: "Guangdong University of Technology", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 37, team: "NICVICOROB", institution: "Universitat de Girona", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 38, team: "Rain", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 39, team: "Team PD", institution: "Indian Institute of Science", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 40, team: "BioMedIA", institution: "Mohamed bin Zayed University of AI", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 41, team: "ParkinsonStudyTeam", institution: "HuanZhong University of Science and Technology", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 42, team: "junqiangmler", institution: "Mediworks", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 43, team: "gmai", institution: "Shanghai AI Lab", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 44, team: "junqiangmler", institution: "Mediworks", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 45, team: "MIC DKFZ", institution: "German Cancer Research Center", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 46, team: "Space", institution: "The Affiliated Hospital of Qingdao University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 47, team: "SuperSpace", institution: "The Affiliated Hospital of Qingdao University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 48, team: "MIC DKFZ", institution: "German Cancer Research Center", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 49, team: "GenMI", institution: "MBZUAI", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 50, team: "King", institution: "MBZuai", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 51, team: "moon project", institution: "Zhejiang University of Finance and Economics", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 52, team: "Miccaigo", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 53, team: "Horizon", institution: "Fraunhofer Institute for Computer Graphics Research IGD", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 54, team: "BHANMDingsd", institution: "Beihang University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 55, team: "BrainMapX", institution: "Xiamen university", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 56, team: "rubianapaul", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 57, team: "PRLABbySMU", institution: "Sangmyung University", validation: 0, test: 0, date: "2023-09-01" }
+            ],
+            classification: [
+        { rank: 1, team: "MThirtyOne AI", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 2, team: "pupilvision", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 3, team: "uBrainSeg", institution: "ShanghaiTech University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 4, team: "YRteam", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 5, team: "Wei group", institution: "Shanghai Jiao Tong Univeristy", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 6, team: "fmhook", institution: "University Erlangen Nuernberg", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 7, team: "Wei Group", institution: "Shanghai Jiao Tong University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 8, team: "groupone", institution: "Shanghaitech", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 9, team: "MMAI", institution: "Monash University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 10, team: "eBrain", institution: "ShanghaiTech University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 11, team: "GoGoGoose", institution: "United Imaging Intelligence", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 12, team: "NUO", institution: "University of Oxford", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 13, team: "NeuroVoyagers", institution: "Li Xijiao", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 14, team: "Ditto", institution: "West China Hospital of Sichuan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 15, team: "PD Gnosis", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 16, team: "Blue Devil", institution: "Duke University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 17, team: "NIMG", institution: "Nanjing University of Technology", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 18, team: "None", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 19, team: "ZONGZI", institution: "UMN", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 20, team: "groupone", institution: "Shanghaitech University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 21, team: "ZhangFan Lab", institution: "University of Electronic Science and Technology of China", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 22, team: "NeuroX", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 23, team: "sss", institution: "Subtle Medical Inc", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 24, team: "free", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 25, team: "question team", institution: "Soochow University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 26, team: "AIMed", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 27, team: "Little Star", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 28, team: "SxxX", institution: "Shanghai Jiao Tong university", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 29, team: "Cook and Code", institution: "University of Science and Technology of China", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 30, team: "CEMRG", institution: "Imperial College London", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 31, team: "xugogo", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 32, team: "NeuroIT", institution: "Harbin Institute of Technology Shenzhen", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 33, team: "Team H", institution: "Heuron", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 34, team: "NCL", institution: "Newcastle University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 35, team: "PolyUAIM", institution: "The Hong Kong Polytechnic University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 36, team: "Conda", institution: "Guangdong University of Technology", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 37, team: "NICVICOROB", institution: "Universitat de Girona", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 38, team: "Rain", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 39, team: "Team PD", institution: "Indian Institute of Science", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 40, team: "BioMedIA", institution: "Mohamed bin Zayed University of AI", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 41, team: "ParkinsonStudyTeam", institution: "HuanZhong University of Science and Technology", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 42, team: "junqiangmler", institution: "Mediworks", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 43, team: "gmai", institution: "Shanghai AI Lab", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 44, team: "junqiangmler", institution: "Mediworks", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 45, team: "MIC DKFZ", institution: "German Cancer Research Center", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 46, team: "Space", institution: "The Affiliated Hospital of Qingdao University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 47, team: "SuperSpace", institution: "The Affiliated Hospital of Qingdao University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 48, team: "MIC DKFZ", institution: "German Cancer Research Center", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 49, team: "GenMI", institution: "MBZUAI", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 50, team: "King", institution: "MBZuai", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 51, team: "moon project", institution: "Zhejiang University of Finance and Economics", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 52, team: "Miccaigo", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 53, team: "Horizon", institution: "Fraunhofer Institute for Computer Graphics Research IGD", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 54, team: "BHANMDingsd", institution: "Beihang University", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 55, team: "BrainMapX", institution: "Xiamen university", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 56, team: "rubianapaul", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
+        { rank: 57, team: "PRLABbySMU", institution: "Sangmyung University", validation: 0, test: 0, date: "2023-09-01" }
+            ]
+        };
+
+        // DOM elements
+        const segmentationTab = document.getElementById('segmentation-tab');
+        const classificationTab = document.getElementById('classification-tab');
+        const leaderboardBody = document.getElementById('leaderboard-body');
+        const scoringRules = document.getElementById('scoring-rules');
+        const valHeader = document.getElementById('val-header');
+        const testHeader = document.getElementById('test-header');
+        const searchInput = document.getElementById('search-input');
+        const updateTime = document.getElementById('update-time');
+        const detailChartTitle = document.getElementById('detail-chart-title');
+
+        // Initialize the page with segmentation data
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLeaderboardData('segmentation');
+            updateTimestamp();
+            setInterval(updateTimestamp, 60000); // Update timestamp every minute
+        });
+
+        // Tab click handlers
+        segmentationTab.addEventListener('click', () => {
+            segmentationTab.classList.add('active');
+            classificationTab.classList.remove('active');
+            loadLeaderboardData('segmentation');
+            updateScoringRules('segmentation');
+        });
+
+        classificationTab.addEventListener('click', () => {
+            classificationTab.classList.add('active');
+            segmentationTab.classList.remove('active');
+            loadLeaderboardData('classification');
+            updateScoringRules('classification');
         });
 
         // Search functionality
-        const searchInput = document.querySelector('.search-box input');
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            const rows = document.querySelectorAll('.leaderboard-table tbody tr');
+            const rows = document.querySelectorAll('#leaderboard-body tr');
 
             rows.forEach(row => {
                 const teamName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
@@ -511,7 +568,69 @@
             });
         });
 
-        // Simulate auto-update
+        // Load leaderboard data
+        function loadLeaderboardData(taskType) {
+            leaderboardBody.innerHTML = '';
+            const data = leaderboardData[taskType];
+            const isSegmentation = taskType === 'segmentation';
+
+            data.forEach(entry => {
+                const row = document.createElement('tr');
+
+                // Add special styling for top 3 teams
+                if (entry.rank === 1) row.classList.add('gold');
+                else if (entry.rank === 2) row.classList.add('silver');
+                else if (entry.rank === 3) row.classList.add('bronze');
+
+                row.innerHTML = `
+                    <td class="rank">${entry.rank}</td>
+                    <td>${entry.team}</td>
+                    <td>${entry.institution}</td>
+                    <td>${isSegmentation ? entry.validation.toFixed(1) : entry.validation}${isSegmentation ? '' : '%'}</td>
+                    <td>${isSegmentation ? entry.test.toFixed(1) : entry.test}${isSegmentation ? '' : '%'}</td>
+<!--                    <td>${entry.date}</td>-->
+                `;
+
+                leaderboardBody.appendChild(row);
+            });
+
+            // Update table headers
+            valHeader.textContent = isSegmentation ? 'Validation Dice' : 'Validation Acc';
+            testHeader.textContent = isSegmentation ? 'Test Dice' : 'Test Acc';
+
+            // Update chart titles
+            detailChartTitle.textContent = isSegmentation ? 'Nuclei-wise Performance' : 'Classification Metrics';
+        }
+
+        // Update scoring rules section
+        function updateScoringRules(taskType) {
+            if (taskType === 'segmentation') {
+                scoringRules.innerHTML = `
+                    <h3>Evaluation Criteria</h3>
+                    <h4>Nuclei Segmentation Task</h4>
+                    <ul>
+                        <li>Dice coefficient used to evaluate segmentation accuracy of 7 Parkinson's disease-related nuclei</li>
+                        <li>Final score is the average Dice score across all nuclei</li>
+                        <li>Validation set (100 cases) for development phase feedback</li>
+                        <li>Test set (200 cases) for final ranking determination</li>
+                        <li>Imaging modalities: Neuromelanin-sensitive MRI (NM-MRI) and QSM</li>
+                    </ul>
+                `;
+            } else {
+                scoringRules.innerHTML = `
+                    <h3>Evaluation Criteria</h3>
+                    <h4>PD Classification Task</h4>
+                    <ul>
+                        <li>Classification accuracy used to evaluate PD diagnosis performance</li>
+                        <li>Validation set (100 cases) for development phase feedback</li>
+                        <li>Test set (200 cases) for final ranking determination</li>
+                        <li>Binary classification: Parkinson's disease vs. healthy controls</li>
+                    </ul>
+                `;
+            }
+        }
+
+        // Update timestamp
         function updateTimestamp() {
             const now = new Date();
             const options = {
@@ -522,12 +641,8 @@
                 minute: '2-digit',
                 timeZone: 'UTC'
             };
-            document.querySelector('.update-info').textContent =
-                `Last updated: ${now.toLocaleDateString('en-US', options)} UTC | Auto-update every 60 minutes`;
+            updateTime.textContent = now.toLocaleDateString('en-US', options) + ' UTC';
         }
-
-        updateTimestamp();
-        setInterval(updateTimestamp, 60000); // Update every minute
     </script>
 </body>
 </html>
