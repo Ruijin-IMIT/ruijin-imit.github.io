@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Description</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #005b96;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f2f2f2;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge</h1>
+        <p>Dataset description</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dataset.html">Data</a></li>
+            <li><a href="tasks.html">Tasks</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 id="data-overview">Data overview</h2>
+<h3 id="data-annotation">Data Annotation</h3>
+<p>Annotation for the deep brain nuclei structures: One neuroradiologist manually segmented the CN, GP, PUT, SN, RN, and DN in the bilateral hemisphere. Another radiologist with 5 years of experience in neuroimaging double-checked all the structural boundaries. Finally, those ROIs approved by these two radiologists will serve as the ground truth for the segmentation model.</p>
+<p>Annotation for the SN, STN structures: The ROIs for the NM-rich region (SNpc, SN) were manually traced by a single rater on MTC magnitude images and QSM maps using SPIN software (SpinTech, Inc., Bingham Farms, MI). The NM-based SN boundaries were traced from the last caudal slice for three to five slices until the NM-rich region was no longer visible. Simultaneously, the iron-based SN boundaries were traced starting from one slice below the most cranial slice where the STN was visible and continued for four to six consecutive slices to the most caudal slice. The STN ROIs were traced from the top of the RN for two slices cranially. For all the ROIs, a dynamic programming approach (DPA) was used to determine the final boundaries to alleviate the subjective bias. All these boundaries were then reviewed by a second rater and modified accordingly in consensus with the first rater.</p>
+<p>Sample image and annotation masks for DGM segmentation. The spatial variations of DGM structures are shown in different slices of the T1WI MRI and QSM MRI respectively. The enlarged 3D mask on the top right corner demonstrates the volume differences among DGM structures. Each DGM structure has the left and right regions, colored separately. Sample image and annotation masks for SNpc segmentation. The substantia nigra structure is partially seen in QSM MRI, partially seen in NM MRI, and the intersection area is the SNpc region.</p>
+<h3 id="data-split">Data Split</h3>
+<p>The Ruijin-PD dataset includes 500 multi-parametric MRI cases (50% each for PD positives and healthy controls) with more than 105,000 images in total. Each case contains the T1WI, QSM, and NM-MRI images, with segmentation masks on 7 PD-related anatomical structures. The PD classification label is also included. The images for training (200 cases, with labels) and validation (100 cases, without labels) will be freely available at the competition start date, while the testing images (200 cases) will be available at the test stage (together with the labels for the validation set). The label for the test set will not be released. All the data and ground truth have not been previously published and have been kept confidential.</p>
+<p>The data splitting is based on the cross-validation principle, for maximum randomness and reliability. The split proportion ensures adequate training samples and meaningful testing scores.</p>
+
+    </div>
+
+    <footer>
+       <p>&copy; 2025 PD CAD x Foundation working group| PDCADxFoundation@163.com  </p>
+    </footer>
+</body>
+</html>

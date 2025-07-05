@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge </title>
+
+<!--    <link rel="stylesheet" href="nicepage.css" media="screen">-->
+    <link rel="stylesheet" href="Home.css" media="screen">
+<!--  <script class="u-script" type="text/javascript" src="jquery-1.9.1.min.js" defer=""></script>-->
+<!--  <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>-->
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #005b96;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .hero {
+            background-color: #e6f7ff;
+            padding: 2rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .feature {
+            flex-basis: 30%;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        myimg.td {
+            /*border: 1px solid #ddd;*/
+            text-align: left; /* 左对齐 */
+            vertical-align: middle;
+        }
+
+        /*img {*/
+        /*    display: block;*/
+        /*}*/
+   .table-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .table-container div {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 15px;
+      cursor: pointer;
+      background-color: #f1f1f1;
+      border: 1px solid #ddd;
+      border-bottom: none;
+      margin-right: 5px;
+      border-radius: 5px 5px 0 0;
+    }
+    .tab.active {
+      background-color: #fff;
+      border-bottom: 1px solid #fff;
+      margin-bottom: -1px;
+      font-weight: bold;
+    }
+    .sheet {
+      display: none;
+    }
+    .sheet.active {
+      display: block;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    th {
+      background-color: #f2f2f2;
+      text-align: left;
+      padding: 8px;
+      border: 1px solid #ddd;
+      font-weight: bold;
+    }
+    td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      vertical-align: top;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .sheet-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    img {
+      max-width: 100%;
+    }
+
+
+
+    </style>
+
+
+</head>
+<body>
+    <header>
+        <h1>Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge</h1>
+        <p>Push forward the AI research in PD diagnosis</p>
+    </header>
+
+
+    <nav>
+        <ul>
+
+            <li style="width: 3%;"><a href="index.html"  style="font-size: 1.2rem;">Home</a></li>
+            <li style="width: 3%;"><a href="dataset.html"  style="font-size: 1.2rem;">Data</a></li>
+            <li style="width: 3%;"><a href="tasks.html" style="font-size: 1.2rem;">Tasks</a></li>
+            <li style="width: 5%;"><a href="schedule.html" style="font-size: 1.2rem;">Timeline</a></li>
+            <li style="width: 3%;"><a href="about.html" style="font-size: 1.2rem;">About</a></li>
+            <li  style="width: 7%;"><img src="images/PDCADxFoundation_logo.jpg" style="width:100%;"  alt="Analysis" /></li>
+            <li  style="width: 10%;"><a href="https://conferences.miccai.org/2025/en/default.asp"><img style="width:100%;" src="images/MICCAI2025_logo.jpg"  alt="Analysis" /> </a>  </li>
+            <li  style="width: 6%;"><img src="images/PDCADxFoundation-ORcode_small.jpg" style="width:100%;"   alt="Analysis" /></li>
+        </ul>
+    </nav>
+
+
+
+    <div class="container">
+
+        <table>
+        <tr>
+        <td  style="width: 33%;border: none;padding: 1px;"><img style="max-width:100%;" src="images/example-scan.jpg" alt="example-MR-scan" /></td>
+        <td  style="width: 33%;border: none;padding: 1px;"><img style="max-width:100%;" src="images/example-brain.jpg" alt="example-brain" /></td>
+        <td  style="width: 33%;border: none;padding: 1px;"><img style="max-width:100%;" src="images/example-analysis.jpg"  alt="example-auto-analysis" /></td>
+        </tr>
+        </table>
+
+
+        <section class="hero">
+            <h2>Welcome to the Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge!</h2>
+            <p>
+The automatic diagnosis of Parkinson's disease (PD) has received significant attention in recent years due to the
+high prevalence of PD and the need to improve the accuracy of diagnosis. Clinical diagnosis of Parkinson's disease
+(PD) often leverages diagnostic biomarkers in advanced magnetic resonance imaging (MRI). Quantitative
+alterations of tissue property in the deep gray matter (DGM) in MRI may indicate pathophysiological changes
+related to PD. However, automatic and accurate DGM segmentation faces many challenges, and core brain
+structures (i.e., SNpr and SNpe) for PD determination are particularly difficult to delineate. The lack of public
+datasets and quality annotations for PD research has been the bottleneck for developing deep learning models of
+clinical significance. The Ruijin Imaging Neuroscience Group has curated a multi-parametric MRI dataset for PD
+research with comprehensive annotations. In this challenge, we will provide a large dataset containing 500
+subjects with 3 MR modalities (T1WI, QSM, NM-MRI) and bilateral DGM (CN, PUT, GP, STN, SN, RN, and DN) mask
+annotations. The challenge participants will compete in the DGM segmentation and PD diagnosis tasks. Publicly
+accessible foundation models and domain adaption techniques should be utilized to tackle the challenging PD
+diagnosis tasks while facing limitations in data scale and annotation. Specifically, two competition tracks are
+designed: (1) maximize the accuracy of the DGM segmentation using released data and public foundation models
+(2) maximize the accuracy of PD classification using released data and public foundation models.
+        </p>
+            <button style="font-size:1.1em; background-color: #005b96; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.open('https://www.wjx.top/vm/eZnlCCv.aspx#', '_blank')"> Click to Register </button>
+        </section>
+
+        <h2>Challenge Highlights</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>High Quality Parkinson's Disease MRIs</h3>
+                <p>500 samples, with 16 anatomical structures</p>
+                <p>Quantitative Susceptibility Mapping (QSM)</p>
+                <p>Neuromelanin-sensitive MRI</p>
+                <p>Detailed segmentation masks</p>
+            </div>
+            <div class="feature">
+                <h3>Foundation Model Driven</h3>
+                <p>Encourage public foundation models </p>
+                <p>Knowledge distillation, transfer learning </p>
+                <p>Multimodal fusion and recognition </p>
+            </div>
+            <div class="feature">
+                <h3>MICCAI 2025 Challenge</h3>
+                <p>Opportunity to involve in top journal publications </p>
+                <p>Winners to orally present in MICCAI workshop </p>
+                <p>Monetary Rewards for both tracks </p>
+            </div>
+        </div>
+
+        <section style="margin-top: 2rem;">
+
+
+
+        <h1 id="abstract">Abstract</h1>
+<p>The automatic diagnosis of Parkinson’s disease (PD) has received significant attention in recent years due to the high prevalence of PD and the need to improve the accuracy of diagnosis. Clinical diagnosis of Parkinson’s disease (PD) often leverages diagnostic biomarkers in advanced magnetic resonance imaging (MRI). Quantitative alterations of tissue property in the deep gray matter (DGM) in MRI may indicate pathophysiological changes related to PD. However, automatic and accurate DGM segmentation faces many challenges, and core brain structures (i.e., SNpr and SNpe) for PD determination are particularly difficult to delineate. The lack of public datasets and quality annotations for PD research has been the bottleneck for developing deep learning models of clinical significance. The Ruijin Imaging Neuroscience Group has curated a multi-parametric MRI dataset for PD research with comprehensive annotations. In this challenge, we will provide a large dataset containing 500 subjects with 3 MR modalities (T1WI, QSM, NM-MRI) and bilateral DGM (CN, PUT, GP, STN, SN, RN, and DN) mask annotations. The challenge participants will compete in the DGM segmentation and PD diagnosis tasks. Publicly accessible foundation models and domain adaption techniques should be utilized to tackle the challenging PD diagnosis tasks while facing limitations in data scale and annotation. Specifically, two competition tracks are designed: (1) maximize the accuracy of the DGM segmentation using released data and public foundation models (2) maximize the accuracy of PD classification using released data and public foundation models.</p>
+<h2 id="data-overview">Data overview</h2>
+<h3 id="data-annotation">Data Annotation</h3>
+<p>Annotation for the deep brain nuclei structures: One neuroradiologist manually segmented the CN, GP, PUT, SN, RN, and DN in the bilateral hemisphere. Another radiologist with 5 years of experience in neuroimaging double-checked all the structural boundaries. Finally, those ROIs approved by these two radiologists will serve as the ground truth for the segmentation model.</p>
+<p>Annotation for the SN, STN structures: The ROIs for the NM-rich region (SNpc, SN) were manually traced by a single rater on MTC magnitude images and QSM maps using SPIN software (SpinTech, Inc., Bingham Farms, MI). The NM-based SN boundaries were traced from the last caudal slice for three to five slices until the NM-rich region was no longer visible. Simultaneously, the iron-based SN boundaries were traced starting from one slice below the most cranial slice where the STN was visible and continued for four to six consecutive slices to the most caudal slice. The STN ROIs were traced from the top of the RN for two slices cranially. For all the ROIs, a dynamic programming approach (DPA) was used to determine the final boundaries to alleviate the subjective bias. All these boundaries were then reviewed by a second rater and modified accordingly in consensus with the first rater.</p>
+<p>Sample image and annotation masks for DGM segmentation. The spatial variations of DGM structures are shown in different slices of the T1WI MRI and QSM MRI respectively. The enlarged 3D mask on the top right corner demonstrates the volume differences among DGM structures. Each DGM structure has the left and right regions, colored separately. Sample image and annotation masks for SNpc segmentation. The substantia nigra structure is partially seen in QSM MRI, partially seen in NM MRI, and the intersection area is the SNpc region.</p>
+<h3 id="data-split">Dataset Split</h3>
+<p>The Ruijin-PD dataset includes 500 multi-parametric MRI cases (50% each for PD positives and healthy controls) with more than 105,000 images in total. Each case contains the T1WI, QSM, and NM-MRI images, with segmentation masks on 7 PD-related anatomical structures. The PD classification label is also included. The images for training (200 cases, with labels) and validation (100 cases, without labels) will be freely available at the competition start date, while the testing images (200 cases) will be available at the test stage (together with the labels for the validation set). The label for the test set will not be released. All the data and ground truth have not been previously published and have been kept confidential.</p>
+<p>The data splitting is based on the cross-validation principle, for maximum randomness and reliability. The split proportion ensures adequate training samples and meaningful testing scores.</p>
+<h2 id="novelty-of-the-challenge">Novelty of the challenge</h2>
+<p>This challenge learns and extends from the previous competition we hosted at Neurips 2023 by pursuing a more detailed technical perspective of foundation model and transfer learning (i.e., model adaptation effectiveness with various data amounts) with a completely new and important clinical application setting (i.e., more clinic-focused tasks). It aims to investigate further how to utilize the power of foundation models to ease the effort of obtaining quality annotations and improve downstream clinical application accuracy. It aligns with the recent trend and success of building foundation models for various downstream applications. The proposed model adaptation paradigm differs from the standard few-shot learning from a methodology perspective. While it is true that the adaptation of foundation models could require a similar amount of data as conventional fine-tuning/few-shot methods, the fundamental technical routine is different. Our challenge focuses more on evaluating the effectiveness of these domain-adaptation approaches in the context of PD diagnosis. Quality data is often scarce in such specific domains, and developing high-quality models with limited sample cases is crucial for accurate diagnosis, which indeed is clinically more relevant and meaningful.</p>
+<h3 id="task-description-and-application-scenarios">Task description and application scenarios</h3>
+<p>Parkinson’s disease (PD) is a progressive neurodegenerative disorder characterized by neuromelanin (NM) loss in the substantia nigra pars compacta (SNpc) and iron deposition increase in the substantia nigra (SN). Degeneration of the SN becomes obvious when it reaches a 50% to 70% loss of pigmented neurons in the ventral lateral tier of the SNpc. Iron deposition and volume changes of the other deep gray matter (DGM), including the red nucleus (RN), dentate nucleus (DN), and subthalamic nucleus (STN), are also associated with disease progression. Further, the STN serves as an important target for deep brain stimulation treatment in advanced PD patients. Therefore, an accurate in-vivo delineation of the SN and other DGM could be essential for a better PD study.</p>
+<h3 id="ethics-approval">Ethics approval</h3>
+<p>This study was approved by the institutional ethics committee in Ruijin Hospital, Shanghai Jiao Tong University School of Medicine (No.RJ2022-279). All participants provided written informed consent.</p>
+
+<h2 id="data-insights">Data insights</h2>
+            <h3 id="mask-overview">Mask Overview</h3>
+            <p>There are two masks for each case, the QSM mask and the Neuro-Melanin mask.
+                There are 16 labeled anatomical structures in the QSM mask, and the NM mask contains only the Substantia Nigra (right and left).
+                The correspondence between nucleus regions and labels are in the following tables (for QSM and NM respectively).</p>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('QSM-mask labels')">QSM-mask labels</div>
+    <div class="tab active" onclick="switchTab('NM-mask labels')">NM-mask labels</div>
+  </div>
+
+  <div id="QSM-mask labels" class="sheet active">
+    <table><tr><th>  </th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr><tr><td>QSM Labels</td><td>1,2</td><td>3,4</td><td>5,6</td><td>7,8</td><td>9,10</td><td>11,12</td><td>13,14</td><td>15,16</td></tr><tr><td>Nucleus Name</td><td>Caudate Nucleus</td><td>Putaman</td><td>Globus Pallidus</td><td>Thalamus</td><td>Subthalamic Nucleus</td><td>Substantia Nigra</td><td>Red Nucleus</td><td>Dentate Nucleus</td></tr></table>
+  </div>
+
+
+  <div id="NM-mask labels" class="sheet active">
+    <table><tr><th>  </th><th>A</th></tr><tr><td>NM Labels</td><td>1,2</td></tr><tr><td>Nucleus Name</td><td>Substantia Nigra</td></tr></table>
+  </div>
+
+      <p>Here is the QSM mask in one sample, with T1-MRI and QSM-MRI scans.</p>
+
+        <table>
+        <tr>
+            <td  style="width: 32%;border: none;padding: 1px;"> <img style="width:90%;"  src="images/pd-t1.gif" alt="Ruijin Hospital" /></td>
+            <td  style="width: 32%;border: none;padding: 1px;"> <img style="width:90%;"  src="images/pd-qsm.gif"  alt="Ruijin-IMIT" /></td>
+            <td  style="width: 32%;border: none;padding: 1px;"> <img style="width:98%;"  src="images/pd-segments.gif"  alt="Shanghai-AI-Lab" /></td>
+        </tr>
+        </table>
+    <h3 id="nucleus-statistics">Nucleus Statistics</h3>
+     <p>We summarize the average volumes for 16 nucleus regions in QSM mask (train+val data, 300 cases).</p>
+    <div class="tabs">
+    <div class="tab active" onclick="switchTab('Nucleus Volume')">Nucleus Volume</div>
+  </div>
+
+  <div id="Nucleus Volume" class="sheet active">
+    <table><tr><th>QSM Label</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th></tr><tr><td>Volume (cm^3)</td><td>3.36</td><td>2.84</td><td>3.67</td><td>3.52</td><td>1.85</td><td>2.1</td><td>4.6</td><td>4.61</td><td>0.08</td><td>0.09</td><td>0.47</td><td>0.46</td><td>0.17</td><td>0.17</td><td>0.66</td><td>0.65</td></tr></table>
+  </div>
+
+            <p>We also calculate the average signal intensity for 16 nucleus regions in NM images and QSM images. In the Substantia Nigra of PD patients, neuromelanin content becomes less, and iron deposition is obvious. </p>
+        <table>
+        <tr>
+            <td  style="width: 50%;border: none;padding: 1px;"> <img style="width:100%;"  src="images/NM_stats.png" alt="Ruijin Hospital" /></td>
+            <td  style="width: 50%;border: none;padding: 1px;"> <img style="width:100%;"  src="images/QSM_stats.png"  alt="Ruijin-IMIT" /></td>
+        </tr>
+        </table>
+
+
+
+            <h2 id="evaluation-metrics">Evaluation metrics</h2>
+<p>To evaluate the model performance for procedures involved in the PD diagnosis, we adopt segmentation metrics and classification metrics for corresponding models. The segmentation metrics include the Dice Coefficient and the Hausdorff Distance 95% percentile (HD95). For each segmentation region, the algorithms have separate Dice ranking and HD95 ranking. If the prediction of a region is missing, then it would rank at the bottom. The final ranking score is the average of all these rankings normalized by the number of teams. Therefore the final ranking status depends on the overall segmentation performance of all regions. It is noted that images with bad quality are excluded from the evaluation of segmentation performance. We will provide the codes and instructions for evaluation upon the data release.</p>
+<p>For the PD classification task, we adopt the accuracy (Acc) and area under the receiver operating characteristic curve (AUROC). Accuracy reflects the overall correct predictions among all the test images. The predicted label is determined with the maximum softmax outputs in the multi-class classification task. AUROC is computed for the PD class to measure the capability of distinguishing between positive and negative classes at various threshold settings. The Acc and AUROC would have separate rankings, the final PD ranking will be determined by the average ranking of Acc and AUROC.</p>
+<p>For each submission, missing results of testing cases are not allowed in general when the results for all testing cases will be automatically computed. If the submitted solution fails to generate the results for certain cases, a default output of ‘no finding’ (indicating an empty mask or non-PD) will be used to compute the evaluation metrics. For the cases without valid output, we set the ranks for the corresponding metrics to the maximum.</p>
+<p>To assess whether the performance difference is significant, we will use paired and unpaired rank-based and t-test statistics for errors compared with permutation-generated one-sided null distributions.</p>
+<h2 id="award-policy">Award policy</h2>
+<ol type="1">
+<li>Monetary awards for top-3 winners in both tracks. Top 1 team: $1000, 2nd team: $600, 3rd team: $400.<br />
+</li>
+<li>The winners will be invited to submit their groundbreaking solutions (as coauthors) in a summarization paper.</li>
+<li>Student participants in the winning teams will be considered for admission and scholarship in organizers’ institutes</li>
+</ol>
+
+                   <div class="u-expanded-width u-table u-table-responsive u-table-1">
+            <table class="u-table-entity">
+              <colgroup>
+                <col width="10.5%">
+                <col width="19.1%">
+                <col width="18.1%">
+                <col width="17.5%">
+                <col width="16%">
+                <col width="18.8%">
+              </colgroup>
+              <tbody class="u-table-body">
+                <tr style="height: 39px;">
+                  <td style="background-color: rgba(47, 120, 86, 0.5019607843137255);"
+                    class="u-align-center u-custom-font u-font-arialu-table-cell">
+                    Winner</td>
+                  <td style="background-color: rgba(47, 120, 86, 0.5019607843137255);"
+                    class="u-align-center u-custom-font u-font-arial u-grey-10 u-table-cell">
+                    Monetary Awards</td>
+                  <td style="background-color: rgba(47, 120, 86, 0.5019607843137255);"
+                    class="u-align-center u-custom-font u-font-arial u-grey-10 u-table-cell">
+                    Oral Presentation</td>
+                  <td style="background-color: rgba(47, 120, 86, 0.5019607843137255);"
+                    class="u-custom-font u-font-arial u-grey-10 u-table-cell">Summary
+                    Paper
+                    Involved</td>
+                </tr>
+                <tr style="height: 36px;">
+                  <td class="u-align-center u-custom-font u-font-arial u-table-cell u-text-grey-60">Top 1</td>
+                  <td class="u-align-center u-custom-font u-font-arial u-table-cell u-text-grey-60">$1,000</td>
+                  <td class="u-custom-font u-font-arial u-table-cell u-text-grey-60"><img src="images/3502463.png"
+                      style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                  <td class="u-custom-font u-font-arial u-table-cell u-text-grey-60"><img src="images/3502463.png"
+                      style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                </tr>
+                <tr style="height: 29px;">
+                  <td style="background-color: rgba(56, 129, 95, 0.176);"
+                    class="u-align-center u-custom-font u-font-arial u-grey-10 u-table-cell u-text-grey-60 u-table-cell-14">
+                    Top 2</td>
+                  <td style="background-color: rgba(56, 129, 95, 0.176);"
+                    class="u-align-center u-custom-font u-font-arial u-grey-10 u-table-cell u-text-grey-60 u-table-cell-15">
+                    $600</td>
+                  <td style="background-color: rgba(56, 129, 95, 0.176);"
+                    class="u-custom-font u-font-arial u-grey-10 u-table-cell u-text-grey-60 u-table-cell-17"><img
+                      src="images/3502463.png" style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                  <td style="background-color: rgba(56, 129, 95, 0.176);"
+                    class="u-custom-font u-font-arial u-grey-10 u-table-cell u-text-grey-60 u-table-cell-18"><img
+                      src="images/3502463.png" style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                </tr>
+                <tr style="height: 47px;">
+                  <td class="u-align-center u-custom-font u-font-arial u-table-cell u-text-grey-60">Top 3</td>
+                  <td class="u-align-center u-custom-font u-font-arial u-table-cell u-text-grey-60">$400</td>
+                  <td class="u-custom-font u-font-arial u-table-cell u-text-grey-60"><img src="images/3502463.png"
+                      style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                  <td class="u-custom-font u-font-arial u-table-cell u-text-grey-60"><img src="images/3502463.png"
+                      style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+
+<p>Top performing methods in the DGM segmentation track as well as in the PD segmentation track will be announced publicly, both on the competition website and in the conjunct workshop. We will summarize the challenge results and submit a paper to IEEE TMI or Medical Image Analysis. All members of the participating team qualify as authors.</p>
+<h2 id="submission">Submission</h2>
+<p>Using the dataset (200 cases in total of the training data), participants will develop model adaptation approaches using foundation models for the PD tasks. The participants should submit model predictions on the validation set several times before submitting the final results of testing predictions. At most 2 submissions of prediction results on the testing set are allowed.</p>
+<p>Participants could submit their results of the validation set (100 cases of the validation data with labels held hidden before the final evaluation phase) to the server during the validation phase (3-5 submissions are allowed). Once the validation phase ends, the organizers will release the labels for the validation set</p>
+<p>The evaluation samples and codes will be provided in PDCADxFoundation Github homepage once the validation phase starts. The submission format will be detailed as well, and it should be sent to organizers via e-mail.</p>
+<h2 id="data-download">Data Download</h2>
+<blockquote>
+<p>The registered participant will get the download link through email. </p>
+</blockquote>
+<h1 id="timeline">Timeline</h1>
+<blockquote>
+<p>[Apr. 1, 2025] Website opens for registration<br />
+[Apr. 1, 2025] Release training images &amp; ground truth<br />
+[May 1, 2025] Release validation images<br />
+[May 1, 2025] Submission system opens for validation<br />
+[June 15, 2025] Release validation ground truth<br />
+[June 15, 2025] Submission system opens for testing<br />
+[Aug. 15, 2025] Submission ends (codes, results, technical reports)<br />
+[Sep. 1, 2025] Release final results of challenge<br />
+[Sep. 10, 2025] Challenge paper submission deadline<br />
+[Sep. 27, 2025] Top-ranking teams report during the MICCAI annual meeting<br />
+</p>
+</blockquote>
+
+
+
+            <h1 id="update"> 🔥 Latest Updates (<a href="https://github.com/Ruijin-IMIT/PDCADxFoundation/tree/main"> PDCADxFoundation Github </a>) 🔥 </h1>
+            <blockquote>
+                <p>[Apr. 20, 2025] Update the Segmentation evaluation scripts (partial). <br />
+<p>[Apr. 20, 2025] Instructions for Docker installation & testing. <br />
+
+<p>[June. 22, 2025] Release (<a href="https://github.com/Ruijin-IMIT/RRMediCa"> RRMediCa </a>) as PD classification baseline (63% val acc, 62% test acc )<br />
+<p>[June. 25, 2025] Release the (<a href="https://github.com/Ruijin-IMIT/PDCADxFoundation/tree/main/baseline">  baseline</a>) implementation, covering both segmentation and classification tasks. It also includes a docker creation guide, and prediction requirements.<br />
+            </blockquote>
+
+
+<h1 id="contact">Contact</h1>
+<blockquote>
+<p> Email: PDCADxFoundation@163.com</p>
+</blockquote>
+
+<h1 id="organizer">Organizer</h1>
+<blockquote>
+<!--<p> Department of Radiology, Ruijin Hospital, Shanghai Jiao Tong University School of Medicine </p>-->
+<!--<p> Institute for Medical Imaging Technology, Ruijin Hospital, Shanghai Jiao Tong University School of Medicine </p>-->
+<!--<p> Shanghai AI lab </p>-->
+
+<!--height="200"-->
+            <table>
+        <tr>
+            <td  style="width: 15%;border: none;padding: 1px;"> <img style="width:90%;"  src="images/Ruijin-logo.jpg" alt="Ruijin Hospital" /></td>
+            <td  style="width: 15%;border: none;padding: 1px;"> <img style="width:90%;"  src="images/Ruijin-IMIT-logo.jpg"  alt="Ruijin-IMIT" /></td>
+            <td  style="width: 25%;border: none;padding: 1px;"> <img style="width:90%;"  src="images/Shanghai-AI-Lab-logo.jpg"  alt="Shanghai-AI-Lab" /></td>
+        </tr>
+        </table>
+
+</blockquote>
+
+
+        </section>
+
+    </div>
+
+
+
+
+
+  <footer class="u-clearfix u-custom-color-2 u-footer" id="sec-0201">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-30 u-layout-wrap u-layout-wrap-1">
+        <div class="u-gutter-0 u-layout">
+          <div class="u-layout-row">
+            <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-17 u-layout-cell-1">
+              <div class="u-container-layout u-container-layout-1">
+                <p class="u-large-text u-text u-text-variant u-text-1"> Contact us:<br>
+                </p><span class="u-file-icon u-icon u-text-custom-color-3 u-icon-1"><img
+                    src="images/2669570-68c79634.png" width="30"  alt=""></span>
+<!--                <p class="u-text u-text-2">-->
+                  <a class="u-active-none u-border-hover-grey-75 u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-body-alt-color u-btn-1"
+                    data-href="mailto:PDCADxFoundation@163.com">PDCADxFoundation@163.com<br>
+                  </a>
+<!--                </p>-->
+<!--                  <span class="u-file-icon u-icon u-text-custom-color-3 u-icon-2"><img-->
+<!--                    src="images/733635-bd022505.png" alt=""></span>-->
+<!--                <p class="u-text u-text-3">-->
+<!--                  <a class="u-active-none u-border-hover-grey-75 u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-body-alt-color u-btn-2"-->
+<!--                    href="https://twitter.com/CMRxRecon" target="_blank">PDCADxFoundation<br>-->
+<!--                  </a>-->
+<!--                </p>-->
+<!--                <a class="u-active-none u-border-hover-grey-75 u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-body-alt-color u-btn-3"-->
+<!--                  href="https://www.synapse.org/#!Synapse:syn54951257/wiki/" target="_blank">Synapse Link</a><span-->
+<!--                  class="u-file-icon u-icon u-text-custom-color-3 u-icon-3"><img src="images/10276957-f66d7f95.png"-->
+<!--                    alt=""></span>-->
+                <span
+                  class="u-file-icon u-icon u-text-custom-color-3 u-icon-4"><img src="images/25231-9e47ce63.png" width="30"
+                    alt=""></span>
+                  <a class="u-active-none u-border-hover-grey-75 u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-body-alt-color u-btn-4"
+                  href="https://github.com/Ruijin-IMIT/PDCADxFoundation" target="_blank">PDCADxFoundation </a>
+              </div>
+            </div>
+<!--            <div class="u-container-style u-layout-cell u-size-26 u-layout-cell-2">-->
+<!--              <div class="u-container-layout u-container-layout-2">-->
+<!--                <img style="position:absolute;margin:92px auto 0 39px;width: 65px;height: auto;"-->
+<!--                  src="images/fudan-logo.png">-->
+<!--                <img style="position:absolute;margin:95px auto 0 112px;width: 55px;height: auto;" src="images/R-C.png">-->
+<!--                <img style="position:absolute;margin:95px auto 0 178px;width: 55px;height: auto;"-->
+<!--                  src="images/Shield_of_Imperial_College_London.svg.png">-->
+<!--                <img style="position:absolute;margin:92px auto 0 240px;width: 60px;height: auto;"-->
+<!--                  src="images/1636px-Oxford-University-Circlet.svg.png">-->
+<!--                <img style="position:absolute;margin:94px auto 0 310px;width: 60px;height: auto;"-->
+<!--                  src="images/hong-kong-polytechnic-university-logo-00FF467BCA-seeklogo.com.png">-->
+<!--                <img style="position:absolute;margin:94px auto 0 380px;width: 60px;height: auto;"-->
+<!--                  src="images/1200px-Xiamen_University_logo.svg.png">-->
+
+<!--                <img style="position:absolute;margin:177px auto 0 50px;width: 60px;height: auto;"-->
+<!--                  src="images/Ruijin_Hospital_Shanghai_Jiaotong_University_School_Of_Medicine_logo.png">-->
+<!--                <img style="position:absolute;margin:180px auto 0 120px;width: 60px;height: auto;"-->
+<!--                  src="images/Renji_hospital_logo.png">-->
+<!--                <img style="position:absolute;margin:198px auto 0 190px;width: 115px;height: auto;"-->
+<!--                  src="images/640px-Philips_logo.svg.png">-->
+<!--                <img style="position:absolute;margin:180px auto 0 315px;width: 60px;height: auto;"-->
+<!--                  src="images/nice-logo.png">-->
+<!--                <img style="position:absolute;margin:180px auto 0 370px;width: 60px;height: auto;"-->
+<!--                  src="images/jitri_logo.png">-->
+<!--                <br><br><br><br><br><br><br>-->
+
+<!--              </div>-->
+<!--            </div>-->
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="u-border-2 u-border-custom-color-3 u-line u-line-horizontal u-line-1"></div>
+      <p class="u-text u-text-custom-color-3 u-text-7"> © Copyright PDCADxFoundation Working Group<br>
+      </p>
+    </div>
+  </footer>
+
+
+
+  <script>
+      // do nothing 20250409
+    function switchTab(sheetName) {
+        return
+      // 隐藏所有工作表
+      const sheets = document.getElementsByClassName('sheet');
+      for (let i = 0; i < sheets.length; i++) {
+        sheets[i].classList.remove('active');
+      }
+
+      // 取消所有标签的活动状态
+      const tabs = document.getElementsByClassName('tab');
+      for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+      }
+
+      // 显示选中的工作表
+      document.getElementById(sheetName).classList.add('active');
+
+      // 设置选中标签的活动状态
+      const clickedTab = Array.from(tabs).find(tab => tab.textContent === sheetName);
+      if (clickedTab) {
+        clickedTab.classList.add('active');
+      }
+    }
+  </script>
+
+
+</body>
+</html>

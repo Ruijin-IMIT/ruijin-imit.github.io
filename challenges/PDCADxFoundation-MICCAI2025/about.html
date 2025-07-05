@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #005b96;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .member {
+            flex-basis: 30%;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+        }
+        .organizers {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge</h1>
+        <p>About Us</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dataset.html">Data</a></li>
+            <li><a href="tasks.html">Tasks</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 id="novelty-of-the-challenge">Novelty of the challenge</h2>
+<p>This challenge learns and extends from the previous competition we hosted at Neurips 2023 by pursuing a more detailed technical perspective of foundation model and transfer learning (i.e., model adaptation effectiveness with various data amounts) with a completely new and important clinical application setting (i.e., more clinic-focused tasks). It aims to investigate further how to utilize the power of foundation models to ease the effort of obtaining quality annotations and improve downstream clinical application accuracy. It aligns with the recent trend and success of building foundation models for various downstream applications. The proposed model adaptation paradigm differs from the standard few-shot learning from a methodology perspective. While it is true that the adaptation of foundation models could require a similar amount of data as conventional fine-tuning/few-shot methods, the fundamental technical routine is different. Our challenge focuses more on evaluating the effectiveness of these domain-adaptation approaches in the context of PD diagnosis. Quality data is often scarce in such specific domains, and developing high-quality models with limited sample cases is crucial for accurate diagnosis, which indeed is clinically more relevant and meaningful.</p>
+<h3 id="task-description-and-application-scenarios">Task description and application scenarios</h3>
+<p>Parkinson’s disease (PD) is a progressive neurodegenerative disorder characterized by neuromelanin (NM) loss in the substantia nigra pars compacta (SNpc) and iron deposition increase in the substantia nigra (SN). Degeneration of the SN becomes obvious when it reaches a 50% to 70% loss of pigmented neurons in the ventral lateral tier of the SNpc. Iron deposition and volume changes of the other deep gray matter (DGM), including the red nucleus (RN), dentate nucleus (DN), and subthalamic nucleus (STN), are also associated with disease progression. Further, the STN serves as an important target for deep brain stimulation treatment in advanced PD patients. Therefore, an accurate in-vivo delineation of the SN and other DGM could be essential for a better PD study.</p>
+<h3 id="ethics-approval">Ethics approval</h3>
+<p>This study was approved by the institutional ethics committee in Ruijin Hospital, Shanghai Jiao Tong University School of Medicine (No.RJ2022-279). All participants provided written informed consent.</p>
+<h2 id="evaluation-metrics">Evaluation metrics</h2>
+<p>To evaluate the model performance for procedures involved in the PD diagnosis, we adopt segmentation metrics and classification metrics for corresponding models. The segmentation metrics include the Dice Coefficient and the Hausdorff Distance 95% percentile (HD95). For each segmentation region, the algorithms have separate Dice ranking and HD95 ranking. If the prediction of a region is missing, then it would rank at the bottom. The final ranking score is the average of all these rankings normalized by the number of teams. Therefore the final ranking status depends on the overall segmentation performance of all regions. It is noted that images with bad quality are excluded from the evaluation of segmentation performance. We will provide the codes and instructions for evaluation upon the data release.</p>
+<p>For the PD classification task, we adopt the accuracy (Acc) and area under the receiver operating characteristic curve (AUROC). Accuracy reflects the overall correct predictions among all the test images. The predicted label is determined with the maximum softmax outputs in the multi-class classification task. AUROC is computed for the PD class to measure the capability of distinguishing between positive and negative classes at various threshold settings. The Acc and AUROC would have separate rankings, the final PD ranking will be determined by the average ranking of Acc and AUROC.</p>
+<p>For each submission, missing results of testing cases are not allowed in general when the results for all testing cases will be automatically computed. If the submitted solution fails to generate the results for certain cases, a default output of ‘no finding’ (indicating an empty mask or non-PD) will be used to compute the evaluation metrics. For the cases without valid output, we set the ranks for the corresponding metrics to the maximum.</p>
+<p>To assess whether the performance difference is significant, we will use paired and unpaired rank-based and t-test statistics for errors compared with permutation-generated one-sided null distributions.</p>
+<h2 id="award-policy">Award policy</h2>
+<ol type="1">
+<li>Monetary awards for top-3 winners in both tracks. Top 1 team: $1000, 2nd team: $600, 3rd team: $400.<br />
+</li>
+<li>The winners will be invited to submit their groundbreaking solutions (as coauthors) in a summarization paper.</li>
+<li>Student participants in the winning teams will be considered for admission and scholarship in organizers’ institutes</li>
+</ol>
+<p>Top performing methods in the DGM segmentation track as well as in the PD segmentation track will be announced publicly, both on the competition website and in the conjunct workshop. We will summarize the challenge results and submit a paper to IEEE TMI or Medical Image Analysis. All members of the participating team qualify as authors.</p>
+<h2 id="submission">submission</h2>
+<p>Using the dataset (200 cases in total of the training data), participants will develop model adaptation approaches using foundation models for the PD tasks. The participants should submit model predictions on the validation set several times before submitting the final results of testing predictions. At most 2 submissions of prediction results on the testing set are allowed.</p>
+<p>Participants could submit their results of the validation set (100 cases of the validation data with labels held hidden before the final evaluation phase) to the server during the validation phase (3-5 submissions are allowed). Once the validation phase ends, the organizers will release the labels for the validation set</p>
+<p>The evaluation samples and codes will be provided in PDCADxFoundation Github homepage once the validation phase starts. The submission format will be detailed as well, and it should be sent to organizers via e-mail.</p>
+
+    </div>
+
+    <footer>
+         <p>&copy; 2025 PD CAD x Foundation working group| PDCADxFoundation@163.com  </p>
+    </footer>
+</body>
+</html>
