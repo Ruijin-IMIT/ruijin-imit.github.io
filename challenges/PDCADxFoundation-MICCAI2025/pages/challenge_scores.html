@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkinson's Disease Brain Segmentation & Classification Challenge</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.4;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .tab:hover {
+            background: #e0e0e0;
+        }
+        .tab.active {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .leaderboard {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .team-row {
+            display: grid;
+            grid-template-columns: 50px 120px 80px repeat(9, 1fr);
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            padding: 8px 10px;
+        }
+        .team-row.header {
+            font-weight: bold;
+            background: #f2f2f2;
+            position: sticky;
+            top: 0;
+        }
+        .team-row:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .team-row.champion {
+            background-color: rgba(255, 215, 0, 0.1);
+            border-left: 3px solid gold;
+        }
+        .team-row.runner-up {
+            background-color: rgba(192, 192, 192, 0.1);
+            border-left: 3px solid silver;
+        }
+        .team-row.third-place {
+            background-color: rgba(205, 127, 50, 0.1);
+            border-left: 3px solid #cd7f32;
+        }
+        .rank {
+            font-weight: bold;
+            text-align: center;
+        }
+        .team-name {
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .total-score {
+            text-align: center;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .score {
+            text-align: center;
+            padding: 0 5px;
+        }
+        .divider {
+            border-left: 1px solid #ddd;
+            height: 100%;
+        }
+        .medal {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        .medal.gold {
+            background: gold;
+        }
+        .medal.silver {
+            background: silver;
+        }
+        .medal.bronze {
+            background: #cd7f32;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Parkinson's Disease Brain Segmentation & Classification Challenge</h1>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('segmentation')">Segmentation Task</div>
+        <div class="tab" onclick="showTab('classification')">Classification Task</div>
+    </div>
+
+    <div id="segmentation" class="tab-content active">
+        <h2>Brain Region Segmentation Results</h2>
+
+        <div id="segmentation-leaderboard" class="leaderboard">
+            <!-- Will be populated by JavaScript -->
+        </div>
+
+        <div class="note">
+            * QSM: Quantitative Susceptibility Mapping | NM: Neuromelanin-sensitive MRI
+        </div>
+    </div>
+
+    <div id="classification" class="tab-content">
+        <h2>Disease Classification Results</h2>
+
+        <div id="classification-leaderboard" class="leaderboard">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Segmentation data (same format as provided)
+        const segmentationData = [
+            ['NeuroX', 8.5809, {'CN': 0.848, 'Put': 0.884, 'GP': 0.9, 'STN': 0.635, 'SN': 0.848, 'RN': 0.833, 'DN': 0.841}, {'SN': 0.777}],
+            ['Space', 8.4406, {'CN': 0.836, 'Put': 0.876, 'GP': 0.896, 'STN': 0.627, 'SN': 0.824, 'RN': 0.8, 'DN': 0.814}, {'SN': 0.773}],
+            ['Dong', 8.3977, {'CN': 0.813, 'Put': 0.864, 'GP': 0.89, 'STN': 0.635, 'SN': 0.842, 'RN': 0.825, 'DN': 0.815}, {'SN': 0.803}],
+            ['Cemrg', 7.5672, {'CN': 0.77, 'Put': 0.827, 'GP': 0.858, 'STN': 0.581, 'SN': 0.795, 'RN': 0.779, 'DN': 0.794}, {'SN': 0.783}]
+        ];
+
+        // Classification data (as provided)
+        const classificationData = [
+            ['NeuroX', 0.89],
+            ['Cemrg', 0.85],
+            ['Space', 0.79],
+            ['Dong', 0.69]
+        ];
+
+        // Show specified tab
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Create segmentation leaderboard
+        function createSegmentationLeaderboard() {
+            const container = document.getElementById('segmentation-leaderboard');
+            container.innerHTML = '';
+
+            // Create header row
+            const headerRow = document.createElement('div');
+            headerRow.className = 'team-row header';
+            headerRow.innerHTML = `
+                <div class="rank">Rank</div>
+                <div class="team-name">Team</div>
+                <div class="total-score">Total</div>
+                <div class="score">CN</div>
+                <div class="score">Put</div>
+                <div class="score">GP</div>
+                <div class="score">STN</div>
+                <div class="score">SN</div>
+                <div class="score">RN</div>
+                <div class="score">DN</div>
+                <div class="divider"></div>
+                <div class="score">SN (NM)</div>
+            `;
+            container.appendChild(headerRow);
+
+            // Create team rows
+            segmentationData.forEach((team, index) => {
+                const [name, totalScore, qsmScores, nmScores] = team;
+                const position = index + 1;
+
+                const row = document.createElement('div');
+                row.className = 'team-row';
+
+                // Add medal class based on position
+                if (position === 1) row.classList.add('champion');
+                else if (position === 2) row.classList.add('runner-up');
+                else if (position === 3 || position === 4) row.classList.add('third-place');
+
+                // Create medal indicator
+                let medal = '';
+                if (position === 1) medal = '<span class="medal gold" title="Champion"></span>';
+                else if (position === 2) medal = '<span class="medal silver" title="Runner-up"></span>';
+                else if (position === 3 || position === 4) medal = '<span class="medal bronze" title="Third place"></span>';
+
+                row.innerHTML = `
+                    <div class="rank">${position}</div>
+                    <div class="team-name">${name}${medal}</div>
+                    <div class="total-score">${totalScore.toFixed(4)}</div>
+                    <div class="score">${qsmScores.CN.toFixed(3)}</div>
+                    <div class="score">${qsmScores.Put.toFixed(3)}</div>
+                    <div class="score">${qsmScores.GP.toFixed(3)}</div>
+                    <div class="score">${qsmScores.STN.toFixed(3)}</div>
+                    <div class="score">${qsmScores.SN.toFixed(3)}</div>
+                    <div class="score">${qsmScores.RN.toFixed(3)}</div>
+                    <div class="score">${qsmScores.DN.toFixed(3)}</div>
+                    <div class="divider"></div>
+                    <div class="score">${nmScores.SN.toFixed(3)}</div>
+                `;
+
+                container.appendChild(row);
+            });
+        }
+
+        // Create classification leaderboard
+        function createClassificationLeaderboard() {
+            const container = document.getElementById('classification-leaderboard');
+            container.innerHTML = '';
+
+            // Create header row
+            const headerRow = document.createElement('div');
+            headerRow.className = 'team-row header';
+            headerRow.innerHTML = `
+                <div class="rank">Rank</div>
+                <div class="team-name">Team</div>
+                <div class="total-score">Accuracy</div>
+            `;
+            container.appendChild(headerRow);
+
+            // Create team rows
+            classificationData.forEach((team, index) => {
+                const [name, accuracy] = team;
+                const position = index + 1;
+
+                const row = document.createElement('div');
+                row.className = 'team-row';
+
+                // Add medal class based on position
+                if (position === 1) row.classList.add('champion');
+                else if (position === 2) row.classList.add('runner-up');
+                else if (position === 3 || position === 4) row.classList.add('third-place');
+
+                // Create medal indicator
+                let medal = '';
+                if (position === 1) medal = '<span class="medal gold" title="Champion"></span>';
+                else if (position === 2) medal = '<span class="medal silver" title="Runner-up"></span>';
+                else if (position === 3 || position === 4) medal = '<span class="medal bronze" title="Third place"></span>';
+
+                row.innerHTML = `
+                    <div class="rank">${position}</div>
+                    <div class="team-name">${name}${medal}</div>
+                    <div class="total-score">${accuracy.toFixed(2)}</div>
+                `;
+
+                container.appendChild(row);
+            });
+        }
+
+        // Initialize page
+        window.onload = function() {
+            createSegmentationLeaderboard();
+            createClassificationLeaderboard();
+        };
+    </script>
+</body>
+</html>
