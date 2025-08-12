@@ -75,6 +75,60 @@
             padding: 1rem 0;
             margin-top: 2rem;
         }
+
+
+
+
+
+        .scoring-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .formula {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .weight-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .weight-table th, .weight-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .weight-table th {
+            background-color: #f2f2f2;
+        }
+        .weight-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        @media (max-width: 1000px) {
+            .team-row {
+                grid-template-columns: 40px 150px 70px repeat(9, 1fr);
+                font-size: 0.9em;
+            }
+            .score {
+                min-width: 50px;
+            }
+        }
+
+
+
+
     </style>
 </head>
 <body>
@@ -95,6 +149,94 @@
             <li><a href="about.html">About</a></li>
         </ul>
     </nav>
+
+<div class="container">
+    <h2 id="segment-scoring">Segmentation Scoring Methodology</h2>
+            <div class="scoring-section">
+<!--            <h2>Segmentation Scoring Methodology</h2>-->
+
+            <h3>1. Evaluation Metrics</h3>
+            <p>For each brain region in both hemispheres (left and right), we calculate:</p>
+            <ul>
+                <li><strong>Dice Coefficient (Dice):</strong> Measures overlap between prediction and ground truth (weight: <span class="highlight">0.7</span>)</li>
+                <li><strong>Hausdorff Distance (Hausdorff):</strong> Measures boundary agreement (weight: <span class="highlight">0.3</span>)</li>
+            </ul>
+
+            <h3>2. Weighting Scheme</h3>
+            <table class="weight-table">
+                <tr>
+                    <th>Category</th>
+                    <th>Weights</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Modality Weights</td>
+                    <td>QSM: 0.6<br>NM: 0.4</td>
+                    <td>Relative importance of each imaging modality</td>
+                </tr>
+                <tr>
+                    <td>QSM Region Weights</td>
+                    <td>
+                        CN: 1.0<br>
+                        Put: 1.0<br>
+                        GP: 1.0<br>
+                        STN: 1.2<br>
+                        SN: 1.5<br>
+                        RN: 1.1<br>
+                        DN: 1.0
+                    </td>
+                    <td>Relative importance of each brain region in QSM</td>
+                </tr>
+                <tr>
+                    <td>NM Region Weights</td>
+                    <td>SN: 2.0</td>
+                    <td>Relative importance of brain region in NM</td>
+                </tr>
+                <tr>
+                    <td>Metric Weights</td>
+                    <td>Dice: 0.7<br>Hausdorff: 0.3</td>
+                    <td>Relative importance of each evaluation metric</td>
+                </tr>
+            </table>
+
+            <h3>3. Scoring Formula</h3>
+            <p>The composite score for a team is calculated as:</p>
+<!--            <div class="formula">-->
+<!--                CompositeScore = 0.6 × QSM_Score + 0.4 × NM_Score<br><br>-->
+<!--                -->
+<!--                QSM_Score = (1.0×CN + 1.0×Put + 1.0×GP + 1.2×STN + 1.5×SN + 1.1×RN + 1.0×DN) / 7.8<br>-->
+<!--                NM_Score = (2.0×SN)<br><br>-->
+<!--                -->
+<!--                Where each region score (e.g., CN) is calculated as:<br>-->
+<!--                RegionScore = 0.7×Dice + 0.3×(1 - normalized Hausdorff)-->
+<!--            </div>-->
+<!--            -->
+            <div class="formula">
+                CompositeScore = 0.6 × QSM_Score + 0.4 × NM_Score<br><br>
+
+<!--                QSM_Score = (1.0×CN + 1.0×Put + 1.0×GP + 1.2×STN + 1.5×SN + 1.1×RN + 1.0×DN) / 7.8<br>-->
+                QSM_Score = 1.0×CN + 1.0×Put + 1.0×GP + 1.2×STN + 1.5×SN + 1.1×RN + 1.0×DN <br>
+                NM_Score = 2.0×SN <br><br>
+
+                Where each region score (e.g., CN) is calculated as:<br>
+                RegionScore = 0.7×Dice + 0.3×(1 - NormalizedHausdorff)<br>
+                NormalizedHausdorff = Hausdorff / MaxPossibleHausdorff<br>
+                   (MaxPossibleHausdorff = 10)
+            </div>
+
+            <h3>4. Ranking Criteria</h3>
+            <p>Teams are ranked by their composite score in descending order. The highest possible score is 9.8 (perfect segmentation in all regions).</p>
+        </div>
+        </div>
+<div class="container">
+<h2 id="classification-scoring">Classification Scoring Methodology</h2>
+            <div class="scoring-section">
+<!--            <h2>Segmentation Scoring Methodology</h2>-->
+
+            <h3>Evaluation Metric</h3>
+            <p>We use accuracy as the evaluation metric for the classification task. The result .csv file should contain the 0-1 predictions for all testing cases.</p>
+            </div>
+            </div>
 
     <div class="container">
         <h2 id="submission-method">Submission method</h2>
@@ -125,7 +267,7 @@
     </ul>
     <strong>B. Baseline Model Note</strong><br>
     The provided baseline is for format reference only and does not include state-of-the-art methods.<br>
-    You are not required to use it, but outputs must match specified formats.<br><br>
+    You are not required to use it, but your outputs must match specified formats.<br><br>
     <strong>3. Action Required</strong><br>
     Submit validation predictions before 2025/08/01 (3 attempts allowed).<br>
     Test submissions close on 2025/08/31 (2 attempts allowed).<br><br>

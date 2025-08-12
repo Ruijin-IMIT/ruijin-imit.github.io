@@ -165,6 +165,49 @@
       max-width: 100%;
     }
 
+  .data-download {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+  }
+  .data-download h3 {
+    margin-top: 0;
+    color: #2c3e50;
+  }
+  .download-links {
+    padding-left: 20px;
+    margin-bottom: 0;
+  }
+  .download-links li {
+    margin-bottom: 8px;
+  }
+
+
+
+
+  .scoring-summary {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.scoring-summary h3 {
+    margin-top: 15px;
+    color: #2c3e50;
+}
+.scoring-summary ul {
+    padding-left: 20px;
+}
+.scoring-summary a {
+    color: #0066cc;
+    text-decoration: none;
+}
+.scoring-summary a:hover {
+    text-decoration: underline;
+}
+
 
 
     </style>
@@ -321,12 +364,30 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
         </table>
 
 
-
             <h2 id="evaluation-metrics">Evaluation metrics</h2>
-<p>To evaluate the model performance for procedures involved in the PD diagnosis, we adopt segmentation metrics and classification metrics for corresponding models. The segmentation metrics include the Dice Coefficient and the Hausdorff Distance 95% percentile (HD95). For each segmentation region, the algorithms have separate Dice ranking and HD95 ranking. If the prediction of a region is missing, then it would rank at the bottom. The final ranking score is the average of all these rankings normalized by the number of teams. Therefore the final ranking status depends on the overall segmentation performance of all regions. It is noted that images with bad quality are excluded from the evaluation of segmentation performance. We will provide the codes and instructions for evaluation upon the data release.</p>
-<p>For the PD classification task, we adopt the accuracy (Acc) and area under the receiver operating characteristic curve (AUROC). Accuracy reflects the overall correct predictions among all the test images. The predicted label is determined with the maximum softmax outputs in the multi-class classification task. AUROC is computed for the PD class to measure the capability of distinguishing between positive and negative classes at various threshold settings. The Acc and AUROC would have separate rankings, the final PD ranking will be determined by the average ranking of Acc and AUROC.</p>
-<p>For each submission, missing results of testing cases are not allowed in general when the results for all testing cases will be automatically computed. If the submitted solution fails to generate the results for certain cases, a default output of ‘no finding’ (indicating an empty mask or non-PD) will be used to compute the evaluation metrics. For the cases without valid output, we set the ranks for the corresponding metrics to the maximum.</p>
-<p>To assess whether the performance difference is significant, we will use paired and unpaired rank-based and t-test statistics for errors compared with permutation-generated one-sided null distributions.</p>
+<!--<p>To evaluate the model performance for procedures involved in the PD diagnosis, we adopt segmentation metrics and classification metrics for corresponding models. The segmentation metrics include the Dice Coefficient and the Hausdorff Distance 95% percentile (HD95). For each segmentation region, the algorithms have separate Dice ranking and HD95 ranking. If the prediction of a region is missing, then it would rank at the bottom. The final ranking score is the average of all these rankings normalized by the number of teams. Therefore the final ranking status depends on the overall segmentation performance of all regions. It is noted that images with bad quality are excluded from the evaluation of segmentation performance. We will provide the codes and instructions for evaluation upon the data release.</p>-->
+<!--<p>For the PD classification task, we adopt the accuracy (Acc) and area under the receiver operating characteristic curve (AUROC). Accuracy reflects the overall correct predictions among all the test images. The predicted label is determined with the maximum softmax outputs in the multi-class classification task. AUROC is computed for the PD class to measure the capability of distinguishing between positive and negative classes at various threshold settings. The Acc and AUROC would have separate rankings, the final PD ranking will be determined by the average ranking of Acc and AUROC.</p>-->
+<!--<p>For each submission, missing results of testing cases are not allowed in general when the results for all testing cases will be automatically computed. If the submitted solution fails to generate the results for certain cases, a default output of ‘no finding’ (indicating an empty mask or non-PD) will be used to compute the evaluation metrics. For the cases without valid output, we set the ranks for the corresponding metrics to the maximum.</p>-->
+<!--<p>To assess whether the performance difference is significant, we will use paired and unpaired rank-based and t-test statistics for errors compared with permutation-generated one-sided null distributions.</p>-->
+
+            <div class="scoring-summary">
+<!--    <h2>Evaluation Methodology</h2>-->
+
+    <h3>Segmentation Task</h3>
+    <p>Combined score calculated from:</p>
+    <ul>
+        <li><strong>Two modalities:</strong> QSM (weight: 60%) and NM (weight: 40%)</li>
+        <li><strong>Metrics per region:</strong> Dice (70%) and Hausdorff distance (30%)</li>
+        <li><strong>Weighted regions:</strong> Different weights per brain region</li>
+    </ul>
+    <p>Final score = Sum of all weighted region scores</p>
+    <p><a href="submit.html">View detailed calculation</a></p>
+
+    <h3>Classification Task</h3>
+    <p>Scored by prediction accuracy (0/1 labels)</p>
+</div>
+
+
 <h2 id="award-policy">Award policy</h2>
 <ol type="1">
 <li>Monetary awards for top-3 winners in both tracks. Top 1 team: $1000, 2nd team: $600, 3rd team: $400.<br />
@@ -398,14 +459,44 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 
 
 <p>Top performing methods in the DGM segmentation track as well as in the PD segmentation track will be announced publicly, both on the competition website and in the conjunct workshop. We will summarize the challenge results and submit a paper to IEEE TMI or Medical Image Analysis. All members of the participating team qualify as authors.</p>
-<h2 id="submission">Submission</h2>
-<p>Using the dataset (200 cases in total of the training data), participants will develop model adaptation approaches using foundation models for the PD tasks. The participants should submit model predictions on the validation set several times before submitting the final results of testing predictions. At most 2 submissions of prediction results on the testing set are allowed.</p>
-<p>Participants could submit their results of the validation set (100 cases of the validation data with labels held hidden before the final evaluation phase) to the server during the validation phase (3-5 submissions are allowed). Once the validation phase ends, the organizers will release the labels for the validation set</p>
-<p>The evaluation samples and codes will be provided in PDCADxFoundation Github homepage once the validation phase starts. The submission format will be detailed as well, and it should be sent to organizers via e-mail.</p>
-<h2 id="data-download">Data Download</h2>
-<blockquote>
-<p>The registered participant will get the download link through email. </p>
-</blockquote>
+
+<!--            <h2 id="submission">Submission</h2>-->
+<!--<p>Using the dataset (200 cases in total of the training data), participants will develop model adaptation approaches using foundation models for the PD tasks. The participants should submit model predictions on the validation set several times before submitting the final results of testing predictions. At most 2 submissions of prediction results on the testing set are allowed.</p>-->
+<!--<p>Participants could submit their results of the validation set (100 cases of the validation data with labels held hidden before the final evaluation phase) to the server during the validation phase (3-5 submissions are allowed). Once the validation phase ends, the organizers will release the labels for the validation set</p>-->
+<!--<p>The evaluation samples and codes will be provided in PDCADxFoundation Github homepage once the validation phase starts. The submission format will be detailed as well, and it should be sent to organizers via e-mail.</p>-->
+<h2 id="submit-method">Submission</h2>
+            The participants should send the method description doc/pdf and predictions (segmentation masks & classification labels) to pdcadxfoundation@163.com during val/test phases.
+
+<p>See the detailed <a href="submit.html">submission guidelines</a></p>
+
+
+
+            <h2 id="data-download">Data Download</h2>
+            <!--<blockquote>-->
+            <!--<p>The registered participant will get the download link through email. </p>-->
+            <!--<p>The release data includes train/val set (images & masks & labels) and the test set (images only)  </p>-->
+            <!--</blockquote>-->
+            <div class="data-download">
+              <h3>PDCADxFoundation Data Release</h3>
+                 <p>Available datasets:</p>
+              <ul class="dataset-types">
+                <li><strong>Train/Val set:</strong> Images, masks, and labels</li>
+                <li><strong>Test set:</strong> Images only</li>
+              </ul>
+              <p>Download datasets:</p>
+              <ul class="download-links">
+                <li>
+                  <strong>Baidu Drive:</strong>
+                  <a href="https://pan.baidu.com/s/19sApihjZswnNwQqV5ZqhYA?pwd=RJPD" target="_blank">Link</a>
+                </li>
+                <li>
+                  <strong>Google Drive:</strong>
+                  <a href="https://drive.google.com/drive/folders/1PrMe0B24tYZ-SGv3CDikKykfmnBtWJy-?usp=sharing" target="_blank">Link</a>
+                </li>
+              </ul>
+            </div>`
+
+
 <h1 id="timeline">Timeline</h1>
 <blockquote>
 <!--<p>[Apr. 1, 2025] Website opens for registration<br />-->
@@ -447,6 +538,8 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 <p>[Aug. 07, 2025] The <a href="leaderboard.html">Leaderboard</a> is online!<br />
 <p>[Aug. 07, 2025] Update the <a href="submit.html">submission</a> instruction<br />
                 <p>[Aug. 11, 2025] The <a href="rank_val.html">Validation Ranking</a> is online!<br />
+                <p>[Aug. 12, 2025] Release the test images in the <a href="#data-download">download</a> section.<br />
+                <p>[Aug. 12, 2025] Update the scoring and submission methods at the <a href="submit.html"> submit</a> page. <br />
             </blockquote>
 
 
