@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基于基础模型的帕金森病自动诊断挑战赛</title>
+
+    <link rel="stylesheet" href="Home.css" media="screen">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #005b96;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .hero {
+            background-color: #e6f7ff;
+            padding: 2rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .feature {
+            flex-basis: 30%;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        myimg.td {
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .table-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .table-container div {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab.active {
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+            margin-bottom: -1px;
+            font-weight: bold;
+        }
+        .sheet {
+            display: none;
+        }
+        .sheet.active {
+            display: block;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+            font-weight: bold;
+        }
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .sheet-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+        }
+
+        .data-download {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .data-download h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .download-links {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .download-links li {
+            margin-bottom: 8px;
+        }
+
+        .scoring-summary {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        .scoring-summary h3 {
+            margin-top: 15px;
+            color: #2c3e50;
+        }
+        .scoring-summary ul {
+            padding-left: 20px;
+        }
+        .scoring-summary a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .scoring-summary a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>基于基础模型的帕金森病自动诊断挑战赛</h1>
+        <p>推动帕金森病诊断的AI研究</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li style="width: 3%;"><a href="index_cn.html" style="font-size: 1.2rem;">首页</a></li>
+            <li style="width: 3%;"><a href="dataset_cn.html" style="font-size: 1.2rem;">数据</a></li>
+            <li style="width: 3%;"><a href="tasks_cn.html" style="font-size: 1.2rem;">任务</a></li>
+            <li style="width: 3%;"><a href="submit_cn.html" style="font-size: 1.2rem;">提交</a></li>
+            <li style="width: 4%;"><a href="leaderboard_cn.html" style="font-size: 1.0rem;">排行榜</a></li>
+            <li style="width: 3%;"><a href="about_cn.html" style="font-size: 1.2rem;">关于</a></li>
+            <li style="width: 7%;"><img src="images/PDCADxFoundation_logo.jpg" style="width:100%;" alt="分析" /></li>
+            <li style="width: 10%;"><a href="https://conferences.miccai.org/2025/en/default.asp"><img style="width:100%;" src="images/MICCAI2025_logo.jpg" alt="分析" /> </a></li>
+            <li style="width: 6%;"><img src="images/PDCADxFoundation-ORcode_small.jpg" style="width:100%;" alt="分析" /></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <table>
+            <tr>
+                <td style="width: 33%;border: none;padding: 1px;"><img style="max-width:100%;" src="images/example-scan.jpg" alt="示例MR扫描" /></td>
+                <td style="width: 33%;border: none;padding: 1px;"><img style="max-width:100%;" src="images/example-brain.jpg" alt="示例脑部" /></td>
+                <td style="width: 33%;border: none;padding: 1px;"><img style="max-width:100%;" src="images/example-analysis.jpg" alt="示例自动分析" /></td>
+            </tr>
+        </table>
+
+        <section class="hero">
+            <h2>欢迎参加基于基础模型的帕金森病自动诊断挑战赛！</h2>
+            <p>
+                近年来，由于帕金森病(PD)的高患病率和提高诊断准确性的需求，其自动诊断受到了广泛关注。帕金森病(PD)的临床诊断通常利用先进磁共振成像(MRI)中的诊断生物标志物。MRI中深部灰质(DGM)组织特性的定量改变可能表明与PD相关的病理生理变化。然而，自动准确的DGM分割面临许多挑战，特别是用于PD确定的核心脑结构(即SNpr和SNpe)难以描绘。缺乏用于PD研究的公共数据集和高质量注释一直是开发具有临床意义的深度学习模型的瓶颈。瑞金影像神经科学小组为PD研究整理了一个多参数MRI数据集，包含全面注释。在本挑战赛中，我们将提供一个包含500名受试者的大型数据集，包含3种MR模态(T1WI、QSM、NM-MRI)和双侧DGM(CN、PUT、GP、STN、SN、RN和DN)掩模注释。挑战赛参与者将在DGM分割和PD诊断任务中展开竞争。应利用可公开获取的基础模型和领域适应技术来解决具有挑战性的PD诊断任务，同时面对数据规模和注释的限制。具体设计了两个竞赛赛道：(1)使用发布的数据和公共基础模型最大化DGM分割的准确性(2)使用发布的数据和公共基础模型最大化PD分类的准确性。
+            </p>
+            <button style="font-size:1.1em; background-color: #005b96; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.open('https://www.wjx.top/vm/eZnlCCv.aspx#', '_blank')">点击注册</button>
+        </section>
+
+        <h2>挑战赛亮点</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>高质量的帕金森病MRI数据</h3>
+                <p>500个样本，包含16个解剖结构</p>
+                <p>定量磁化率成像(QSM)</p>
+                <p>神经黑色素敏感MRI</p>
+                <p>详细的分割掩模</p>
+            </div>
+            <div class="feature">
+                <h3>基于基础模型</h3>
+                <p>鼓励使用公共基础模型</p>
+                <p>知识蒸馏，迁移学习</p>
+                <p>多模态融合与识别</p>
+            </div>
+            <div class="feature">
+                <h3>MICCAI 2025挑战赛</h3>
+                <p>有机会参与顶级期刊发表</p>
+                <p>获奖团队可在MICCAI研讨会上口头报告</p>
+                <p>两个赛道均有奖金</p>
+            </div>
+        </div>
+
+        <section style="margin-top: 2rem;">
+            <h1 id="abstract">摘要</h1>
+            <p>近年来，由于帕金森病(PD)的高患病率和提高诊断准确性的需求，其自动诊断受到了广泛关注。帕金森病(PD)的临床诊断通常利用先进磁共振成像(MRI)中的诊断生物标志物。MRI中深部灰质(DGM)组织特性的定量改变可能表明与PD相关的病理生理变化。然而，自动准确的DGM分割面临许多挑战，特别是用于PD确定的核心脑结构(即SNpr和SNpe)难以描绘。缺乏用于PD研究的公共数据集和高质量注释一直是开发具有临床意义的深度学习模型的瓶颈。瑞金影像神经科学小组为PD研究整理了一个多参数MRI数据集，包含全面注释。在本挑战赛中，我们将提供一个包含500名受试者的大型数据集，包含3种MR模态(T1WI、QSM、NM-MRI)和双侧DGM(CN、PUT、GP、STN、SN、RN和DN)掩模注释。挑战赛参与者将在DGM分割和PD诊断任务中展开竞争。应利用可公开获取的基础模型和领域适应技术来解决具有挑战性的PD诊断任务，同时面对数据规模和注释的限制。具体设计了两个竞赛赛道：(1)使用发布的数据和公共基础模型最大化DGM分割的准确性(2)使用发布的数据和公共基础模型最大化PD分类的准确性。</p>
+
+            <h2 id="data-overview">数据概览</h2>
+            <h3 id="data-annotation">数据标注</h3>
+            <p>深部脑核结构的标注：一位神经放射科医生手动分割了双侧半球的CN、GP、PUT、SN、RN和DN。另一位有5年神经影像学经验的放射科医生复查了所有结构边界。最终，经这两位放射科医生确认的ROI将作为分割模型的金标准。</p>
+            <p>SN、STN结构的标注：NM-rich区域(SNpc、SN)的ROI由一名评估者在MTC幅度图像和QSM图上使用SPIN软件手动追踪。基于NM的SN边界从最后尾侧切片开始追踪3-5个切片，直到NM-rich区域不再可见。同时，基于铁的SN边界从STN可见的最颅侧切片下方一个切片开始追踪，并连续4-6个切片至最尾侧切片。STN ROI从RN顶部向上追踪2个切片。对于所有ROI，使用动态规划方法(DPA)确定最终边界，以减轻主观偏差。所有这些边界随后由第二位评估者审查，并与第一位评估者达成共识后进行修改。</p>
+            <p>DGM分割的样本图像和标注掩模。DGM结构的空间变化显示在T1WI MRI和QSM MRI的不同切片中。右上角放大的3D掩模展示了DGM结构之间的体积差异。每个DGM结构有左右区域，分别着色。SNpc分割的样本图像和标注掩模。黑质结构在QSM MRI中部分可见，在NM MRI中部分可见，交叉区域为SNpc区域。</p>
+
+            <h3 id="data-split">数据集划分</h3>
+            <p>瑞金-PD数据集包含500例多参数MRI病例(PD阳性和健康对照各50%)，总计超过105,000张图像。每个病例包含T1WI、QSM和NM-MRI图像，以及7个PD相关解剖结构的分割掩模。还包括PD分类标签。训练(200例，带标签)和验证(100例，无标签)的图像将在比赛开始时免费提供，而测试图像(200例)将在测试阶段提供(同时提供验证集的标签)。测试集的标签不会发布。所有数据和金标准均未公开发表，并保持机密。</p>
+            <p>数据划分基于交叉验证原则，以获得最大的随机性和可靠性。划分比例确保足够的训练样本和有意义的测试分数。</p>
+
+            <h2 id="novelty-of-the-challenge">挑战赛的创新性</h2>
+            <p>本挑战赛从我们在Neurips 2023举办的先前比赛中学习并扩展，通过追求更详细的基础模型和迁移学习技术视角(即模型适应在不同数据量下的有效性)以及全新的重要临床应用场景(即更侧重临床的任务)。它旨在进一步研究如何利用基础模型的力量来减轻获取高质量注释的工作量，并提高下游临床应用的准确性。这与最近为各种下游应用构建基础模型的趋势和成功相一致。从方法论角度来看，所提出的模型适应范式不同于标准的少样本学习。虽然基础模型的适应可能需要与常规微调/少样本方法相似的数据量，但基本技术路线是不同的。我们的挑战赛更侧重于评估这些领域适应方法在PD诊断背景下的有效性。在这种特定领域中，高质量数据往往稀缺，开发具有有限样本案例的高质量模型对于准确诊断至关重要，这确实更具临床相关性和意义。</p>
+
+            <h3 id="task-description-and-application-scenarios">任务描述和应用场景</h3>
+            <p>帕金森病(PD)是一种进行性神经退行性疾病，其特征是黑质致密部(SNpc)中的神经黑色素(NM)丢失和黑质(SN)中铁沉积增加。当SNpc腹外侧层色素神经元损失达到50%至70%时，SN的变性变得明显。其他深部灰质(DGM)的铁沉积和体积变化，包括红核(RN)、齿状核(DN)和丘脑底核(STN)，也与疾病进展相关。此外，STN是晚期PD患者深部脑刺激治疗的重要靶点。因此，准确地在体描绘SN和其他DGM对于更好的PD研究至关重要。</p>
+
+            <h3 id="ethics-approval">伦理批准</h3>
+            <p>本研究获得上海交通大学医学院附属瑞金医院机构伦理委员会批准(No.RJ2022-279)。所有参与者均签署书面知情同意书。</p>
+
+            <h2 id="data-insights">数据洞察</h2>
+            <h3 id="mask-overview">掩模概览</h3>
+            <p>每个病例有两个掩模，QSM掩模和神经黑色素掩模。QSM掩模中有16个标注的解剖结构，NM掩模仅包含黑质(左右)。核区域与标签的对应关系见下表(QSM和NM分别)。</p>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('QSM-mask labels')">QSM掩模标签</div>
+                <div class="tab active" onclick="switchTab('NM-mask labels')">NM掩模标签</div>
+            </div>
+
+            <div id="QSM-mask labels" class="sheet active">
+                <table>
+                    <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                    <tr><td>QSM标签</td><td>1,2</td><td>3,4</td><td>5,6</td><td>7,8</td><td>9,10</td><td>11,12</td><td>13,14</td><td>15,16</td></tr>
+                    <tr><td>核名称</td><td>尾状核</td><td>壳核</td><td>苍白球</td><td>丘脑</td><td>丘脑底核</td><td>黑质</td><td>红核</td><td>齿状核</td></tr>
+                </table>
+            </div>
+
+            <div id="NM-mask labels" class="sheet active">
+                <table>
+                    <tr><th></th><th>A</th></tr>
+                    <tr><td>NM标签</td><td>1,2</td></tr>
+                    <tr><td>核名称</td><td>黑质</td></tr>
+                </table>
+            </div>
+
+            <p>这是一个样本的QSM掩模，包含T1-MRI和QSM-MRI扫描。</p>
+
+            <table>
+                <tr>
+                    <td style="width: 32%;border: none;padding: 1px;"><img style="width:90%;" src="images/pd-t1.gif" alt="瑞金医院" /></td>
+                    <td style="width: 32%;border: none;padding: 1px;"><img style="width:90%;" src="images/pd-qsm.gif" alt="瑞金-IMIT" /></td>
+                    <td style="width: 32%;border: none;padding: 1px;"><img style="width:98%;" src="images/pd-segments.gif" alt="上海AI实验室" /></td>
+                </tr>
+            </table>
+
+            <h3 id="nucleus-statistics">核统计</h3>
+            <p>我们总结了QSM掩模中16个核区域的平均体积(训练+验证数据，300例)。</p>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('Nucleus Volume')">核体积</div>
+            </div>
+
+            <div id="Nucleus Volume" class="sheet active">
+                <table>
+                    <tr><th>QSM标签</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th></tr>
+                    <tr><td>体积(cm³)</td><td>3.36</td><td>2.84</td><td>3.67</td><td>3.52</td><td>1.85</td><td>2.1</td><td>4.6</td><td>4.61</td><td>0.08</td><td>0.09</td><td>0.47</td><td>0.46</td><td>0.17</td><td>0.17</td><td>0.66</td><td>0.65</td></tr>
+                </table>
+            </div>
+
+            <p>我们还计算了NM图像和QSM图像中16个核区域的平均信号强度。在PD患者的黑质中，神经黑色素含量减少，铁沉积明显。</p>
+
+            <table>
+                <tr>
+                    <td style="width: 50%;border: none;padding: 1px;"><img style="width:100%;" src="images/NM_stats.png" alt="瑞金医院" /></td>
+                    <td style="width: 50%;border: none;padding: 1px;"><img style="width:100%;" src="images/QSM_stats.png" alt="瑞金-IMIT" /></td>
+                </tr>
+            </table>
+
+            <h2 id="evaluation-metrics">评估指标</h2>
+            <div class="scoring-summary">
+                <h3>分割任务</h3>
+                <p>综合得分计算自：</p>
+                <ul>
+                    <li><strong>两种模态：</strong> QSM(权重：60%)和NM(权重：40%)</li>
+                    <li><strong>每个区域的指标：</strong> Dice系数(70%)和Hausdorff距离(30%)</li>
+                    <li><strong>加权区域：</strong> 不同脑区有不同的权重</li>
+                </ul>
+                <p>最终得分 = 所有加权区域得分的总和</p>
+                <p><a href="submit_cn.html">查看详细计算方法</a></p>
+
+                <h3>分类任务</h3>
+                <p>基于预测准确率(0/1标签)评分</p>
+            </div>
+
+            <h2 id="award-policy">奖励政策</h2>
+            <ol type="1">
+                <li>两个赛道前三名均有奖金。第一名团队：1000美元，第二名：600美元，第三名：400美元。</li>
+                <li>获奖团队将被邀请作为共同作者提交他们的突破性解决方案总结论文。</li>
+                <li>获奖团队中的学生参与者将被考虑进入组织者机构并获得奖学金</li>
+            </ol>
+
+            <div class="u-expanded-width u-table u-table-responsive u-table-1">
+                <table class="u-table-entity">
+                    <colgroup>
+                        <col width="10.5%">
+                        <col width="19.1%">
+                        <col width="18.1%">
+                        <col width="17.5%">
+                        <col width="16%">
+                        <col width="18.8%">
+                    </colgroup>
+                    <tbody class="u-table-body">
+                        <tr style="height: 39px;">
+                            <td style="background-color: rgba(47, 120, 86, 0.5019607843137255);" class="u-align-center u-custom-font u-font-arialu-table-cell">
+                                获奖者</td>
+                            <td style="background-color: rgba(47, 120, 86, 0.5019607843137255);" class="u-align-center u-custom-font u-font-arial u-grey-10 u-table-cell">
+                                奖金</td>
+                            <td style="background-color: rgba(47, 120, 86, 0.5019607843137255);" class="u-align-center u-custom-font u-font-arial u-grey-10 u-table-cell">
+                                口头报告</td>
+                            <td style="background-color: rgba(47, 120, 86, 0.5019607843137255);" class="u-custom-font u-font-arial u-grey-10 u-table-cell">总结论文
+                                参与</td>
+                        </tr>
+                        <tr style="height: 36px;">
+                            <td class="u-align-center u-custom-font u-font-arial u-table-cell u-text-grey-60">第一名</td>
+                            <td class="u-align-center u-custom-font u-font-arial u-table-cell u-text-grey-60">$1,000</td>
+                            <td class="u-custom-font u-font-arial u-table-cell u-text-grey-60"><img src="images/3502463.png" style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                            <td class="u-custom-font u-font-arial u-table-cell u-text-grey-60"><img src="images/3502463.png" style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                        </tr>
+                        <tr style="height: 29px;">
+                            <td style="background-color: rgba(56, 129, 95, 0.176);" class="u-align-center u-custom-font u-font-arial u-grey-10 u-table-cell u-text-grey-60 u-table-cell-14">
+                                第二名</td>
+                            <td style="background-color: rgba(56, 129, 95, 0.176);" class="u-align-center u-custom-font u-font-arial u-grey-10 u-table-cell u-text-grey-60 u-table-cell-15">
+                                $600</td>
+                            <td style="background-color: rgba(56, 129, 95, 0.176);" class="u-custom-font u-font-arial u-grey-10 u-table-cell u-text-grey-60 u-table-cell-17"><img src="images/3502463.png" style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                            <td style="background-color: rgba(56, 129, 95, 0.176);" class="u-custom-font u-font-arial u-grey-10 u-table-cell u-text-grey-60 u-table-cell-18"><img src="images/3502463.png" style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                        </tr>
+                        <tr style="height: 47px;">
+                            <td class="u-align-center u-custom-font u-font-arial u-table-cell u-text-grey-60">第三名</td>
+                            <td class="u-align-center u-custom-font u-font-arial u-table-cell u-text-grey-60">$400</td>
+                            <td class="u-custom-font u-font-arial u-table-cell u-text-grey-60"><img src="images/3502463.png" style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                            <td class="u-custom-font u-font-arial u-table-cell u-text-grey-60"><img src="images/3502463.png" style="width:15px;height:auto;margin-left: 80px;" alt=""></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>DGM分割赛道和PD分割赛道中表现优异的方法将公开发布，在比赛网站和相关研讨会上公布。我们将总结挑战赛结果，并向IEEE TMI或Medical Image Analysis提交论文。所有参赛团队成员都有资格成为作者。</p>
+
+            <h2 id="submit-method">提交</h2>
+            <p>参与者应在验证/测试阶段将方法描述文档/pdf和预测结果(分割掩模和分类标签)发送至pdcadxfoundation@163.com。</p>
+            <p>详见<a href="submit_cn.html">提交指南</a></p>
+
+            <h2 id="data-download">数据下载</h2>
+            <div class="data-download">
+                <h3>PDCADxFoundation数据发布</h3>
+                <p>可用数据集：</p>
+                <ul class="dataset-types">
+                    <li><strong>训练/验证集：</strong> 图像、掩模和标签</li>
+                    <li><strong>测试集：</strong> 仅图像</li>
+                </ul>
+                <p>下载数据集：</p>
+                <ul class="download-links">
+                    <li>
+                        <strong>百度网盘：</strong>
+                        <a href="https://pan.baidu.com/s/19sApihjZswnNwQqV5ZqhYA?pwd=RJPD" target="_blank">链接</a>
+                    </li>
+                    <li>
+                        <strong>Google Drive：</strong>
+                        <a href="https://drive.google.com/drive/folders/1PrMe0B24tYZ-SGv3CDikKykfmnBtWJy-?usp=sharing" target="_blank">链接</a>
+                    </li>
+                </ul>
+            </div>
+
+            <h1 id="timeline">时间线</h1>
+            <blockquote>
+                <p>[2025年4月1日] 网站开放注册<br />
+                [2025年4月1日] 发布训练图像和真实标签<br />
+                [2025年5月1日] 发布验证图像<br />
+                [2025年5月1日] 验证提交系统开放<br />
+                [2025年6月15日] 发布验证真实标签<br />
+                [2025年6月15日] 测试提交系统开放<br />
+                <strong>[2025年8月15日] 发布测试集图像</strong><br />
+                <del>[2025年8月15日]</del> [2025年8月31日] 提交截止(代码、结果、技术报告)<br />
+                <del>[2025年9月1日]</del> [2025年9月10日] 发布挑战赛最终结果<br />
+                [2025年9月10日] 挑战赛论文提交截止<br />
+                [2025年9月27日] 排名靠前的团队在MICCAI年会上报告<br />
+                </p>
+            </blockquote>
+
+            <h1 id="update"> 🔥 最新更新 🔥 </h1>
+            <blockquote>
+                <p>[2025年4月20日] 更新分割评估脚本。<br />
+                <p>[2025年4月20日] Docker安装和测试说明。<br />
+
+                <p>[2025年6月22日] 发布<a href="https://github.com/Ruijin-IMIT/RRMediCa"> RRMediCa </a>作为PD分类基线(63%验证准确率，62%测试准确率)<br />
+                <p>[2025年6月25日] 发布<a href="https://github.com/Ruijin-IMIT/PDCADxFoundation/tree/main/baseline"> 基线</a>实现，涵盖分割和分类任务。还包括docker创建指南和预测要求。<br />
+                <p>[2025年8月2日] 发布验证集掩模和标签<br />
+                <p>[2025年8月7日] <a href="leaderboard_cn.html">排行榜</a>上线！<br />
+                <p>[2025年8月7日] 更新<a href="submit_cn.html">提交</a>说明<br />
+                <p>[2025年8月11日] <a href="rank_val_cn.html">验证排名</a>上线！<br />
+                <p>[2025年8月12日] 在<a href="#data-download">下载</a>部分发布测试图像。<br />
+                <p>[2025年8月12日] 查看<a href="submit_cn.html">提交</a>页面上更新的评分标准和提交指南。<br />
+            </blockquote>
+
+            <h1 id="contact">联系我们</h1>
+            <blockquote>
+                <p> 邮箱：PDCADxFoundation@163.com</p>
+            </blockquote>
+
+            <h1 id="organizer">组织者</h1>
+            <blockquote>
+                <table>
+                    <tr>
+                        <td style="width: 15%;border: none;padding: 1px;"><img style="width:90%;" src="images/Ruijin-logo.jpg" alt="瑞金医院" /></td>
+                        <td style="width: 15%;border: none;padding: 1px;"><img style="width:90%;" src="images/Ruijin-IMIT-logo.jpg" alt="瑞金-IMIT" /></td>
+                        <td style="width: 25%;border: none;padding: 1px;"><img style="width:90%;" src="images/Shanghai-AI-Lab-logo.jpg" alt="上海AI实验室" /></td>
+                    </tr>
+                </table>
+            </blockquote>
+        </section>
+    </div>
+
+    <footer class="u-clearfix u-custom-color-2 u-footer" id="sec-0201">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-30 u-layout-wrap u-layout-wrap-1">
+                <div class="u-gutter-0 u-layout">
+                    <div class="u-layout-row">
+                        <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-17 u-layout-cell-1">
+                            <div class="u-container-layout u-container-layout-1">
+                                <p class="u-large-text u-text u-text-variant u-text-1"> 联系我们：<br>
+                                </p><span class="u-file-icon u-icon u-text-custom-color-3 u-icon-1"><img src="images/2669570-68c79634.png" width="30" alt=""></span>
+                                <a class="u-active-none u-border-hover-grey-75 u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-body-alt-color u-btn-1" data-href="mailto:PDCADxFoundation@163.com">PDCADxFoundation@163.com<br>
+                                </a>
+                                <span class="u-file-icon u-icon u-text-custom-color-3 u-icon-4"><img src="images/25231-9e47ce63.png" width="30" alt=""></span>
+                                <a class="u-active-none u-border-hover-grey-75 u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-body-alt-color u-btn-4" href="https://github.com/Ruijin-IMIT/PDCADxFoundation" target="_blank">PDCADxFoundation </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="u-border-2 u-border-custom-color-3 u-line u-line-horizontal u-line-1"></div>
+            <p class="u-text u-text-custom-color-3 u-text-7"> © 版权所有 PDCADxFoundation工作组<br>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(sheetName) {
+            return
+            const sheets = document.getElementsByClassName('sheet');
+            for (let i = 0; i < sheets.length; i++) {
+                sheets[i].classList.remove('active');
+            }
+
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+
+            document.getElementById(sheetName).classList.add('active');
+
+            const clickedTab = Array.from(tabs).find(tab => tab.textContent === sheetName);
+            if (clickedTab) {
+                clickedTab.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
