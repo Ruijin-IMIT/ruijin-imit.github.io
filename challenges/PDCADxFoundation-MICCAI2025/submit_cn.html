@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提交 | 基于基础模型的帕金森病自动诊断挑战赛</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #005b96;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .member {
+            flex-basis: 30%;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+        }
+        .organizers {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        .scoring-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .formula {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .weight-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .weight-table th, .weight-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .weight-table th {
+            background-color: #f2f2f2;
+        }
+        .weight-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .submission-structure {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .file-structure-image {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 6px;
+        }
+        .structure-screenshot {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .image-caption {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+        .structure-notes {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff8e6;
+            border-left: 4px solid #ffcc00;
+            border-radius: 4px;
+        }
+        @media (max-width: 1000px) {
+            .team-row {
+                grid-template-columns: 40px 150px 70px repeat(9, 1fr);
+                font-size: 0.9em;
+            }
+            .score {
+                min-width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>基于基础模型的帕金森病自动诊断挑战赛</h1>
+        <p>提交指南</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index_cn.html">首页</a></li>
+            <li><a href="dataset_cn.html">数据</a></li>
+            <li><a href="tasks_cn.html">任务</a></li>
+            <li><a href="schedule_cn.html">时间表</a></li>
+            <li style="width: 3%;"><a href="submit_cn.html" style="font-size: 1.2rem;">提交</a></li>
+            <li style="width: 4%;"><a href="rank_val_cn.html" style="font-size: 1.1rem;">排行榜</a></li>
+            <li><a href="about_cn.html">关于</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 id="segment-scoring">分割任务评分方法</h2>
+        <div class="scoring-section">
+            <h3>1. 评估指标</h3>
+            <p>对双侧半球(左和右)的每个脑区，我们计算：</p>
+            <ul>
+                <li><strong>Dice系数(Dice):</strong> 衡量预测与真实标签的重叠度(权重: <span class="highlight">0.7</span>)</li>
+                <li><strong>Hausdorff距离(Hausdorff):</strong> 衡量边界一致性(权重: <span class="highlight">0.3</span>)</li>
+            </ul>
+
+            <h3>2. 权重方案</h3>
+            <table class="weight-table">
+                <tr>
+                    <th>类别</th>
+                    <th>权重</th>
+                    <th>描述</th>
+                </tr>
+                <tr>
+                    <td>模态权重</td>
+                    <td>QSM: 0.6<br>NM: 0.4</td>
+                    <td>每种成像模式的相对重要性</td>
+                </tr>
+                <tr>
+                    <td>QSM脑区权重</td>
+                    <td>
+                        尾状核: 1.0<br>
+                        壳核: 1.0<br>
+                        苍白球: 1.0<br>
+                        丘脑底核: 1.2<br>
+                        黑质: 1.5<br>
+                        红核: 1.1<br>
+                        齿状核: 1.0
+                    </td>
+                    <td>QSM中每个脑区的相对重要性</td>
+                </tr>
+                <tr>
+                    <td>NM脑区权重</td>
+                    <td>黑质: 2.0</td>
+                    <td>NM中脑区的相对重要性</td>
+                </tr>
+                <tr>
+                    <td>指标权重</td>
+                    <td>Dice: 0.7<br>Hausdorff: 0.3</td>
+                    <td>每个评估指标的相对重要性</td>
+                </tr>
+            </table>
+
+            <h3>3. 评分公式</h3>
+            <p>团队的综合得分计算如下：</p>
+            <div class="formula">
+                综合得分 = 0.6 × QSM得分 + 0.4 × NM得分<br><br>
+
+                QSM得分 = 1.0×尾状核 + 1.0×壳核 + 1.0×苍白球 + 1.2×丘脑底核 + 1.5×黑质 + 1.1×红核 + 1.0×齿状核<br>
+                NM得分 = 2.0×黑质<br><br>
+
+                其中每个脑区得分(如尾状核)计算如下：<br>
+                脑区得分 = 0.7×Dice + 0.3×(1 - 标准化Hausdorff)<br>
+                标准化Hausdorff = Hausdorff / 最大可能Hausdorff<br>
+                   (最大可能Hausdorff = 10)
+            </div>
+
+            <h3>4. 排名标准</h3>
+            <p>团队按综合得分降序排名。最高可能得分为9.8(所有脑区完美分割)。</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 id="classification-scoring">分类任务评分方法</h2>
+        <div class="scoring-section">
+            <h3>评估指标</h3>
+            <p>我们使用准确率作为分类任务的评估指标。结果.csv文件应包含所有测试案例的0-1预测。</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 id="submission-method">提交方法</h2>
+        <p>
+            <strong>1. 提交说明</strong><br>
+            📨 <strong>方法：</strong> 仅接受电子邮件提交。<br><br>
+            <strong>要求：</strong><br>
+            <ul>
+                <li><strong>描述文档(DOC/PDF)：</strong><br>
+                团队名称、成员、联系邮箱。<br>
+                提交目标(验证/测试)和次数。<br>
+                方法简要描述，自我评估结果。</li>
+                <li><strong>邮箱：<a href="mailto:pdcadxfoundation@163.com">pdcadxfoundation@163.com</a></strong><br>
+                在邮件正文中附上描述文件和模型预测结果。</li>
+
+                <li><strong>解决方案文件：(仅获奖团队)</strong><br>
+                将Docker镜像/解决方案+模型预测上传到公共存储(Google Drive、百度网盘等)。<br>
+                (仅前5名团队需要提交Docker)</li>
+            </ul>
+            <strong>2. 重要说明</strong><br>
+            <strong>A. 最终总结发表</strong><br>
+            <strong>选择标准：</strong> 基于技术创新和测试表现。<br><br>
+            <strong>优秀团队：</strong><br>
+            <ul>
+                <li>分割和分类任务前5名(总计最多10个团队)。</li>
+                <li><strong>作者资格：</strong> 入选团队可提名最多3名成员作为共同作者。</li>
+            </ul>
+            <strong>B. 基线模型说明</strong><br>
+            提供的基线仅作格式参考，不包含最先进方法。<br>
+            您不需要使用它，但您的输出必须符合指定格式。<br><br>
+            <strong>3. 行动要求</strong><br>
+            请在2025/08/01前提交验证预测(允许3次尝试)。<br>
+            测试提交截止于2025/08/31(允许2次尝试)。<br><br>
+
+            如有问题，请联系 <a href="mailto:pdcadxfoundation@163.com">pdcadxfoundation@163.com</a>。祝您好运！
+        </p>
+
+        <div class="submission-structure">
+            <h3>提交文件结构</h3>
+            <p>请严格按照以下方式组织文件：</p>
+
+            <div class="file-structure-image">
+                <img src="images/submit_files.png" alt="提交文件结构" class="structure-screenshot">
+                <p class="image-caption">图1: 要求的提交文件结构</p>
+            </div>
+
+            <div class="structure-notes">
+                <p><strong>重要注意事项：</strong></p>
+                <ul>
+                    <li>保持完全相同的文件夹层次结构</li>
+                    <li>所有文件必须使用指定的命名约定</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 PD CAD x Foundation 工作组 | PDCADxFoundation@163.com</p>
+    </footer>
+</body>
+</html>
