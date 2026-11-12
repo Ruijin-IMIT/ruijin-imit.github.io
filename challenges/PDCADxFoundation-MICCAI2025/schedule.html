@@ -117,6 +117,28 @@
             position: relative;
             border-radius: 6px;
         }
+        .status {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+            padding: 1rem 1.2rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+        .milestones {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: .94rem;
+        }
+        .milestones th, .milestones td {
+            border: 1px solid #ddd;
+            padding: .55rem .7rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .milestones th { background: #005b96; color: white; }
+        .milestones tbody tr:nth-child(even) { background: #f4f8fb; }
+        .done { color: #2e7d32; font-weight: bold; }
         footer {
             background-color: #333;
             color: white;
@@ -157,40 +179,47 @@
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="dataset.html">Data</a></li>
+            <li><a href="dataset.html">Dataset</a></li>
             <li><a href="tasks.html">Tasks</a></li>
-            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="leaderboard.html">Results</a></li>
+            <li><a href="teams.html">Winning Teams</a></li>
+            <li><a href="schedule.html" class="active">Timeline</a></li>
             <li><a href="about.html">About</a></li>
         </ul>
     </nav>
 
     <div class="container">
-<blockquote>
-<!--<p>[Apr. 1, 2025] Website opens for registration<br />-->
-<!--[Apr. 1, 2025] Release training images &amp; ground truth<br />-->
-<!--[May 1, 2025] Release validation images<br />-->
-<!--[May 1, 2025] Submission system opens for validation<br />-->
-<!--[June 15, 2025] Release validation ground truth<br />-->
-<!--[June 15, 2025] Submission system opens for testing<br />-->
-<!--[Aug. 15, 2025] Submission ends (codes, results, technical reports)<br />-->
-<!--[Sep. 1, 2025] Release final results of challenge<br />-->
-<!--[Sep. 10, 2025] Challenge paper submission deadline<br />-->
-<!--[Sep. 27, 2025] Top-ranking teams report during the MICCAI annual meeting<br />-->
-<!--</p>-->
+<div class="status">
+    <strong>Challenge completed.</strong> All challenge milestones below have passed. The dataset and
+    evaluation code remain available; final rankings are on the <a href="leaderboard.html">results page</a>.
+</div>
 
-    <p>[Apr. 1, 2025] Website opens for registration<br />
-[Apr. 1, 2025] Release training images &amp; ground truth<br />
-[May 1, 2025] Release validation images<br />
-[May 1, 2025] Submission system opens for validation<br />
-[June 15, 2025] Release validation ground truth<br />
-[June 15, 2025] Submission system opens for testing<br />
-<strong>[Aug. 15, 2025] Release test set images</strong><br />
-<del>[Aug. 15, 2025]</del> [Aug. 31, 2025] Submission ends (codes, results, technical reports)<br />
-<del>[Sep. 1, 2025]</del> [Sep. 10, 2025] Release final results of challenge<br />
-[Sep. 10, 2025] Challenge paper submission deadline<br />
-[Sep. 27, 2025] Top-ranking teams report during the MICCAI annual meeting<br />
-</p>
-</blockquote>
+<h2>Challenge milestones</h2>
+<table class="milestones">
+    <thead>
+        <tr><th>Date</th><th>Milestone</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>1 Apr 2025</td><td>Website opens for registration</td><td class="done">Completed</td></tr>
+        <tr><td>1 Apr 2025</td><td>Training images and ground truth released</td><td class="done">Completed</td></tr>
+        <tr><td>1 May 2025</td><td>Validation images released; validation submission opens</td><td class="done">Completed</td></tr>
+        <tr><td>15 Jun 2025</td><td>Validation ground truth released; test submission opens</td><td class="done">Completed</td></tr>
+        <tr><td>Aug 2025</td><td>Test set images released</td><td class="done">Completed</td></tr>
+        <tr><td>31 Aug 2025</td><td>Submission ends (Docker containers, results, technical reports)</td><td class="done">Completed</td></tr>
+        <tr><td>10 Sep 2025</td><td>Final results released</td><td class="done">Completed</td></tr>
+        <tr><td>27 Sep 2025</td><td>PDCADxFoundation workshop at MICCAI 2025, Daejeon; winning teams present</td><td class="done">Completed</td></tr>
+        <tr><td>6 Nov 2026</td><td>Challenge summary paper submitted to <em>Medical Image Analysis</em> (MEDIA-D-26-04385)</td><td class="done">Completed</td></tr>
+        <tr><td>Ongoing</td><td>Dataset and evaluation code remain available for research use</td><td class="done">Available</td></tr>
+    </tbody>
+</table>
+
+<h2>Post-challenge resources</h2>
+<ul>
+    <li><a href="leaderboard.html">Final test rankings and prize allocation</a></li>
+    <li><a href="teams.html">Winning team methods and institutions</a></li>
+    <li><a href="dataset.html">Dataset description, download links and data insights</a></li>
+    <li><a href="https://github.com/Ruijin-IMIT/PDCADxFoundation">Evaluation code, baseline and Docker guideline</a></li>
+</ul>
     </div>
 
     <footer>

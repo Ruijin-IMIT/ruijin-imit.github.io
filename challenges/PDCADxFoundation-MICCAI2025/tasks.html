@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasks | Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge</title>
+    <title>Tasks | PDCADxFoundation Challenge</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
@@ -15,12 +15,14 @@
         header {
             background-color: #005b96;
             color: white;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
             text-align: center;
         }
+        header h1 { margin: 0 0 .25rem; font-size: 1.8rem; }
+        header p { margin: 0; }
         nav {
             background-color: #f1f1f1;
-            padding: 0.5rem;
+            padding: 0.55rem;
         }
         nav ul {
             list-style-type: none;
@@ -28,33 +30,68 @@
             padding: 0;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
         }
-        nav li {
-            margin: 0 1rem;
-        }
+        nav li { margin: 0 1rem; }
         nav a {
             text-decoration: none;
             color: #333;
             font-weight: bold;
         }
-        nav a:hover {
-            color: #005b96;
-        }
+        nav a:hover, nav a.active { color: #005b96; }
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 2rem auto;
-            padding: 0 1rem;
+            padding: 0 1rem 2rem;
         }
         .task {
             margin-bottom: 2rem;
-            padding: 1rem;
+            padding: 1.2rem 1.4rem;
             background-color: #f9f9f9;
-            border-radius: 5px;
+            border-radius: 6px;
+            border-left: 5px solid #005b96;
         }
+        .task h2 { margin-top: 0; color: #00406a; }
         .evaluation {
             background-color: #e6f7ff;
-            padding: 1rem;
-            border-radius: 5px;
+            padding: 1rem 1.2rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        .status {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+            padding: 1rem 1.2rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: .93rem;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: .5rem .6rem;
+            text-align: left;
+        }
+        th { background: #005b96; color: white; }
+        tbody tr:nth-child(even) { background: #f4f8fb; }
+        code {
+            background: #eef2f5;
+            padding: .1rem .3rem;
+            border-radius: 3px;
+            font-family: Consolas, monospace;
+        }
+        .formula {
+            background: #f5f5f5;
+            border-left: 4px solid #005b96;
+            padding: .8rem 1rem;
+            font-family: Consolas, monospace;
+            overflow-x: auto;
+            font-size: .9rem;
         }
         footer {
             background-color: #333;
@@ -63,30 +100,148 @@
             padding: 1rem 0;
             margin-top: 2rem;
         }
+        a { color: #005b96; }
     </style>
 </head>
 <body>
     <header>
         <h1>Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge</h1>
-        <p>Tasks</p>
+        <p>Tasks and evaluation</p>
     </header>
 
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="dataset.html">Data</a></li>
-            <li><a href="tasks.html">Tasks</a></li>
-            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="dataset.html">Dataset</a></li>
+            <li><a href="tasks.html" class="active">Tasks</a></li>
+            <li><a href="leaderboard.html">Results</a></li>
+            <li><a href="teams.html">Winning Teams</a></li>
+            <li><a href="schedule.html">Timeline</a></li>
             <li><a href="about.html">About</a></li>
         </ul>
     </nav>
 
     <div class="container">
 
+        <div class="status">
+            <strong>The challenge is closed.</strong> These task definitions and evaluation rules are retained as
+            the official record. Final rankings are on the <a href="leaderboard.html">results page</a>; the
+            dataset and baseline remain available for research use.
+        </div>
+
+        <p>
+            The challenge comprised two complementary tracks. Participants were encouraged to use public
+            foundation models and domain-adaptation techniques, and to explore joint optimisation, multi-task
+            learning or modular two-stage pipelines. A total of 80 teams from 12 countries registered, and
+            32 teams submitted valid results.
+        </p>
+
+        <div class="task">
+            <h2>Task 1 &mdash; Deep gray matter nuclei segmentation</h2>
+            <p>
+                <strong>Goal:</strong> automatically delineate Parkinson's disease-related deep gray matter (DGM)
+                nuclei from multimodal MRI.
+            </p>
+            <p>
+                <strong>Input:</strong> co-registered T1-weighted, QSM and NM-MRI images.
+                <strong>Output:</strong> bilateral masks for the target structures. The QSM reference annotation
+                contains 16 labels (eight nuclei &times; two hemispheres); the NM-MRI reference annotation contains
+                the substantia nigra (SN/SNc).
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Nucleus</th><th>QSM labels</th><th>Average volume (cm&sup3;)</th><th>Segmentation challenge</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Caudate nucleus (CN)</td><td>1, 2</td><td>3.10</td><td>Complex head&ndash;body&ndash;tail shape</td></tr>
+                    <tr><td>Putamen (Put)</td><td>3, 4</td><td>3.60</td><td>Iron-related contrast variability</td></tr>
+                    <tr><td>Globus pallidus (GP)</td><td>5, 6</td><td>1.98</td><td>Internal/external boundary</td></tr>
+                    <tr><td>Thalamus</td><td>7, 8</td><td>4.61</td><td>Large but heterogeneous</td></tr>
+                    <tr><td>Subthalamic nucleus (STN)</td><td>9, 10</td><td>0.09</td><td>Very small, low contrast</td></tr>
+                    <tr><td>Substantia nigra (SN)</td><td>11, 12</td><td>0.47</td><td>Partial volume, iron gradient</td></tr>
+                    <tr><td>Red nucleus (RN)</td><td>13, 14</td><td>0.17</td><td>Small, adjacent to SN</td></tr>
+                    <tr><td>Dentate nucleus (DN)</td><td>15, 16</td><td>0.66</td><td>Cerebellar location, variable shape</td></tr>
+                    <tr><td>SNc on NM-MRI</td><td>NM: 1, 2</td><td>&mdash;</td><td>Small, low neuromelanin contrast</td></tr>
+                </tbody>
+            </table>
+            <div class="evaluation">
+                <h3>Evaluation</h3>
+                <p>
+                    Dice similarity coefficient (DSC) and 95th-percentile Hausdorff distance (HD95) were computed
+                    for each region. The composite score combined QSM (60%) and NM-MRI (40%), with Dice weighted
+                    0.7 and Hausdorff distance 0.3. Region weights emphasized clinically critical small nuclei
+                    (SN 1.5, STN 1.2, RN 1.1 on QSM; SN 2.0 on NM-MRI). Higher is better; the theoretical
+                    maximum is 9.8.
+                </p>
+                <div class="formula">
+CompositeScore = 0.6 &times; QSM_Score + 0.4 &times; NM_Score<br>
+QSM_Score = 1.0&times;CN + 1.0&times;Put + 1.0&times;GP + 1.2&times;STN + 1.5&times;SN + 1.1&times;RN + 1.0&times;DN<br>
+NM_Score = 2.0&times;SN<br>
+RegionScore = 0.7&times;Dice + 0.3&times;(1 &minus; HD95 / 10)
+                </div>
+                <p class="note" style="font-size:.9rem;color:#555;">
+                    The full scoring description is retained in the <a href="submit.html">submission archive</a>;
+                    per-region results are on the <a href="rank_test.html">detailed results page</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="task">
+            <h2>Task 2 &mdash; Parkinson's disease classification</h2>
+            <p>
+                <strong>Goal:</strong> classify each subject as Parkinson's disease (PD) or healthy control (HC)
+                from multimodal MRI.
+            </p>
+            <p>
+                <strong>Input:</strong> T1-weighted, QSM and NM-MRI images, with optional use of segmentation
+                masks or imaging-derived features. <strong>Output:</strong> a binary label and, optionally, a
+                PD probability.
+            </p>
+            <div class="evaluation">
+                <h3>Evaluation</h3>
+                <p>
+                    The primary ranking metric was accuracy (Acc) on the held-out test set. F1-score and the area
+                    under the receiver operating characteristic curve (AUROC) were also computed. Accuracy and
+                    AUROC were ranked separately during the design phase; the final ranking used test accuracy.
+                </p>
+            </div>
+            <p>
+                The segmentation and classification tasks are synergistic: accurate delineation of the SN, STN and
+                other DGM structures enables precise quantification of volume, signal intensity, iron content and
+                neuromelanin concentration, which in turn informs diagnosis. Four teams ranked in the top tier of
+                both tracks.
+            </p>
+        </div>
+
+        <div class="task">
+            <h2>Baselines and evaluation code</h2>
+            <p>
+                The organisers released <strong>RRMediCa</strong> as a PD classification baseline
+                (63% validation accuracy, 62% test accuracy), together with a complete baseline implementation
+                for both tasks, a Docker creation guide and prediction requirements.
+            </p>
+            <ul>
+                <li><a href="https://github.com/Ruijin-IMIT/RRMediCa">RRMediCa classification baseline</a></li>
+                <li><a href="https://github.com/Ruijin-IMIT/PDCADxFoundation/tree/main/baseline">Segmentation and classification baseline code</a></li>
+                <li><a href="https://github.com/Ruijin-IMIT/PDCADxFoundation/blob/main/metric.py">Evaluation metric implementation (<code>metric.py</code>)</a></li>
+                <li><a href="https://github.com/Ruijin-IMIT/PDCADxFoundation/blob/main/eval_guideline.md">Docker submission and evaluation guideline</a></li>
+            </ul>
+        </div>
+
+        <div class="task">
+            <h2>Submission (closed)</h2>
+            <p>
+                Final evaluation used Docker containers to ensure reproducibility. The submission system closed
+                on 31 August 2025; prize-winning teams' Docker submissions were verified by the organisers in
+                September 2025. The submission format and evaluation protocol remain available in the
+                <a href="submit.html">submission archive</a>.
+            </p>
+        </div>
+
     </div>
 
     <footer>
-        <p>&copy; 2025 PD CAD x Foundation working group| PDCADxFoundation@163.com  </p>
+        <p>&copy; 2025&ndash;2026 PDCADxFoundation Working Group | PDCADxFoundation@163.com</p>
     </footer>
 </body>
 </html>

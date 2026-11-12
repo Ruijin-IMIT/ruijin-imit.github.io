@@ -1,648 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MICCAI PD Challenge - Leaderboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --gold: #FFD700;
-            --silver: #C0C0C0;
-            --bronze: #CD7F32;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .tab {
-            padding: 12px 24px;
-            cursor: pointer;
-            background-color: #f1f1f1;
-            border: none;
-            outline: none;
-            transition: all 0.3s;
-            font-weight: 600;
-            font-size: 1rem;
-            border-radius: 5px 5px 0 0;
-            margin-right: 5px;
-        }
-
-        .tab:hover {
-            background-color: #ddd;
-        }
-
-        .tab.active {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .scoring-rules {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-        }
-
-        .scoring-rules h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 8px;
-        }
-
-        .scoring-rules h4 {
-            margin-top: 15px;
-            color: var(--dark-color);
-        }
-
-        .leaderboard-controls {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-            position: relative;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 10px 15px 10px 40px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #777;
-        }
-
-        .filter-select {
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            background-color: white;
-        }
-
-        .leaderboard-table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .leaderboard-table th {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .leaderboard-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .leaderboard-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .leaderboard-table tr:hover {
-            background-color: #f9f9f9;
-        }
-
-        .gold {
-            background-color: rgba(255, 215, 0, 0.1);
-        }
-
-        .silver {
-            background-color: rgba(192, 192, 192, 0.1);
-        }
-
-        .bronze {
-            background-color: rgba(205, 127, 50, 0.1);
-        }
-
-        .rank {
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .gold .rank {
-            color: var(--gold);
-        }
-
-        .silver .rank {
-            color: var(--silver);
-        }
-
-        .bronze .rank {
-            color: var(--bronze);
-        }
-
-        .visualizations {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .chart-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .chart-container h4 {
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
-        .chart-placeholder {
-            height: 250px;
-            background-color: #f9f9f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            border-radius: 3px;
-        }
-
-        .update-info {
-            text-align: right;
-            color: #777;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination button {
-            padding: 8px 15px;
-            margin: 0 5px;
-            border: 1px solid #ddd;
-            background-color: white;
-            cursor: pointer;
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-
-        .pagination button:hover {
-            background-color: #f1f1f1;
-        }
-
-        .pagination button.active {
-            background-color: var(--secondary-color);
-            color: white;
-            border-color: var(--secondary-color);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .leaderboard-table {
-                font-size: 0.9rem;
-            }
-
-            .leaderboard-table th,
-            .leaderboard-table td {
-                padding: 8px 10px;
-            }
-
-            .visualizations {
-                grid-template-columns: 1fr;
-            }
-
-            header h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .tab {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-
-            .leaderboard-table {
-                display: block;
-                overflow-x: auto;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Results | PDCADxFoundation Challenge</title>
+<style>
+    :root {
+        --primary: #005b96;
+        --primary-dark: #00406a;
+        --accent: #2e7d32;
+        --light: #f5f7fa;
+        --border: #d9e1e8;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background: var(--light);
+    }
+    header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1.4rem 0;
+        text-align: center;
+    }
+    header h1 { margin: 0 0 .25rem; font-size: 1.9rem; }
+    header p { margin: 0; opacity: .92; }
+    nav {
+        background-color: #f1f1f1;
+        padding: .55rem;
+        border-bottom: 1px solid var(--border);
+    }
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    nav li { margin: 0 1rem; }
+    nav a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        font-size: .98rem;
+    }
+    nav a:hover, nav a.active { color: var(--primary); }
+    .container {
+        max-width: 1180px;
+        margin: 2rem auto;
+        padding: 0 1rem 2rem;
+    }
+    .status {
+        background: #e8f5e9;
+        border-left: 5px solid var(--accent);
+        padding: 1rem 1.2rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+    }
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 1rem;
+        margin: 1.4rem 0 2rem;
+    }
+    .card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1rem;
+        text-align: center;
+    }
+    .card .num {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: var(--primary);
+        line-height: 1.2;
+    }
+    .card .label {
+        font-size: .9rem;
+        color: #555;
+    }
+    section {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1.2rem 1.4rem;
+        margin-bottom: 1.6rem;
+    }
+    h2 {
+        color: var(--primary-dark);
+        margin-top: 0;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: .45rem;
+    }
+    h3 { color: var(--primary-dark); margin-bottom: .4rem; }
+    .note { font-size: .92rem; color: #555; }
+    .table-wrap { overflow-x: auto; margin: 1rem 0; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 880px;
+        font-size: .93rem;
+    }
+    th, td {
+        border: 1px solid var(--border);
+        padding: .55rem .6rem;
+        text-align: center;
+        white-space: nowrap;
+    }
+    th {
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+    }
+    tbody tr:nth-child(even) { background: #f8fafb; }
+    tbody tr:hover { background: #eef5fa; }
+    tr.winner td { background: #e8f5e9; font-weight: 600; }
+    .team-name { text-align: left; font-weight: 600; }
+    .inst { text-align: left; white-space: normal; min-width: 170px; }
+    .prize { font-weight: 600; color: var(--accent); }
+    .formula {
+        background: #f5f5f5;
+        border-left: 4px solid var(--primary);
+        padding: .8rem 1rem;
+        font-family: Consolas, monospace;
+        overflow-x: auto;
+        margin: .8rem 0;
+        font-size: .9rem;
+    }
+    .links li { margin-bottom: .35rem; }
+    a { color: var(--primary); }
+    footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+        margin-top: 2rem;
+        font-size: .9rem;
+    }
+    @media (max-width: 640px) {
+        header h1 { font-size: 1.4rem; }
+        nav li { margin: .25rem .6rem; }
+    }
+</style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Foundation Model Driven Parkinson's Disease Automatic diagnosis --  MICCAI 2025 Challenge</h1>
-            <p>Leaderboard for PD-related segmentation and PD classification tasks</p>
-        </div>
-    </header>
+<header>
+    <h1>PDCADxFoundation Challenge</h1>
+    <p>Final results &middot; MICCAI 2025</p>
+</header>
 
-    <div class="container">
-        <div class="tabs">
-            <button class="tab active" id="segmentation-tab">Nuclei Segmentation Task</button>
-            <button class="tab" id="classification-tab">PD Classification Task</button>
-        </div>
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="leaderboard.html" class="active">Results</a></li>
+        <li><a href="teams.html">Winning Teams</a></li>
+        <li><a href="schedule.html">Timeline</a></li>
+        <li><a href="about.html">About</a></li>
+    </ul>
+</nav>
 
-        <div class="scoring-rules" id="scoring-rules">
-            <h3>Evaluation Criteria</h3>
+<main class="container">
 
-            <h4>Nuclei Segmentation Task</h4>
-            <ul>
-                <li>Dice coefficient used to evaluate segmentation accuracy of Parkinson's disease-related nuclei</li>
-                <li>Final score is the average Dice score across all nuclei</li>
-                <li>Validation set (100 cases) for development phase feedback</li>
-                <li>Test set (200 cases) for final ranking determination</li>
-                <li>Imaging modalities: Neuromelanin-sensitive MRI (NM-MRI) and QSM</li>
-            </ul>
-        </div>
+    <div class="status">
+        <strong>Challenge completed.</strong> Final rankings below were computed by the organizers on the held-out
+        test set (200 subjects: 100 PD, 100 healthy controls). Validation-phase rankings are archived separately
+        and are <strong>not</strong> the final ranking.
+    </div>
 
-        <div class="update-info">
-            Last updated: <span id="update-time">July 5, 2025 </span>
-        </div>
+    <div class="cards">
+        <div class="card"><div class="num">80</div><div class="label">registered teams</div></div>
+        <div class="card"><div class="num">12</div><div class="label">countries / regions</div></div>
+        <div class="card"><div class="num">32</div><div class="label">teams with valid submissions</div></div>
+        <div class="card"><div class="num">$6,800</div><div class="label">total prize pool</div></div>
+    </div>
 
-        <div class="leaderboard-controls">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="search-input" placeholder="Search team or institution...">
-            </div>
-            <select class="filter-select" id="filter-select">
-                <option>All submissions</option>
-                <option>With validation scores</option>
-                <option>Test set only</option>
-            </select>
-        </div>
-
-        <table class="leaderboard-table">
+    <section>
+        <h2>Segmentation task &mdash; final test ranking</h2>
+        <p class="note">
+            The composite score combines QSM (60%) and NM-MRI (40%) segmentation, with Dice (70%) and
+            Hausdorff distance (30%) per region. SN and STN carry the highest region weights. Higher is better;
+            the theoretical maximum is 9.8. Per-nucleus Dice scores and the full scoring formula are on the
+            <a href="rank_test.html">detailed test ranking</a> page.
+        </p>
+        <div class="table-wrap">
+        <table>
             <thead>
                 <tr>
                     <th>Rank</th>
-                    <th>Team Name</th>
+                    <th>Team</th>
                     <th>Institution</th>
-                    <th id="val-header">Validation Dice</th>
-                    <th id="test-header">Test Dice</th>
-<!--                    <th>Submission Date</th>-->
+                    <th>Composite</th>
+                    <th>CN</th>
+                    <th>Put</th>
+                    <th>GP</th>
+                    <th>STN</th>
+                    <th>SN</th>
+                    <th>RN</th>
+                    <th>DN</th>
+                    <th>SNc (NM)</th>
+                    <th>Prize</th>
                 </tr>
             </thead>
-            <tbody id="leaderboard-body">
-                <!-- Data will be loaded here dynamically -->
+            <tbody>
+                <tr class="winner">
+                    <td>1</td><td class="team-name">PolyUAIM</td>
+                    <td class="inst">The Hong Kong Polytechnic University</td>
+                    <td>9.2469</td><td>0.895</td><td>0.913</td><td>0.919</td><td>0.730</td>
+                    <td>0.904</td><td>0.903</td><td>0.867</td><td><strong>0.882</strong></td>
+                    <td class="prize">1st &mdash; $1,000</td>
+                </tr>
+                <tr class="winner">
+                    <td>2</td><td class="team-name">Space</td>
+                    <td class="inst">The Affiliated Hospital of Qingdao University</td>
+                    <td>9.1988</td><td>0.897</td><td>0.918</td><td>0.924</td><td>0.733</td>
+                    <td>0.907</td><td>0.903</td><td>0.874</td><td>0.812</td>
+                    <td class="prize">2nd &mdash; $600</td>
+                </tr>
+                <tr class="winner">
+                    <td>3</td><td class="team-name">NIMG</td>
+                    <td class="inst">Nanjing University of Science and Technology</td>
+                    <td>9.1246</td><td>0.898</td><td>0.917</td><td>0.922</td><td>0.735</td>
+                    <td>0.907</td><td>0.907</td><td>0.880</td><td>0.773</td>
+                    <td class="prize">2nd &mdash; $600</td>
+                </tr>
+                <tr class="winner">
+                    <td>4</td><td class="team-name">BHANMDingsd</td>
+                    <td class="inst">Beihang University</td>
+                    <td>9.0875</td><td>0.865</td><td>0.906</td><td>0.919</td><td>0.731</td>
+                    <td>0.903</td><td>0.901</td><td>0.863</td><td>0.848</td>
+                    <td class="prize">3rd &mdash; $400</td>
+                </tr>
+                <tr class="winner">
+                    <td>5</td><td class="team-name">ZhangFan_Lab</td>
+                    <td class="inst">University of Electronic Science and Technology of China</td>
+                    <td>8.6180</td><td>0.832</td><td>0.885</td><td>0.906</td><td>0.644</td>
+                    <td>0.845</td><td>0.840</td><td>0.839</td><td>0.763</td>
+                    <td class="prize">3rd &mdash; $400</td>
+                </tr>
+                <tr class="winner">
+                    <td>6</td><td class="team-name">NeuroX</td>
+                    <td class="inst">Fudan University</td>
+                    <td>8.4768</td><td>0.841</td><td>0.876</td><td>0.894</td><td>0.619</td>
+                    <td>0.842</td><td>0.824</td><td>0.792</td><td>0.769</td>
+                    <td class="prize">3rd &mdash; $400</td>
+                </tr>
+                <tr>
+                    <td>7</td><td class="team-name">MThirtyOne AI</td>
+                    <td class="inst">M31 / UTHealth Houston</td>
+                    <td>8.3357</td><td>0.813</td><td>0.861</td><td>0.884</td><td>0.631</td>
+                    <td>0.827</td><td>0.805</td><td>0.788</td><td>0.782</td><td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>8</td><td class="team-name">Cemrg</td>
+                    <td class="inst">Imperial College London</td>
+                    <td>8.1609</td><td>0.767</td><td>0.810</td><td>0.828</td><td>0.638</td>
+                    <td>0.806</td><td>0.799</td><td>0.798</td><td>0.815</td><td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>9</td><td class="team-name">elaphin</td>
+                    <td class="inst">&mdash;</td>
+                    <td>7.8251</td><td>0.831</td><td>0.870</td><td>0.893</td><td>0.555</td>
+                    <td>0.568</td><td>0.788</td><td>0.791</td><td>0.735</td><td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>10</td><td class="team-name">junqiangmler</td>
+                    <td class="inst">Mediworks</td>
+                    <td>7.6749</td><td>0.780</td><td>0.839</td><td>0.865</td><td>0.506</td>
+                    <td>0.746</td><td>0.734</td><td>0.774</td><td>0.674</td><td>&mdash;</td>
+                </tr>
             </tbody>
         </table>
-
-        <div class="pagination" id="pagination">
-            <button id="first-page"><i class="fas fa-angle-double-left"></i></button>
-            <button class="active">1</button>
-<!--            <button>2</button>-->
-<!--            <button>3</button>-->
-<!--            <button>4</button>-->
-<!--            <button>5</button>-->
-            <button id="last-page"><i class="fas fa-angle-double-right"></i></button>
         </div>
+        <p class="note">
+            The table lists the top-10 teams for which per-nucleus results are available; the challenge summary
+            reports 28 teams with valid segmentation submissions. The <a href="rank_val.html">validation ranking</a>
+            is an archived development-phase snapshot (4 teams at the time of the last update) and should not be
+            compared with the final test ranking.
+        </p>
+    </section>
 
-        <div class="visualizations">
-            <div class="chart-container">
-                <h4>Test Set Score Distribution</h4>
-                <div class="chart-placeholder" id="score-dist-chart">
-                    [Dice score distribution chart]
-                </div>
-            </div>
-            <div class="chart-container">
-                <h4 id="detail-chart-title">Nuclei-wise Performance</h4>
-                <div class="chart-placeholder" id="detail-chart">
-                    [Per-nuclei Dice scores for top teams]
-                </div>
-            </div>
+    <section>
+        <h2>Classification task &mdash; final test ranking</h2>
+        <p class="note">
+            Primary ranking metric: accuracy on the held-out test set. Accuracy, F1 and AUROC were computed by the
+            organizers; the table reports the final test accuracy used for ranking.
+        </p>
+        <div class="table-wrap">
+        <table style="min-width: 620px;">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team</th>
+                    <th>Institution</th>
+                    <th>Test accuracy</th>
+                    <th>Prize</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="winner">
+                    <td>1</td><td class="team-name">BHANMDingsd</td>
+                    <td class="inst">Beihang University</td>
+                    <td><strong>86.0%</strong></td><td class="prize">1st &mdash; $1,000</td>
+                </tr>
+                <tr class="winner">
+                    <td>2</td><td class="team-name">MThirtyOne AI</td>
+                    <td class="inst">M31 / UTHealth Houston</td>
+                    <td>80.5%</td><td class="prize">2nd &mdash; $600</td>
+                </tr>
+                <tr class="winner">
+                    <td>3</td><td class="team-name">Space</td>
+                    <td class="inst">The Affiliated Hospital of Qingdao University</td>
+                    <td>79.5%</td><td class="prize">2nd &mdash; $600</td>
+                </tr>
+                <tr class="winner">
+                    <td>4</td><td class="team-name">PRLABbySMU</td>
+                    <td class="inst">Sangmyung University</td>
+                    <td>76.5%</td><td class="prize">3rd &mdash; $400</td>
+                </tr>
+                <tr class="winner">
+                    <td>5</td><td class="team-name">ZhangFan_Lab</td>
+                    <td class="inst">University of Electronic Science and Technology of China</td>
+                    <td>75.5%</td><td class="prize">3rd &mdash; $400</td>
+                </tr>
+                <tr class="winner">
+                    <td>6</td><td class="team-name">NeuroX</td>
+                    <td class="inst">Fudan University</td>
+                    <td>74.0%</td><td class="prize">3rd &mdash; $400</td>
+                </tr>
+                <tr>
+                    <td>7</td><td class="team-name">PolyUAIM</td>
+                    <td class="inst">The Hong Kong Polytechnic University</td>
+                    <td>65.0%</td><td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>8</td><td class="team-name">GenMI</td>
+                    <td class="inst">MBZUAI</td>
+                    <td>58.5%</td><td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>9</td><td class="team-name">junqiangmler</td>
+                    <td class="inst">Mediworks</td>
+                    <td>50.0%</td><td>&mdash;</td>
+                </tr>
+            </tbody>
+        </table>
         </div>
-    </div>
+        <p class="note">
+            Only teams with released final scores are listed; the challenge summary reports more than 20 valid
+            classification submissions.
+        </p>
+    </section>
 
-    <footer>
-        <div class="container">
-            <p>MICCAI PDCADxFoundation Challenge &copy; 2025</p>
-            <p>Organized by Ruijin Hospital & Shanghai AI Lab | Contact: pdcadxfoundation@163.com</p>
+    <section>
+        <h2>Prize structure</h2>
+        <p>
+            Each track had an identical prize structure: one 1st prize ($1,000), two 2nd prizes ($600 each), and
+            three 3rd prizes ($400 each). Eight teams shared the total pool of <strong>$6,800</strong>.
+        </p>
+        <div class="table-wrap">
+        <table style="min-width: 520px;">
+            <thead>
+                <tr><th>Track</th><th>1st prize</th><th>2nd prize</th><th>3rd prize</th><th>Track total</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Segmentation</td><td>PolyUAIM ($1,000)</td><td>Space, NIMG ($600 each)</td><td>BHANMDingsd, ZhangFan_Lab, NeuroX ($400 each)</td><td>$3,400</td></tr>
+                <tr><td>Classification</td><td>BHANMDingsd ($1,000)</td><td>MThirtyOne AI, Space ($600 each)</td><td>PRLABbySMU, ZhangFan_Lab, NeuroX ($400 each)</td><td>$3,400</td></tr>
+            </tbody>
+        </table>
         </div>
-    </footer>
+        <p class="note">
+            Prize winners also presented their solutions at the PDCADxFoundation workshop at MICCAI 2025
+            (Daejeon, 27 September 2025).
+        </p>
+    </section>
 
-    <script>
-        // Sample data - in a real app this would come from an API
-        const leaderboardData = {
-            segmentation: [
-        { rank: 1, team: "MThirtyOne AI", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 2, team: "pupilvision", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 3, team: "uBrainSeg", institution: "ShanghaiTech University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 4, team: "YRteam", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 5, team: "Wei group", institution: "Shanghai Jiao Tong Univeristy", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 6, team: "fmhook", institution: "University Erlangen Nuernberg", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 7, team: "Wei Group", institution: "Shanghai Jiao Tong University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 8, team: "groupone", institution: "Shanghaitech", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 9, team: "MMAI", institution: "Monash University", validation: 0.33, test: 0.67, date: "2023-09-01" },
-        { rank: 10, team: "eBrain", institution: "ShanghaiTech University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 11, team: "GoGoGoose", institution: "United Imaging Intelligence", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 12, team: "NUO", institution: "University of Oxford", validation: 0.45, test: 0.55, date: "2023-09-01" },
-        { rank: 13, team: "NeuroVoyagers", institution: "Li Xijiao", validation: 0.66, test: 0.77, date: "2023-09-01" },
-        { rank: 14, team: "Ditto", institution: "West China Hospital of Sichuan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 15, team: "PD Gnosis", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 16, team: "Blue Devil", institution: "Duke University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 17, team: "NIMG", institution: "Nanjing University of Technology", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 18, team: "None", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 19, team: "ZONGZI", institution: "UMN", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 20, team: "groupone", institution: "Shanghaitech University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 21, team: "ZhangFan Lab", institution: "University of Electronic Science and Technology of China", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 22, team: "NeuroX", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 23, team: "sss", institution: "Subtle Medical Inc", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 24, team: "free", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 25, team: "question team", institution: "Soochow University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 26, team: "AIMed", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 27, team: "Little Star", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 28, team: "SxxX", institution: "Shanghai Jiao Tong university", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 29, team: "Cook and Code", institution: "University of Science and Technology of China", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 30, team: "CEMRG", institution: "Imperial College London", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 31, team: "xugogo", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 32, team: "NeuroIT", institution: "Harbin Institute of Technology Shenzhen", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 33, team: "Team H", institution: "Heuron", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 34, team: "NCL", institution: "Newcastle University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 35, team: "PolyUAIM", institution: "The Hong Kong Polytechnic University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 36, team: "Conda", institution: "Guangdong University of Technology", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 37, team: "NICVICOROB", institution: "Universitat de Girona", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 38, team: "Rain", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 39, team: "Team PD", institution: "Indian Institute of Science", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 40, team: "BioMedIA", institution: "Mohamed bin Zayed University of AI", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 41, team: "ParkinsonStudyTeam", institution: "HuanZhong University of Science and Technology", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 42, team: "junqiangmler", institution: "Mediworks", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 43, team: "gmai", institution: "Shanghai AI Lab", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 44, team: "junqiangmler", institution: "Mediworks", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 45, team: "MIC DKFZ", institution: "German Cancer Research Center", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 46, team: "Space", institution: "The Affiliated Hospital of Qingdao University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 47, team: "SuperSpace", institution: "The Affiliated Hospital of Qingdao University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 48, team: "MIC DKFZ", institution: "German Cancer Research Center", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 49, team: "GenMI", institution: "MBZUAI", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 50, team: "King", institution: "MBZuai", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 51, team: "moon project", institution: "Zhejiang University of Finance and Economics", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 52, team: "Miccaigo", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 53, team: "Horizon", institution: "Fraunhofer Institute for Computer Graphics Research IGD", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 54, team: "BHANMDingsd", institution: "Beihang University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 55, team: "BrainMapX", institution: "Xiamen university", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 56, team: "rubianapaul", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 57, team: "PRLABbySMU", institution: "Sangmyung University", validation: 0, test: 0, date: "2023-09-01" }
-            ],
-            classification: [
-        { rank: 1, team: "MThirtyOne AI", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 2, team: "pupilvision", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 3, team: "uBrainSeg", institution: "ShanghaiTech University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 4, team: "YRteam", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 5, team: "Wei group", institution: "Shanghai Jiao Tong Univeristy", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 6, team: "fmhook", institution: "University Erlangen Nuernberg", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 7, team: "Wei Group", institution: "Shanghai Jiao Tong University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 8, team: "groupone", institution: "Shanghaitech", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 9, team: "MMAI", institution: "Monash University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 10, team: "eBrain", institution: "ShanghaiTech University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 11, team: "GoGoGoose", institution: "United Imaging Intelligence", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 12, team: "NUO", institution: "University of Oxford", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 13, team: "NeuroVoyagers", institution: "Li Xijiao", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 14, team: "Ditto", institution: "West China Hospital of Sichuan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 15, team: "PD Gnosis", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 16, team: "Blue Devil", institution: "Duke University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 17, team: "NIMG", institution: "Nanjing University of Technology", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 18, team: "None", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 19, team: "ZONGZI", institution: "UMN", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 20, team: "groupone", institution: "Shanghaitech University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 21, team: "ZhangFan Lab", institution: "University of Electronic Science and Technology of China", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 22, team: "NeuroX", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 23, team: "sss", institution: "Subtle Medical Inc", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 24, team: "free", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 25, team: "question team", institution: "Soochow University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 26, team: "AIMed", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 27, team: "Little Star", institution: "Fudan University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 28, team: "SxxX", institution: "Shanghai Jiao Tong university", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 29, team: "Cook and Code", institution: "University of Science and Technology of China", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 30, team: "CEMRG", institution: "Imperial College London", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 31, team: "xugogo", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 32, team: "NeuroIT", institution: "Harbin Institute of Technology Shenzhen", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 33, team: "Team H", institution: "Heuron", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 34, team: "NCL", institution: "Newcastle University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 35, team: "PolyUAIM", institution: "The Hong Kong Polytechnic University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 36, team: "Conda", institution: "Guangdong University of Technology", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 37, team: "NICVICOROB", institution: "Universitat de Girona", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 38, team: "Rain", institution: "Shenzhen University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 39, team: "Team PD", institution: "Indian Institute of Science", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 40, team: "BioMedIA", institution: "Mohamed bin Zayed University of AI", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 41, team: "ParkinsonStudyTeam", institution: "HuanZhong University of Science and Technology", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 42, team: "junqiangmler", institution: "Mediworks", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 43, team: "gmai", institution: "Shanghai AI Lab", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 44, team: "junqiangmler", institution: "Mediworks", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 45, team: "MIC DKFZ", institution: "German Cancer Research Center", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 46, team: "Space", institution: "The Affiliated Hospital of Qingdao University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 47, team: "SuperSpace", institution: "The Affiliated Hospital of Qingdao University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 48, team: "MIC DKFZ", institution: "German Cancer Research Center", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 49, team: "GenMI", institution: "MBZUAI", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 50, team: "King", institution: "MBZuai", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 51, team: "moon project", institution: "Zhejiang University of Finance and Economics", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 52, team: "Miccaigo", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 53, team: "Horizon", institution: "Fraunhofer Institute for Computer Graphics Research IGD", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 54, team: "BHANMDingsd", institution: "Beihang University", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 55, team: "BrainMapX", institution: "Xiamen university", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 56, team: "rubianapaul", institution: "-", validation: 0, test: 0, date: "2023-09-01" },
-        { rank: 57, team: "PRLABbySMU", institution: "Sangmyung University", validation: 0, test: 0, date: "2023-09-01" }
-            ]
-        };
+    <section>
+        <h2>Scoring formula</h2>
+        <div class="formula">
+CompositeScore = 0.6 &times; QSM_Score + 0.4 &times; NM_Score<br>
+QSM_Score = 1.0&times;CN + 1.0&times;Put + 1.0&times;GP + 1.2&times;STN + 1.5&times;SN + 1.1&times;RN + 1.0&times;DN<br>
+NM_Score = 2.0&times;SN<br>
+RegionScore = 0.7&times;Dice + 0.3&times;(1 &minus; Hausdorff / 10)
+        </div>
+        <p class="note">
+            The classification ranking used test accuracy as the primary metric. See the
+            <a href="submit.html">submission and scoring archive</a> for the full evaluation protocol.
+        </p>
+    </section>
 
-        // DOM elements
-        const segmentationTab = document.getElementById('segmentation-tab');
-        const classificationTab = document.getElementById('classification-tab');
-        const leaderboardBody = document.getElementById('leaderboard-body');
-        const scoringRules = document.getElementById('scoring-rules');
-        const valHeader = document.getElementById('val-header');
-        const testHeader = document.getElementById('test-header');
-        const searchInput = document.getElementById('search-input');
-        const updateTime = document.getElementById('update-time');
-        const detailChartTitle = document.getElementById('detail-chart-title');
+    <section>
+        <h2>Verification and resources</h2>
+        <ul class="links">
+            <li><a href="rank_test.html">Detailed test ranking</a> &mdash; per-nucleus Dice scores and the complete ranking table.</li>
+            <li><a href="teams.html">Winning teams</a> &mdash; team leaders, institutions, methods and technical reports.</li>
+            <li><a href="dataset.html">Dataset description</a> &mdash; acquisition, annotations, splits and download links.</li>
+            <li><a href="https://github.com/Ruijin-IMIT/PDCADxFoundation">Evaluation code and baseline</a> &mdash; <code>metric.py</code>, <code>eval_guideline.md</code>, and the RRMediCa baseline.</li>
+            <li><a href="rank_val.html">Validation ranking archive</a> &mdash; development-phase snapshot, not the final result.</li>
+        </ul>
+    </section>
 
-        // Initialize the page with segmentation data
-        document.addEventListener('DOMContentLoaded', () => {
-            loadLeaderboardData('segmentation');
-            updateTimestamp();
-            setInterval(updateTimestamp, 60000); // Update timestamp every minute
-        });
+</main>
 
-        // Tab click handlers
-        segmentationTab.addEventListener('click', () => {
-            segmentationTab.classList.add('active');
-            classificationTab.classList.remove('active');
-            loadLeaderboardData('segmentation');
-            updateScoringRules('segmentation');
-        });
-
-        classificationTab.addEventListener('click', () => {
-            classificationTab.classList.add('active');
-            segmentationTab.classList.remove('active');
-            loadLeaderboardData('classification');
-            updateScoringRules('classification');
-        });
-
-        // Search functionality
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const rows = document.querySelectorAll('#leaderboard-body tr');
-
-            rows.forEach(row => {
-                const teamName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                const institution = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-
-                if (teamName.includes(searchTerm) || institution.includes(searchTerm)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-
-        // Load leaderboard data
-        function loadLeaderboardData(taskType) {
-            leaderboardBody.innerHTML = '';
-            const data = leaderboardData[taskType];
-            const isSegmentation = taskType === 'segmentation';
-
-            data.forEach(entry => {
-                const row = document.createElement('tr');
-
-                // Add special styling for top 3 teams
-                if (entry.rank === 1) row.classList.add('gold');
-                else if (entry.rank === 2) row.classList.add('silver');
-                else if (entry.rank === 3) row.classList.add('bronze');
-
-                row.innerHTML = `
-                    <td class="rank">${entry.rank}</td>
-                    <td>${entry.team}</td>
-                    <td>${entry.institution}</td>
-                    <td>${isSegmentation ? entry.validation.toFixed(1) : entry.validation}${isSegmentation ? '' : '%'}</td>
-                    <td>${isSegmentation ? entry.test.toFixed(1) : entry.test}${isSegmentation ? '' : '%'}</td>
-<!--                    <td>${entry.date}</td>-->
-                `;
-
-                leaderboardBody.appendChild(row);
-            });
-
-            // Update table headers
-            valHeader.textContent = isSegmentation ? 'Validation Dice' : 'Validation Acc';
-            testHeader.textContent = isSegmentation ? 'Test Dice' : 'Test Acc';
-
-            // Update chart titles
-            detailChartTitle.textContent = isSegmentation ? 'Nuclei-wise Performance' : 'Classification Metrics';
-        }
-
-        // Update scoring rules section
-        function updateScoringRules(taskType) {
-            if (taskType === 'segmentation') {
-                scoringRules.innerHTML = `
-                    <h3>Evaluation Criteria</h3>
-                    <h4>Nuclei Segmentation Task</h4>
-                    <ul>
-                        <li>Dice coefficient used to evaluate segmentation accuracy of 7 Parkinson's disease-related nuclei</li>
-                        <li>Final score is the average Dice score across all nuclei</li>
-                        <li>Validation set (100 cases) for development phase feedback</li>
-                        <li>Test set (200 cases) for final ranking determination</li>
-                        <li>Imaging modalities: Neuromelanin-sensitive MRI (NM-MRI) and QSM</li>
-                    </ul>
-                `;
-            } else {
-                scoringRules.innerHTML = `
-                    <h3>Evaluation Criteria</h3>
-                    <h4>PD Classification Task</h4>
-                    <ul>
-                        <li>Classification accuracy used to evaluate PD diagnosis performance</li>
-                        <li>Validation set (100 cases) for development phase feedback</li>
-                        <li>Test set (200 cases) for final ranking determination</li>
-                        <li>Binary classification: Parkinson's disease vs. healthy controls</li>
-                    </ul>
-                `;
-            }
-        }
-
-        // Update timestamp
-        function updateTimestamp() {
-            const now = new Date();
-            const options = {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                timeZone: 'UTC'
-            };
-            updateTime.textContent = now.toLocaleDateString('en-US', options) + ' UTC';
-        }
-    </script>
+<footer>
+    <p>&copy; 2025&ndash;2026 PDCADxFoundation Working Group &middot; PDCADxFoundation@163.com</p>
+</footer>
 </body>
 </html>
