@@ -100,7 +100,9 @@
         color: var(--primary-dark);
         font-size: 1.2rem;
     }
-    .meta { color: #555; font-size: .92rem; margin-bottom: .6rem; }
+    .meta { color: #555; font-size: .92rem; margin-bottom: .3rem; }
+    .members { font-size: .88rem; color: #333; margin: 0 0 .6rem; }
+    .members strong { color: var(--primary-dark); }
     .badges { margin: .2rem 0 .7rem; }
     .badge {
         display: inline-block;
@@ -162,9 +164,9 @@
 
     <div class="intro">
         <strong>Eight teams shared the $6,800 prize pool across the two tracks.</strong>
-        This page summarizes their final ranks, institutions and methods. Full team rosters were collected
-        through the challenge check-in form; the challenge summary paper includes representatives from each
-        winning team. Technical reports were submitted by the teams.
+        This page summarizes their final ranks, institutions, registered members and methods. Full rosters
+        appear on each team card and in the table below. Technical reports were submitted by the teams for
+        organizer review; they are not posted publicly.
     </div>
 
     <div class="table-wrap">
@@ -220,7 +222,7 @@
             <tr>
                 <td class="team-name">MThirtyOne AI</td>
                 <td>Aaron Choi</td>
-                <td class="inst">M31 / UTHealth Houston</td>
+                <td class="inst">M31 Biomedical AI, Toronto, Canada / UTHealth Houston, USA</td>
                 <td>Canada / USA</td>
                 <td>7th</td>
                 <td>2nd &mdash; 2nd prize</td>
@@ -262,6 +264,7 @@
         <div class="team-card">
             <h3>BHANMDingsd</h3>
             <div class="meta">Leader: Shaodong Ding &middot; Beihang University, China</div>
+            <div class="members"><strong>Members:</strong> Shaodong Ding, Ziyang Liu, Yijun Zhou, Tao Liu</div>
             <div class="badges">
                 <span class="badge gold">Classification 1st &middot; $1,000</span>
                 <span class="badge">Segmentation 4th &middot; $400</span>
@@ -279,6 +282,7 @@
         <div class="team-card">
             <h3>PolyUAIM</h3>
             <div class="meta">Leader: Yingji Fu &middot; The Hong Kong Polytechnic University, Hong Kong, China</div>
+            <div class="members"><strong>Members:</strong> Yingji Fu, Pengli Zhu, Anqi Qiu</div>
             <div class="badges">
                 <span class="badge gold">Segmentation 1st &middot; $1,000</span>
             </div>
@@ -295,6 +299,7 @@
         <div class="team-card">
             <h3>Space</h3>
             <div class="meta">Leader: Chenyuan Bian &middot; The Affiliated Hospital of Qingdao University, China</div>
+            <div class="members"><strong>Members:</strong> Chenyuan Bian</div>
             <div class="badges">
                 <span class="badge gold">Segmentation 2nd &middot; $600</span>
                 <span class="badge gold">Classification 3rd &middot; $600</span>
@@ -311,6 +316,7 @@
         <div class="team-card">
             <h3>NIMG</h3>
             <div class="meta">Leader: Shuxin Cao &middot; Nanjing University of Science and Technology, China</div>
+            <div class="members"><strong>Members:</strong> Shuxin Cao, Qingwei You, Yu Xie, Jinyang Chen, Ye Wu</div>
             <div class="badges">
                 <span class="badge gold">Segmentation 3rd &middot; $600</span>
             </div>
@@ -325,7 +331,8 @@
 
         <div class="team-card">
             <h3>MThirtyOne AI</h3>
-            <div class="meta">Leader: Aaron Choi &middot; M31 / UTHealth Houston, Canada / USA</div>
+            <div class="meta">Leader: Aaron Choi &middot; M31 Biomedical AI, Toronto, Canada / UTHealth Houston, USA</div>
+            <div class="members"><strong>Members:</strong> Aaron Choi, Ching-Yuan Yu, Jun Ma, Bo Wang, Xiaoqian Jiang</div>
             <div class="badges">
                 <span class="badge gold">Classification 2nd &middot; $600</span>
             </div>
@@ -342,6 +349,7 @@
         <div class="team-card">
             <h3>PRLABbySMU</h3>
             <div class="meta">Leader: Seung Min Jeong &middot; Sangmyung University, South Korea</div>
+            <div class="members"><strong>Members:</strong> Seung Min Jeong, Jeong Gon Lee, Hyo Yeong Jeong, Eui Chul Lee</div>
             <div class="badges">
                 <span class="badge gold">Classification 4th &middot; $400</span>
             </div>
@@ -357,6 +365,7 @@
         <div class="team-card">
             <h3>ZhangFan_Lab</h3>
             <div class="meta">Leader: Chengjin Li &middot; University of Electronic Science and Technology of China, China</div>
+            <div class="members"><strong>Members:</strong> Bocheng Guo, Yucheng Li, Junyi Wang, Wei Zhang, Chengjin Li, Mubai Du, Fan Zhang</div>
             <div class="badges">
                 <span class="badge gold">Segmentation 5th &middot; $400</span>
                 <span class="badge gold">Classification 5th &middot; $400</span>
@@ -373,6 +382,7 @@
         <div class="team-card">
             <h3>NeuroX</h3>
             <div class="meta">Leader: Chenhua Zhang &middot; Fudan University, China</div>
+            <div class="members"><strong>Members:</strong> Chenhua Zhang, Long Yang, Xuanjun Guo, Hongwei Li</div>
             <div class="badges">
                 <span class="badge gold">Segmentation 6th &middot; $400</span>
                 <span class="badge gold">Classification 6th &middot; $400</span>
@@ -388,6 +398,30 @@
 
     </div>
 
+    <h2 style="color:var(--primary-dark); margin-top:2rem;">Registered team members</h2>
+    <p class="note">
+        Rosters are reproduced from the team check-in form and the submitted technical reports. Where a team
+        listed only its leader, only that name is shown; corrections can be sent to
+        <a href="mailto:PDCADxFoundation@163.com">PDCADxFoundation@163.com</a>.
+    </p>
+    <div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>Team</th><th>Registered members</th></tr>
+        </thead>
+        <tbody>
+            <tr><td class="team-name">BHANMDingsd</td><td class="inst">Shaodong Ding, Ziyang Liu, Yijun Zhou, Tao Liu</td></tr>
+            <tr><td class="team-name">PolyUAIM</td><td class="inst">Yingji Fu, Pengli Zhu, Anqi Qiu</td></tr>
+            <tr><td class="team-name">Space</td><td class="inst">Chenyuan Bian</td></tr>
+            <tr><td class="team-name">NIMG</td><td class="inst">Shuxin Cao, Qingwei You, Yu Xie, Jinyang Chen, Ye Wu</td></tr>
+            <tr><td class="team-name">MThirtyOne AI</td><td class="inst">Aaron Choi, Ching-Yuan Yu, Jun Ma, Bo Wang, Xiaoqian Jiang</td></tr>
+            <tr><td class="team-name">PRLABbySMU</td><td class="inst">Seung Min Jeong, Jeong Gon Lee, Hyo Yeong Jeong, Eui Chul Lee</td></tr>
+            <tr><td class="team-name">ZhangFan_Lab</td><td class="inst">Bocheng Guo, Yucheng Li, Junyi Wang, Wei Zhang, Chengjin Li, Mubai Du, Fan Zhang</td></tr>
+            <tr><td class="team-name">NeuroX</td><td class="inst">Chenhua Zhang, Long Yang, Xuanjun Guo, Hongwei Li</td></tr>
+        </tbody>
+    </table>
+    </div>
+
     <section style="margin-top:2rem; background:white; border:1px solid var(--border); border-radius:6px; padding:1.1rem 1.3rem;">
         <h2 style="color:var(--primary-dark); margin-top:0;">Workshop and technical reports</h2>
         <p class="note" style="margin-bottom:.4rem;">
@@ -397,9 +431,11 @@
             summary paper submitted to <em>Medical Image Analysis</em> (manuscript MEDIA-D-26-04385).
         </p>
         <p class="note" style="margin-bottom:0;">
-            For verification or collaboration, contact <a href="mailto:PDCADxFoundation@163.com">PDCADxFoundation@163.com</a>.
-            Final rankings are on the <a href="leaderboard.html">results page</a>; the dataset and evaluation code
-            are linked from the <a href="dataset.html">dataset page</a>.
+            Technical reports, presentation slides, videos and certificates are not posted publicly. For
+            verification of a specific claim, or for collaboration, contact
+            <a href="mailto:PDCADxFoundation@163.com">PDCADxFoundation@163.com</a>. Final rankings are on the
+            <a href="leaderboard.html">results page</a>; the dataset and evaluation code are linked from the
+            <a href="dataset.html">dataset page</a>.
         </p>
     </section>
 
