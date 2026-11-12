@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winning Teams | PDCADxFoundation Challenge</title>
+<style>
+    :root {
+        --primary: #005b96;
+        --primary-dark: #00406a;
+        --accent: #2e7d32;
+        --gold: #b8860b;
+        --light: #f5f7fa;
+        --border: #d9e1e8;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background: var(--light);
+    }
+    header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1.4rem 0;
+        text-align: center;
+    }
+    header h1 { margin: 0 0 .25rem; font-size: 1.9rem; }
+    header p { margin: 0; opacity: .92; }
+    nav {
+        background-color: #f1f1f1;
+        padding: .55rem;
+        border-bottom: 1px solid var(--border);
+    }
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    nav li { margin: 0 1rem; }
+    nav a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        font-size: .98rem;
+    }
+    nav a:hover, nav a.active { color: var(--primary); }
+    .container {
+        max-width: 1180px;
+        margin: 2rem auto;
+        padding: 0 1rem 2rem;
+    }
+    .intro {
+        background: #e8f5e9;
+        border-left: 5px solid var(--accent);
+        padding: 1rem 1.2rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+    }
+    .table-wrap { overflow-x: auto; margin: 1rem 0 2rem; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 760px;
+        font-size: .93rem;
+        background: white;
+    }
+    th, td {
+        border: 1px solid var(--border);
+        padding: .55rem .6rem;
+        text-align: center;
+    }
+    th { background: var(--primary); color: white; font-weight: 600; }
+    tbody tr:nth-child(even) { background: #f8fafb; }
+    tbody tr:hover { background: #eef5fa; }
+    .team-name { text-align: left; font-weight: 600; }
+    .inst { text-align: left; white-space: normal; }
+    .prize { color: var(--accent); font-weight: 600; }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        gap: 1.2rem;
+    }
+    .team-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1.1rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .team-card h3 {
+        margin: 0 0 .2rem;
+        color: var(--primary-dark);
+        font-size: 1.2rem;
+    }
+    .meta { color: #555; font-size: .92rem; margin-bottom: .3rem; }
+    .members { font-size: .88rem; color: #333; margin: 0 0 .6rem; }
+    .members strong { color: var(--primary-dark); }
+    .badges { margin: .2rem 0 .7rem; }
+    .badge {
+        display: inline-block;
+        background: #e8f5e9;
+        color: var(--accent);
+        border: 1px solid #c8e6c9;
+        border-radius: 12px;
+        padding: .1rem .55rem;
+        font-size: .8rem;
+        font-weight: 600;
+        margin: 0 .3rem .3rem 0;
+    }
+    .badge.gold { background: #fff8e1; color: var(--gold); border-color: #ffe082; }
+    .method { font-weight: 600; color: var(--primary-dark); margin: .3rem 0 .4rem; }
+    .team-card p { margin: .3rem 0 .6rem; font-size: .94rem; }
+    .result {
+        margin-top: auto;
+        font-size: .9rem;
+        color: #444;
+        border-top: 1px dashed var(--border);
+        padding-top: .5rem;
+    }
+    .result strong { color: var(--primary-dark); }
+    .note { font-size: .9rem; color: #555; }
+    a { color: var(--primary); }
+    footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+        margin-top: 2rem;
+        font-size: .9rem;
+    }
+    @media (max-width: 640px) {
+        header h1 { font-size: 1.4rem; }
+        nav li { margin: .25rem .6rem; }
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1>PDCADxFoundation Challenge</h1>
+    <p>Winning teams &middot; MICCAI 2025</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="leaderboard.html">Results</a></li>
+        <li><a href="teams.html" class="active">Winning Teams</a></li>
+        <li><a href="schedule.html">Timeline</a></li>
+        <li><a href="about.html">About</a></li>
+    </ul>
+</nav>
+
+<main class="container">
+
+    <div class="intro">
+        <strong>Eight teams shared the $6,800 prize pool across the two tracks.</strong>
+        This page summarizes their final ranks, institutions, registered members and methods. Full rosters
+        appear on each team card and in the table below. Technical reports were submitted by the teams for
+        organizer review; they are not posted publicly.
+    </div>
+
+    <div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Leader</th>
+                <th>Institution</th>
+                <th>Country / region</th>
+                <th>Segmentation</th>
+                <th>Classification</th>
+                <th>Total prize</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="team-name">BHANMDingsd</td>
+                <td>Shaodong Ding</td>
+                <td class="inst">Beihang University</td>
+                <td>China</td>
+                <td>4th &mdash; 3rd prize</td>
+                <td><strong>1st &mdash; 1st prize</strong></td>
+                <td class="prize">$1,400</td>
+            </tr>
+            <tr>
+                <td class="team-name">PolyUAIM</td>
+                <td>Yingji Fu</td>
+                <td class="inst">The Hong Kong Polytechnic University</td>
+                <td>Hong Kong, China</td>
+                <td><strong>1st &mdash; 1st prize</strong></td>
+                <td>7th</td>
+                <td class="prize">$1,000</td>
+            </tr>
+            <tr>
+                <td class="team-name">Space</td>
+                <td>Chenyuan Bian</td>
+                <td class="inst">The Affiliated Hospital of Qingdao University</td>
+                <td>China</td>
+                <td>2nd &mdash; 2nd prize</td>
+                <td>3rd &mdash; 2nd prize</td>
+                <td class="prize">$1,200</td>
+            </tr>
+            <tr>
+                <td class="team-name">NIMG</td>
+                <td>Shuxin Cao</td>
+                <td class="inst">Nanjing University of Science and Technology</td>
+                <td>China</td>
+                <td>3rd &mdash; 2nd prize</td>
+                <td>&mdash;</td>
+                <td class="prize">$600</td>
+            </tr>
+            <tr>
+                <td class="team-name">MThirtyOne AI</td>
+                <td>Aaron Choi</td>
+                <td class="inst">M31 Biomedical AI, Toronto, Canada / UTHealth Houston, USA</td>
+                <td>Canada / USA</td>
+                <td>7th</td>
+                <td>2nd &mdash; 2nd prize</td>
+                <td class="prize">$600</td>
+            </tr>
+            <tr>
+                <td class="team-name">PRLABbySMU</td>
+                <td>Seung Min Jeong</td>
+                <td class="inst">Sangmyung University</td>
+                <td>South Korea</td>
+                <td>&mdash;</td>
+                <td>4th &mdash; 3rd prize</td>
+                <td class="prize">$400</td>
+            </tr>
+            <tr>
+                <td class="team-name">ZhangFan_Lab</td>
+                <td>Chengjin Li</td>
+                <td class="inst">University of Electronic Science and Technology of China</td>
+                <td>China</td>
+                <td>5th &mdash; 3rd prize</td>
+                <td>5th &mdash; 3rd prize</td>
+                <td class="prize">$800</td>
+            </tr>
+            <tr>
+                <td class="team-name">NeuroX</td>
+                <td>Chenhua Zhang</td>
+                <td class="inst">Fudan University</td>
+                <td>China</td>
+                <td>6th &mdash; 3rd prize</td>
+                <td>6th &mdash; 3rd prize</td>
+                <td class="prize">$800</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div class="grid">
+
+        <div class="team-card">
+            <h3>BHANMDingsd</h3>
+            <div class="meta">Leader: Shaodong Ding &middot; Beihang University, China</div>
+            <div class="members"><strong>Members:</strong> Shaodong Ding, Ziyang Liu, Yijun Zhou, Tao Liu</div>
+            <div class="badges">
+                <span class="badge gold">Classification 1st &middot; $1,000</span>
+                <span class="badge">Segmentation 4th &middot; $400</span>
+            </div>
+            <div class="method">MRN: Multi-ROI driven classification Network</div>
+            <p>
+                Crops four clinically relevant ROIs from NM-MRI and QSM, encodes axial slices with DINOv2,
+                and fuses volumetric context through Feature Fusion Self-Attention and Slice Fusion
+                Self-Attention. An auxiliary DPT segmentation head steers features toward the target nuclei,
+                and multi-ROI supervised contrastive learning (mSupMoCo) improves class separation.
+            </p>
+            <div class="result"><strong>86.0%</strong> test accuracy &mdash; 5.5 percentage points ahead of the runner-up.</div>
+        </div>
+
+        <div class="team-card">
+            <h3>PolyUAIM</h3>
+            <div class="meta">Leader: Yingji Fu &middot; The Hong Kong Polytechnic University, Hong Kong, China</div>
+            <div class="members"><strong>Members:</strong> Yingji Fu, Pengli Zhu, Anqi Qiu</div>
+            <div class="badges">
+                <span class="badge gold">Segmentation 1st &middot; $1,000</span>
+            </div>
+            <div class="method">Dual-collaborative knowledge distillation</div>
+            <p>
+                Couples nnU-Net with a SwinUNETR foundation model through bidirectional knowledge distillation,
+                combining local boundary sensitivity with global contextual priors. Cross-model distillation,
+                self-pseudo regularization and feature alignment are dynamically weighted during training, with
+                a structure-aware loss that emphasizes small nuclei.
+            </p>
+            <div class="result">Best overall segmentation score <strong>9.2469</strong>; best SNc Dice on NM-MRI <strong>0.882</strong>.</div>
+        </div>
+
+        <div class="team-card">
+            <h3>Space</h3>
+            <div class="meta">Leader: Chenyuan Bian &middot; The Affiliated Hospital of Qingdao University, China</div>
+            <div class="members"><strong>Members:</strong> Chenyuan Bian</div>
+            <div class="badges">
+                <span class="badge gold">Segmentation 2nd &middot; $600</span>
+                <span class="badge gold">Classification 3rd &middot; $600</span>
+            </div>
+            <div class="method">BLU-Net: Bootstrapped Learning Unified Network</div>
+            <p>
+                A U-shaped encoder&ndash;decoder built from hierarchical gated convolution units. The network is
+                pretrained on the MSD brain-tumor segmentation dataset and fine-tuned for multimodal PD
+                segmentation, with the same backbone adapted to classification.
+            </p>
+            <div class="result">Segmentation <strong>9.1988</strong>; classification <strong>79.5%</strong>.</div>
+        </div>
+
+        <div class="team-card">
+            <h3>NIMG</h3>
+            <div class="meta">Leader: Shuxin Cao &middot; Nanjing University of Science and Technology, China</div>
+            <div class="members"><strong>Members:</strong> Shuxin Cao, Qingwei You, Yu Xie, Jinyang Chen, Ye Wu</div>
+            <div class="badges">
+                <span class="badge gold">Segmentation 3rd &middot; $600</span>
+            </div>
+            <div class="method">U-Mamba state-space framework</div>
+            <p>
+                Uses a U-Mamba architecture that combines state-space modeling with a U-Net design to capture
+                long-range 3D dependencies at linear complexity. T1w, QSM and NM-MRI are concatenated as
+                multi-channel input, with a composite Dice and cross-entropy loss for small-structure imbalance.
+            </p>
+            <div class="result">Segmentation <strong>9.1246</strong>; best Dice for CN (0.898), STN (0.735), RN (0.907) and DN (0.880).</div>
+        </div>
+
+        <div class="team-card">
+            <h3>MThirtyOne AI</h3>
+            <div class="meta">Leader: Aaron Choi &middot; M31 Biomedical AI, Toronto, Canada / UTHealth Houston, USA</div>
+            <div class="members"><strong>Members:</strong> Aaron Choi, Ching-Yuan Yu, Jun Ma, Bo Wang, Xiaoqian Jiang</div>
+            <div class="badges">
+                <span class="badge gold">Classification 2nd &middot; $600</span>
+            </div>
+            <div class="method">VoCo-pretrained 3D residual encoder</div>
+            <p>
+                A six-stage 3D residual encoder initialized with VoCo volume-contrastive weights, using NM-MRI
+                only after controlled comparisons showed it was the strongest single modality. A two-stage
+                warm-up curriculum freezes the head first and then unfreezes the encoder with differential
+                learning rates.
+            </p>
+            <div class="result"><strong>80.5%</strong> test accuracy; VoCo pretraining improved NM-MRI validation accuracy to 81.0%.</div>
+        </div>
+
+        <div class="team-card">
+            <h3>PRLABbySMU</h3>
+            <div class="meta">Leader: Seung Min Jeong &middot; Sangmyung University, South Korea</div>
+            <div class="members"><strong>Members:</strong> Seung Min Jeong, Jeong Gon Lee, Hyo Yeong Jeong, Eui Chul Lee</div>
+            <div class="badges">
+                <span class="badge gold">Classification 4th &middot; $400</span>
+            </div>
+            <div class="method">InceptionAPA: 2D&ndash;3D hybrid</div>
+            <p>
+                An InceptionNeXt slice encoder with early multimodal fusion and attention-guided pooling across
+                slices. The lightweight model (about 28 M parameters) is designed as a compute-efficient
+                alternative to direct transfer from large radiology foundation models.
+            </p>
+            <div class="result"><strong>76.5%</strong> test accuracy, 12.5 points above the RadCLIP transfer baseline.</div>
+        </div>
+
+        <div class="team-card">
+            <h3>ZhangFan_Lab</h3>
+            <div class="meta">Leader: Chengjin Li &middot; University of Electronic Science and Technology of China, China</div>
+            <div class="members"><strong>Members:</strong> Bocheng Guo, Yucheng Li, Junyi Wang, Wei Zhang, Chengjin Li, Mubai Du, Fan Zhang</div>
+            <div class="badges">
+                <span class="badge gold">Segmentation 5th &middot; $400</span>
+                <span class="badge gold">Classification 5th &middot; $400</span>
+            </div>
+            <div class="method">3D-F3Net: foundation-model feature fusion</div>
+            <p>
+                Combines frozen DINOv3 semantic features with a parameter-efficiently fine-tuned SAM2 branch.
+                A Gated Attention Fusion Module weights the two feature sources, and a 3D Receptive Field Block
+                captures multi-scale context for both segmentation and classification.
+            </p>
+            <div class="result">Segmentation <strong>8.6180</strong>; classification <strong>75.5%</strong>.</div>
+        </div>
+
+        <div class="team-card">
+            <h3>NeuroX</h3>
+            <div class="meta">Leader: Chenhua Zhang &middot; Fudan University, China</div>
+            <div class="members"><strong>Members:</strong> Chenhua Zhang, Long Yang, Xuanjun Guo, Hongwei Li</div>
+            <div class="badges">
+                <span class="badge gold">Segmentation 6th &middot; $400</span>
+                <span class="badge gold">Classification 6th &middot; $400</span>
+            </div>
+            <div class="method">nnU-Net transfer + TabPFN features</div>
+            <p>
+                Pretrains nnU-Net on BraTS 2021 and fine-tunes it separately for QSM and NM-MRI, then extracts
+                468 quantitative features (volume, first-order statistics, GLCM texture, shape and
+                lateralization). A TabPFN tabular foundation model performs interpretable classification.
+            </p>
+            <div class="result">Segmentation <strong>8.4768</strong>; classification <strong>74.0%</strong>.</div>
+        </div>
+
+    </div>
+
+    <h2 style="color:var(--primary-dark); margin-top:2rem;">Registered team members</h2>
+    <p class="note">
+        Rosters are reproduced from the team check-in form and the submitted technical reports. Where a team
+        listed only its leader, only that name is shown; corrections can be sent to
+        <a href="mailto:PDCADxFoundation@163.com">PDCADxFoundation@163.com</a>.
+    </p>
+    <div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>Team</th><th>Registered members</th></tr>
+        </thead>
+        <tbody>
+            <tr><td class="team-name">BHANMDingsd</td><td class="inst">Shaodong Ding, Ziyang Liu, Yijun Zhou, Tao Liu</td></tr>
+            <tr><td class="team-name">PolyUAIM</td><td class="inst">Yingji Fu, Pengli Zhu, Anqi Qiu</td></tr>
+            <tr><td class="team-name">Space</td><td class="inst">Chenyuan Bian</td></tr>
+            <tr><td class="team-name">NIMG</td><td class="inst">Shuxin Cao, Qingwei You, Yu Xie, Jinyang Chen, Ye Wu</td></tr>
+            <tr><td class="team-name">MThirtyOne AI</td><td class="inst">Aaron Choi, Ching-Yuan Yu, Jun Ma, Bo Wang, Xiaoqian Jiang</td></tr>
+            <tr><td class="team-name">PRLABbySMU</td><td class="inst">Seung Min Jeong, Jeong Gon Lee, Hyo Yeong Jeong, Eui Chul Lee</td></tr>
+            <tr><td class="team-name">ZhangFan_Lab</td><td class="inst">Bocheng Guo, Yucheng Li, Junyi Wang, Wei Zhang, Chengjin Li, Mubai Du, Fan Zhang</td></tr>
+            <tr><td class="team-name">NeuroX</td><td class="inst">Chenhua Zhang, Long Yang, Xuanjun Guo, Hongwei Li</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <section style="margin-top:2rem; background:white; border:1px solid var(--border); border-radius:6px; padding:1.1rem 1.3rem;">
+        <h2 style="color:var(--primary-dark); margin-top:0;">Workshop and technical reports</h2>
+        <p class="note" style="margin-bottom:.4rem;">
+            The winning teams presented their solutions at the PDCADxFoundation workshop at MICCAI 2025 in
+            Daejeon on 27 September 2025. All eight teams submitted technical reports describing their methods;
+            these reports, together with the team rosters collected at check-in, form the basis of the challenge
+            summary paper submitted to <em>Medical Image Analysis</em> (manuscript MEDIA-D-26-04385).
+        </p>
+        <p class="note" style="margin-bottom:0;">
+            Technical reports, presentation slides, videos and certificates are not posted publicly. For
+            verification of a specific claim, or for collaboration, contact
+            <a href="mailto:PDCADxFoundation@163.com">PDCADxFoundation@163.com</a>. Final rankings are on the
+            <a href="leaderboard.html">results page</a>; the dataset and evaluation code are linked from the
+            <a href="dataset.html">dataset page</a>.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2025&ndash;2026 PDCADxFoundation Working Group &middot; PDCADxFoundation@163.com</p>
+</footer>
+</body>
+</html>

@@ -224,13 +224,13 @@
     <nav>
         <ul>
 
-            <li style="width: 3%;"><a href="index.html"  style="font-size: 1.2rem;">Home</a></li>
-            <li style="width: 3%;"><a href="dataset.html"  style="font-size: 1.2rem;">Data</a></li>
-            <li style="width: 3%;"><a href="tasks.html" style="font-size: 1.2rem;">Tasks</a></li>
-<!--            <li style="width: 5%;"><a href="schedule.html" style="font-size: 1.2rem;">Timeline</a></li>-->
-            <li style="width: 3%;"><a href="submit.html" style="font-size: 1.2rem;">Submit</a></li>
-            <li style="width: 4%;"><a href="leaderboard.html" style="font-size: 1.0rem;">Leaderboard</a></li>
-            <li style="width: 3%;"><a href="about.html" style="font-size: 1.2rem;">About</a></li>
+            <li style="width: 3%;"><a href="index.html"  style="font-size: 1.1rem;">Home</a></li>
+            <li style="width: 4%;"><a href="dataset.html"  style="font-size: 1.1rem;">Dataset</a></li>
+            <li style="width: 3%;"><a href="tasks.html" style="font-size: 1.1rem;">Tasks</a></li>
+            <li style="width: 4%;"><a href="leaderboard.html" style="font-size: 1.1rem;">Results</a></li>
+            <li style="width: 6%;"><a href="teams.html" style="font-size: 1.1rem;">Winning Teams</a></li>
+            <li style="width: 4%;"><a href="schedule.html" style="font-size: 1.1rem;">Timeline</a></li>
+            <li style="width: 3%;"><a href="about.html" style="font-size: 1.1rem;">About</a></li>
             <li  style="width: 7%;"><img src="images/PDCADxFoundation_logo.jpg" style="width:100%;"  alt="Analysis" /></li>
             <li  style="width: 10%;"><a href="https://conferences.miccai.org/2025/en/default.asp"><img style="width:100%;" src="images/MICCAI2025_logo.jpg"  alt="Analysis" /> </a>  </li>
             <li  style="width: 6%;"><img src="images/PDCADxFoundation-ORcode_small.jpg" style="width:100%;"   alt="Analysis" /></li>
@@ -240,6 +240,14 @@
 
 
     <div class="container">
+
+        <div style="background:#e8f5e9;border-left:5px solid #2e7d32;padding:1rem 1.2rem;border-radius:4px;margin-bottom:1.5rem;">
+            <strong>Challenge completed.</strong> The PDCADxFoundation Challenge was held with MICCAI 2025.
+            Final test rankings, prize winners and winning-team methods are now available:
+            <a href="leaderboard.html">Results</a> &middot; <a href="teams.html">Winning Teams</a> &middot;
+            <a href="dataset.html">Dataset</a>. The challenge summary paper is under review at
+            <em>Medical Image Analysis</em> (MEDIA-D-26-04385).
+        </div>
 
         <table>
         <tr>
@@ -261,15 +269,16 @@ related to PD. However, automatic and accurate DGM segmentation faces many chall
 structures (i.e., SNpr and SNpe) for PD determination are particularly difficult to delineate. The lack of public
 datasets and quality annotations for PD research has been the bottleneck for developing deep learning models of
 clinical significance. The Ruijin Imaging Neuroscience Group has curated a multi-parametric MRI dataset for PD
-research with comprehensive annotations. In this challenge, we will provide a large dataset containing 500
+research with comprehensive annotations. In this challenge, we provided a large dataset containing 500
 subjects with 3 MR modalities (T1WI, QSM, NM-MRI) and bilateral DGM (CN, PUT, GP, STN, SN, RN, and DN) mask
-annotations. The challenge participants will compete in the DGM segmentation and PD diagnosis tasks. Publicly
-accessible foundation models and domain adaption techniques should be utilized to tackle the challenging PD
-diagnosis tasks while facing limitations in data scale and annotation. Specifically, two competition tracks are
-designed: (1) maximize the accuracy of the DGM segmentation using released data and public foundation models
-(2) maximize the accuracy of PD classification using released data and public foundation models.
+annotations. Participants competed in the DGM segmentation and PD diagnosis tasks. Publicly accessible
+foundation models and domain adaptation techniques were encouraged to tackle the challenging PD diagnosis
+tasks under limited data scale and annotation. Two tracks were designed: (1) maximize the accuracy of DGM
+segmentation using released data and public foundation models; (2) maximize the accuracy of PD classification
+using released data and public foundation models.
         </p>
-            <button style="font-size:1.1em; background-color: #005b96; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.open('https://www.wjx.top/vm/eZnlCCv.aspx#', '_blank')"> Click to Register </button>
+            <button style="font-size:1.1em; background-color: #005b96; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='leaderboard.html'"> View Final Results </button>
+            <button style="font-size:1.1em; background-color: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-left:8px;" onclick="window.location.href='teams.html'"> Winning Teams </button>
         </section>
 
         <h2>Challenge Highlights</h2>
@@ -295,12 +304,44 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
             </div>
         </div>
 
+        <h2>Final results at a glance</h2>
+        <p>
+            A total of 80 teams from 12 countries registered, and 32 teams submitted valid results. Eight teams
+            shared the $6,800 prize pool. The full test rankings and per-nucleus scores are on the
+            <a href="leaderboard.html">Results page</a>; team methods are on the
+            <a href="teams.html">Winning Teams page</a>.
+        </p>
+        <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem;">
+            <thead>
+                <tr>
+                    <th style="background:#005b96;color:white;border:1px solid #d9e1e8;padding:.55rem .7rem;text-align:left;">Track</th>
+                    <th style="background:#005b96;color:white;border:1px solid #d9e1e8;padding:.55rem .7rem;text-align:left;">1st prize ($1,000)</th>
+                    <th style="background:#005b96;color:white;border:1px solid #d9e1e8;padding:.55rem .7rem;text-align:left;">2nd prize ($600 each)</th>
+                    <th style="background:#005b96;color:white;border:1px solid #d9e1e8;padding:.55rem .7rem;text-align:left;">3rd prize ($400 each)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border:1px solid #d9e1e8;padding:.55rem .7rem;"><strong>Segmentation</strong></td>
+                    <td style="border:1px solid #d9e1e8;padding:.55rem .7rem;">PolyUAIM &mdash; 9.2469</td>
+                    <td style="border:1px solid #d9e1e8;padding:.55rem .7rem;">Space (9.1988), NIMG (9.1246)</td>
+                    <td style="border:1px solid #d9e1e8;padding:.55rem .7rem;">BHANMDingsd, ZhangFan_Lab, NeuroX</td>
+                </tr>
+                <tr style="background:#f8fafb;">
+                    <td style="border:1px solid #d9e1e8;padding:.55rem .7rem;"><strong>Classification</strong></td>
+                    <td style="border:1px solid #d9e1e8;padding:.55rem .7rem;">BHANMDingsd &mdash; 86.0%</td>
+                    <td style="border:1px solid #d9e1e8;padding:.55rem .7rem;">MThirtyOne AI (80.5%), Space (79.5%)</td>
+                    <td style="border:1px solid #d9e1e8;padding:.55rem .7rem;">PRLABbySMU, ZhangFan_Lab, NeuroX</td>
+                </tr>
+            </tbody>
+        </table>
+
         <section style="margin-top: 2rem;">
 
 
 
         <h1 id="abstract">Abstract</h1>
-<p>The automatic diagnosis of Parkinson’s disease (PD) has received significant attention in recent years due to the high prevalence of PD and the need to improve the accuracy of diagnosis. Clinical diagnosis of Parkinson’s disease (PD) often leverages diagnostic biomarkers in advanced magnetic resonance imaging (MRI). Quantitative alterations of tissue property in the deep gray matter (DGM) in MRI may indicate pathophysiological changes related to PD. However, automatic and accurate DGM segmentation faces many challenges, and core brain structures (i.e., SNpr and SNpe) for PD determination are particularly difficult to delineate. The lack of public datasets and quality annotations for PD research has been the bottleneck for developing deep learning models of clinical significance. The Ruijin Imaging Neuroscience Group has curated a multi-parametric MRI dataset for PD research with comprehensive annotations. In this challenge, we will provide a large dataset containing 500 subjects with 3 MR modalities (T1WI, QSM, NM-MRI) and bilateral DGM (CN, PUT, GP, STN, SN, RN, and DN) mask annotations. The challenge participants will compete in the DGM segmentation and PD diagnosis tasks. Publicly accessible foundation models and domain adaption techniques should be utilized to tackle the challenging PD diagnosis tasks while facing limitations in data scale and annotation. Specifically, two competition tracks are designed: (1) maximize the accuracy of the DGM segmentation using released data and public foundation models (2) maximize the accuracy of PD classification using released data and public foundation models.</p>
+<p>The automatic diagnosis of Parkinson’s disease (PD) has received significant attention in recent years due to the high prevalence of PD and the need to improve the accuracy of diagnosis. Clinical diagnosis of Parkinson’s disease (PD) often leverages diagnostic biomarkers in advanced magnetic resonance imaging (MRI). Quantitative alterations of tissue property in the deep gray matter (DGM) in MRI may indicate pathophysiological changes related to PD. However, automatic and accurate DGM segmentation faces many challenges, and core brain structures (i.e., SNpr and SNpe) for PD determination are particularly difficult to delineate. The lack of public datasets and quality annotations for PD research has been the bottleneck for developing deep learning models of clinical significance. The Ruijin Imaging Neuroscience Group has curated a multi-parametric MRI dataset for PD research with comprehensive annotations. In this challenge, we provided a large dataset containing 500 subjects with 3 MR modalities (T1WI, QSM, NM-MRI) and bilateral DGM (CN, PUT, GP, STN, SN, RN, and DN) mask annotations. Participants competed in the DGM segmentation and PD diagnosis tasks. Publicly accessible foundation models and domain adaptation techniques were encouraged to tackle the challenging PD diagnosis tasks under limited data scale and annotation. Two tracks were designed: (1) maximize the accuracy of the DGM segmentation using released data and public foundation models (2) maximize the accuracy of PD classification using released data and public foundation models.</p>
 <h2 id="data-overview">Data overview</h2>
 <h3 id="data-annotation">Data Annotation</h3>
 <p>Annotation for the deep brain nuclei structures: One neuroradiologist manually segmented the CN, GP, PUT, SN, RN, and DN in the bilateral hemisphere. Another radiologist with 5 years of experience in neuroimaging double-checked all the structural boundaries. Finally, those ROIs approved by these two radiologists will serve as the ground truth for the segmentation model.</p>
@@ -390,10 +431,9 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 
 <h2 id="award-policy">Award policy</h2>
 <ol type="1">
-<li>Monetary awards for the Top 3-5 winners in both tracks. Top 1 place: $1000 (1 team), 2nd place: $600  (1-2 teams), 3rd place: $400 (1-3 teams).<br />
-</li>
-<li>The winners will be invited to submit their groundbreaking solutions (as coauthors) in a summarization paper.</li>
-<li>Student participants in the winning teams will be considered for admission and scholarship in organizers’ institutes</li>
+<li>Each track used the same structure: <strong>1st prize $1,000</strong> (1 team), <strong>2nd prize $600</strong> (2 teams), and <strong>3rd prize $400</strong> (3 teams). The total prize pool was $6,800, shared by eight teams.</li>
+<li>Winning teams were invited to present their solutions at the MICCAI 2025 challenge workshop and to co-author the challenge summary paper.</li>
+<li>Student participants in the winning teams were considered for admission and scholarship at the organizers' institutions.</li>
 </ol>
 
                    <div class="u-expanded-width u-table u-table-responsive u-table-1">
@@ -458,16 +498,14 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
           </div>
 
 
-<p>Top performing methods in the DGM segmentation track as well as in the PD segmentation track will be announced publicly, both on the competition website and in the conjunct workshop. We will summarize the challenge results and submit a paper to IEEE TMI or Medical Image Analysis. All members of the participating team qualify as authors.</p>
+<p>Final results and the exact prize allocation are published on the <a href="leaderboard.html">Results page</a>. The challenge summary paper has been submitted to <em>Medical Image Analysis</em> (manuscript MEDIA-D-26-04385, under review).</p>
 
 <!--            <h2 id="submission">Submission</h2>-->
 <!--<p>Using the dataset (200 cases in total of the training data), participants will develop model adaptation approaches using foundation models for the PD tasks. The participants should submit model predictions on the validation set several times before submitting the final results of testing predictions. At most 2 submissions of prediction results on the testing set are allowed.</p>-->
 <!--<p>Participants could submit their results of the validation set (100 cases of the validation data with labels held hidden before the final evaluation phase) to the server during the validation phase (3-5 submissions are allowed). Once the validation phase ends, the organizers will release the labels for the validation set</p>-->
 <!--<p>The evaluation samples and codes will be provided in PDCADxFoundation Github homepage once the validation phase starts. The submission format will be detailed as well, and it should be sent to organizers via e-mail.</p>-->
-<h2 id="submit-method">Submission</h2>
-            The participants should send the method description doc/pdf and predictions (segmentation masks & classification labels) to pdcadxfoundation@163.com during val/test phases.
-
-<p>See the detailed <a href="submit.html">submission guidelines</a></p>
+<h2 id="submit-method">Submission (closed)</h2>
+<p>The submission system closed on 31 August 2025. Final evaluation used Docker containers to ensure reproducibility. The submission format and scoring protocol are retained in the <a href="submit.html">submission archive</a>; evaluation code and the Docker guideline remain available on the <a href="https://github.com/Ruijin-IMIT/PDCADxFoundation">PDCADxFoundation GitHub repository</a>.</p>
 
 
 
@@ -511,17 +549,15 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 <!--[Sep. 27, 2025] Top-ranking teams report during the MICCAI annual meeting<br />-->
 <!--</p>-->
 
-    <p>[Apr. 1, 2025] Website opens for registration<br />
-[Apr. 1, 2025] Release training images &amp; ground truth<br />
-[May 1, 2025] Release validation images<br />
-[May 1, 2025] Submission system opens for validation<br />
-[June 15, 2025] Release validation ground truth<br />
-[June 15, 2025] Submission system opens for testing<br />
-<strong>[Aug. 15, 2025] Release test set images</strong><br />
-<del>[Aug. 15, 2025]</del> [Aug. 31, 2025] Submission ends (codes, results, technical reports)<br />
-<del>[Sep. 1, 2025]</del> [Sep. 10, 2025] Release final results of challenge<br />
-<del>[Sep. 10, 2025]</del> [Sep. 22, 2025] Challenge paper submission deadline<br />
-[Sep. 27, 2025] Top-ranking teams report during the MICCAI annual meeting<br />
+    <p><strong>All challenge milestones completed.</strong><br />
+[Apr. 1, 2025] Registration opens; training images and ground truth released<br />
+[May 1, 2025] Validation images released; validation submission opens<br />
+[Jun. 15, 2025] Validation ground truth released; test submission opens<br />
+[Aug. 2025] Test images released<br />
+[Aug. 31, 2025] Submission closes (Docker containers, results, technical reports)<br />
+[Sep. 10, 2025] Final results released<br />
+[Sep. 27, 2025] Winning teams present at the MICCAI 2025 workshop, Daejeon<br />
+[Nov. 6, 2026] Challenge summary paper submitted to <em>Medical Image Analysis</em><br />
 </p>
 </blockquote>
 
@@ -530,23 +566,28 @@ designed: (1) maximize the accuracy of the DGM segmentation using released data 
 <!--            <h1 id="update"> 🔥 Latest Updates (<a href="https://github.com/Ruijin-IMIT/PDCADxFoundation/tree/main"> PDCADxFoundation Github </a>) 🔥 </h1>-->
             <h1 id="update"> 🔥 Latest Updates 🔥 </h1>
             <blockquote>
-                <p>[Apr. 20, 2025] Update the Segmentation evaluation scripts. <br />
-<p>[Apr. 20, 2025] Instructions for Docker installation & testing. <br />
-
-<p>[June. 22, 2025] Release (<a href="https://github.com/Ruijin-IMIT/RRMediCa"> RRMediCa </a>) as PD classification baseline (63% val acc, 62% test acc )<br />
-<p>[June. 25, 2025] Release the (<a href="https://github.com/Ruijin-IMIT/PDCADxFoundation/tree/main/baseline">  baseline</a>) implementation, covering both segmentation and classification tasks. It also includes a docker creation guide, and prediction requirements.<br />
-<p>[Aug. 02, 2025] Release the Val set masks and labels<br />
-<p>[Aug. 07, 2025] The <a href="leaderboard.html">Leaderboard</a> is online!<br />
-<p>[Aug. 07, 2025] Update the <a href="submit.html">submission</a> instruction<br />
-                <p>[Aug. 11, 2025] The <a href="rank_val.html">Validation Ranking</a> is online!<br />
-                <p>[Aug. 12, 2025] Release the test images in the <a href="#data-download">download</a> section.<br />
-                <p>[Aug. 12, 2025] See updated scoring criteria and submission guidelines on the <a href="submit.html">Submission</a> page. <br />
-                <p>[Aug. 23, 2025] The <a href="rank_test.html">Test Ranking</a> is online!<br />
-                <p>[Sept. 1, 2025] Top-6 teams (in both segmentation/classification tasks) notified for Docker submission. <br />
-                <p>[Sept. 9, 2025] Docker submissions from the prize-winning teams have been successfully verified. Congratulations to the winners! Eight teams will share a total prize pool of $6,800.</p>
-                <p>[Sept. 27, 2025] The PDCADxFoundation MICCAI 2025 workshop was successfully held in Daejeon. Eight teams presented their solutions.</p>
+                <p>[Apr. 20, 2025] Segmentation evaluation scripts updated; Docker installation and testing instructions released.</p>
+                <p>[Jun. 22, 2025] <a href="https://github.com/Ruijin-IMIT/RRMediCa">RRMediCa</a> released as the PD classification baseline (63% validation accuracy, 62% test accuracy).</p>
+                <p>[Jun. 25, 2025] Baseline implementation released for both tracks, including a Docker creation guide and prediction requirements.</p>
+                <p>[Aug. 2, 2025] Validation masks and labels released.</p>
+                <p>[Aug. 7, 2025] Leaderboard and updated submission instructions released.</p>
+                <p>[Aug. 11, 2025] <a href="rank_val.html">Validation ranking</a> released.</p>
+                <p>[Aug. 12, 2025] Test images released; scoring criteria and submission guidelines updated on the <a href="submit.html">submission page</a>.</p>
+                <p>[Aug. 23, 2025] <a href="rank_test.html">Test ranking</a> released.</p>
+                <p>[Sep. 1, 2025] Top-6 teams in each track notified for Docker submission.</p>
+                <p>[Sep. 9, 2025] Docker submissions from the prize-winning teams verified. Eight teams shared a total prize pool of $6,800.</p>
+                <p>[Sep. 10, 2025] Final results and prize allocation released &mdash; see the <a href="leaderboard.html">Results page</a>.</p>
+                <p>[Sep. 27, 2025] The PDCADxFoundation MICCAI 2025 workshop was held in Daejeon; eight teams presented their solutions.</p>
+                <p>[Nov. 6, 2026] Challenge summary paper submitted to <em>Medical Image Analysis</em> (manuscript MEDIA-D-26-04385, under review).</p>
+                <p>The dataset remains available for research use. See the <a href="dataset.html">Dataset page</a> for download links and data-use information.</p>
             </blockquote>
 
+
+<h1 id="citation">Citation</h1>
+<blockquote>
+<p><strong>Challenge description:</strong> Wang F, Xiao B, Liu M, Jin Z, Liu Y, Li Y, Zhang Y, Wang X, He N, Yan F. Foundation-Model-Driven Parkinson's Disease Auto Diagnosis Challenge (PDCADxFoundation). Zenodo, 2025. DOI: <a href="https://doi.org/10.5281/zenodo.15094607">10.5281/zenodo.15094607</a>.</p>
+<p><strong>Challenge summary paper:</strong> Wang F, Xiao B, Liu M, et al. Harnessing Foundation Models for Parkinson's Disease Diagnosis from Multimodal MRI: The PDCADxFoundation Challenge and Comprehensive Dataset Analysis. <em>Medical Image Analysis</em> (under review), manuscript MEDIA-D-26-04385, 2026.</p>
+</blockquote>
 
 <h1 id="contact">Contact</h1>
 <blockquote>
